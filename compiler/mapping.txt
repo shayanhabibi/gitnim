@@ -142,6 +142,7 @@
 --file:r"C:\Users\runneradmin\nimcache\nim_r\@msourcemap.nim.c"
 --file:r"C:\Users\runneradmin\nimcache\nim_r\@mjsgen.nim.c"
 --file:r"C:\Users\runneradmin\nimcache\nim_r\stdlib_rstast.nim.c"
+--file:r"C:\Users\runneradmin\nimcache\nim_r\stdlib_dochelpers.nim.c"
 --file:r"C:\Users\runneradmin\nimcache\nim_r\stdlib_highlite.nim.c"
 --file:r"C:\Users\runneradmin\nimcache\nim_r\stdlib_rst.nim.c"
 --file:r"C:\Users\runneradmin\nimcache\nim_r\stdlib_rstgen.nim.c"
@@ -162,5 +163,5 @@ Flags="-w -fmax-errors=3 -O3 -fno-strict-aliasing -fno-ident "
 [Linker]
 Flags=" -lm -lm   -ldl"
 [Environment]
-libpath="D:\\a\\nightlies\\nightlies\\nim-1.6.1\\lib"
+libpath="D:\\a\\nightlies\\nightlies\\nim-1.7.1\\lib"
 [Symbols]

@@ -638,9 +638,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1368"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1373"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1368" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1373" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
@@ -651,9 +651,9 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1439"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1444"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1439" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1444" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
@@ -954,6 +954,8 @@ class="link-seesrc" target="_blank">Source</a>
 <div class="section" id="12">
 <h1><a class="toc-backref" href="#12">Procs</a></h1>
 <dl class="item">
+
+<div id="addPragmaAndCallConvMismatch-procs-all">
 <div id="addPragmaAndCallConvMismatch,string,PType,PType,ConfigRef">
 <dt><pre><span class="Keyword">proc</span> <a href="#addPragmaAndCallConvMismatch%2Cstring%2CPType%2CPType%2CConfigRef"><span class="Identifier">addPragmaAndCallConvMismatch</span></a><span class="Other">(</span><span class="Identifier">message</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">formal</span><span class="Other">,</span> <span class="Identifier">actual</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span>
                                   <span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
@@ -962,12 +964,16 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1562"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1567"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1562" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1567" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="addTypeDeclVerboseMaybe-procs-all">
 <div id="addTypeDeclVerboseMaybe,string,ConfigRef,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#addTypeDeclVerboseMaybe%2Cstring%2CConfigRef%2CPType"><span class="Identifier">addTypeDeclVerboseMaybe</span></a><span class="Other">(</span><span class="Identifier">result</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span>
@@ -982,6 +988,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="addTypeHeader-procs-all">
 <div id="addTypeHeader,string,ConfigRef,PType,TPreferedDesc">
 <dt><pre><span class="Keyword">proc</span> <a href="#addTypeHeader%2Cstring%2CConfigRef%2CPType%2CTPreferedDesc"><span class="Identifier">addTypeHeader</span></a><span class="Other">(</span><span class="Identifier">result</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span>
                    <span class="Identifier">prefer</span><span class="Other">:</span> <a href="types.html#TPreferedDesc"><span class="Identifier">TPreferedDesc</span></a> <span class="Other">=</span> <span class="Identifier">preferMixed</span><span class="Other">;</span>
@@ -998,6 +1008,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="analyseObjectWithTypeField-procs-all">
 <div id="analyseObjectWithTypeField,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#analyseObjectWithTypeField%2CPType"><span class="Identifier">analyseObjectWithTypeField</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="types.html#TTypeFieldResult"><span class="Identifier">TTypeFieldResult</span></a> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1011,6 +1025,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="base-procs-all">
 <div id="base,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#base%2CPType"><span class="Identifier">base</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1023,6 +1041,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="baseOfDistinct-procs-all">
 <div id="baseOfDistinct,PType,ModuleGraph,IdGenerator">
 <dt><pre><span class="Keyword">proc</span> <a href="#baseOfDistinct%2CPType%2CModuleGraph%2CIdGenerator"><span class="Identifier">baseOfDistinct</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">g</span><span class="Other">:</span> <a href="modulegraphs.html#ModuleGraph"><span class="Identifier">ModuleGraph</span></a><span class="Other">;</span> <span class="Identifier">idgen</span><span class="Other">:</span> <a href="ast.html#IdGenerator"><span class="Identifier">IdGenerator</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1030,12 +1052,16 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1336"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1341"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1336" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1341" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="canFormAcycle-procs-all">
 <div id="canFormAcycle,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#canFormAcycle%2CPType"><span class="Identifier">canFormAcycle</span></a><span class="Other">(</span><span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1048,18 +1074,26 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="classify-procs-all">
 <div id="classify,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#classify%2CPType"><span class="Identifier">classify</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="types.html#OrdinalType"><span class="Identifier">OrdinalType</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 for convenient type checking:
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1442"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1447"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1442" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1447" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="commonSuperclass-procs-all">
 <div id="commonSuperclass,PType,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#commonSuperclass%2CPType%2CPType"><span class="Identifier">commonSuperclass</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1067,12 +1101,16 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1267"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1272"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1267" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1272" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="compareTypes-procs-all">
 <div id="compareTypes,PType,PType,TDistinctCompare,TTypeCmpFlags">
 <dt><pre><span class="Keyword">proc</span> <a href="#compareTypes%2CPType%2CPType%2CTDistinctCompare%2CTTypeCmpFlags"><span class="Identifier">compareTypes</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">cmp</span><span class="Other">:</span> <a href="types.html#TDistinctCompare"><span class="Identifier">TDistinctCompare</span></a> <span class="Other">=</span> <span class="Identifier">dcEq</span><span class="Other">;</span>
                   <span class="Identifier">flags</span><span class="Other">:</span> <a href="types.html#TTypeCmpFlags"><span class="Identifier">TTypeCmpFlags</span></a> <span class="Other">=</span> <span class="Other">{</span><span class="Other">}</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
@@ -1081,12 +1119,16 @@ class="link-seesrc" target="_blank">Source</a>
 
 compares two type for equality (modulo type distinction)
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1232"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1237"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1232" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1237" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="compatibleEffects-procs-all">
 <div id="compatibleEffects,PType,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#compatibleEffects%2CPType%2CPType"><span class="Identifier">compatibleEffects</span></a><span class="Other">(</span><span class="Identifier">formal</span><span class="Other">,</span> <span class="Identifier">actual</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="types.html#EffectsCompat"><span class="Identifier">EffectsCompat</span></a> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1094,12 +1136,16 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1377"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1382"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1377" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1382" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="computeSize-procs-all">
 <div id="computeSize,ConfigRef,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#computeSize%2CConfigRef%2CPType"><span class="Identifier">computeSize</span></a><span class="Other">(</span><span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span>
     <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span>
@@ -1108,24 +1154,32 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1303"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1308"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1303" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1308" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="containsCompileTimeOnly-procs-all">
 <div id="containsCompileTimeOnly,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#containsCompileTimeOnly%2CPType"><span class="Identifier">containsCompileTimeOnly</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1424"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1429"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1424" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1429" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="containsGarbageCollectedRef-procs-all">
 <div id="containsGarbageCollectedRef,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#containsGarbageCollectedRef%2CPType"><span class="Identifier">containsGarbageCollectedRef</span></a><span class="Other">(</span><span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1139,6 +1193,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="containsGenericType-procs-all">
 <div id="containsGenericType,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#containsGenericType%2CPType"><span class="Identifier">containsGenericType</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1146,12 +1204,16 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1333"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1338"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1333" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1338" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="containsHiddenPointer-procs-all">
 <div id="containsHiddenPointer,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#containsHiddenPointer%2CPType"><span class="Identifier">containsHiddenPointer</span></a><span class="Other">(</span><span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1165,6 +1227,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="containsManagedMemory-procs-all">
 <div id="containsManagedMemory,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#containsManagedMemory%2CPType"><span class="Identifier">containsManagedMemory</span></a><span class="Other">(</span><span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1178,6 +1244,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="containsObject-procs-all">
 <div id="containsObject,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#containsObject%2CPType"><span class="Identifier">containsObject</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1190,6 +1260,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="containsTyRef-procs-all">
 <div id="containsTyRef,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#containsTyRef%2CPType"><span class="Identifier">containsTyRef</span></a><span class="Other">(</span><span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1202,6 +1276,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="elemType-procs-all">
 <div id="elemType,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#elemType%2CPType"><span class="Identifier">elemType</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1214,6 +1292,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="enumHasHoles-procs-all">
 <div id="enumHasHoles,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#enumHasHoles%2CPType"><span class="Identifier">enumHasHoles</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1226,6 +1308,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="equalParams-procs-all">
 <div id="equalParams,PNode,PNode">
 <dt><pre><span class="Keyword">proc</span> <a href="#equalParams%2CPNode%2CPNode"><span class="Identifier">equalParams</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="types.html#TParamsEquality"><span class="Identifier">TParamsEquality</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1239,6 +1325,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="firstFloat-procs-all">
 <div id="firstFloat,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#firstFloat%2CPType"><span class="Identifier">firstFloat</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestFloat</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span>
     <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span>
@@ -1253,6 +1343,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="firstOrd-procs-all">
 <div id="firstOrd,ConfigRef,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#firstOrd%2CConfigRef%2CPType"><span class="Identifier">firstOrd</span></a><span class="Other">(</span><span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="int128.html#Int128"><span class="Identifier">Int128</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span>
     <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span>
@@ -1267,6 +1361,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="floatRangeCheck-procs-all">
 <div id="floatRangeCheck,BiggestFloat,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#floatRangeCheck%2CBiggestFloat%2CPType"><span class="Identifier">floatRangeCheck</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">BiggestFloat</span><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span>
     <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span>
@@ -1281,6 +1379,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="getAlign-procs-all">
 <div id="getAlign,ConfigRef,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#getAlign%2CConfigRef%2CPType"><span class="Identifier">getAlign</span></a><span class="Other">(</span><span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span>
     <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span>
@@ -1289,12 +1391,16 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1312"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1317"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1312" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1317" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="getFloatValue-procs-all">
 <div id="getFloatValue,PNode">
 <dt><pre><span class="Keyword">proc</span> <a href="#getFloatValue%2CPNode"><span class="Identifier">getFloatValue</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestFloat</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1307,6 +1413,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="getOrdValue-procs-all">
 <div id="getOrdValue,PNode">
 <dt><pre><span class="Keyword">proc</span> <a href="#getOrdValue%2CPNode"><span class="Identifier">getOrdValue</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">onError</span> <span class="Other">=</span> <span class="Identifier">high</span><span class="Other">(</span><a href="int128.html#Int128"><span class="Identifier">Int128</span></a><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <a href="int128.html#Int128"><span class="Identifier">Int128</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1320,6 +1430,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="getProcConvMismatch-procs-all">
 <div id="getProcConvMismatch,ConfigRef,PType,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#getProcConvMismatch%2CConfigRef%2CPType%2CPType"><span class="Identifier">getProcConvMismatch</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">f</span><span class="Other">,</span> <span class="Identifier">a</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">rel</span> <span class="Other">=</span> <span class="Identifier">isNone</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span>
     <span class="Identifier">set</span><span class="Other">[</span><a href="types.html#ProcConvMismatch"><span class="Identifier">ProcConvMismatch</span></a><span class="Other">]</span><span class="Other">,</span> <a href="types.html#TTypeRelation"><span class="Identifier">TTypeRelation</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1327,12 +1441,16 @@ class="link-seesrc" target="_blank">Source</a>
 
 Returns a set of the reason of mismatch, and the relation for conversion.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1525"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1530"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1525" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1530" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="getProcHeader-procs-all">
 <div id="getProcHeader,ConfigRef,PSym,TPreferedDesc">
 <dt><pre><span class="Keyword">proc</span> <a href="#getProcHeader%2CConfigRef%2CPSym%2CTPreferedDesc"><span class="Identifier">getProcHeader</span></a><span class="Other">(</span><span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">sym</span><span class="Other">:</span> <a href="ast.html#PSym"><span class="Identifier">PSym</span></a><span class="Other">;</span>
                    <span class="Identifier">prefer</span><span class="Other">:</span> <a href="types.html#TPreferedDesc"><span class="Identifier">TPreferedDesc</span></a> <span class="Other">=</span> <span class="Identifier">preferName</span><span class="Other">;</span> <span class="Identifier">getDeclarationPath</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.
@@ -1348,18 +1466,26 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="getReturnType-procs-all">
 <div id="getReturnType,PSym">
 <dt><pre><span class="Keyword">proc</span> <a href="#getReturnType%2CPSym"><span class="Identifier">getReturnType</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <a href="ast.html#PSym"><span class="Identifier">PSym</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1307"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1312"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1307" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1312" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="getSize-procs-all">
 <div id="getSize,ConfigRef,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#getSize%2CConfigRef%2CPType"><span class="Identifier">getSize</span></a><span class="Other">(</span><span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span>
     <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span>
@@ -1368,24 +1494,32 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1316"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1321"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1316" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1321" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="inheritanceDiff-procs-all">
 <div id="inheritanceDiff,PType,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#inheritanceDiff%2CPType%2CPType"><span class="Identifier">inheritanceDiff</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1243"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1248"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1243" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1248" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="invalidGenericInst-procs-all">
 <div id="invalidGenericInst,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#invalidGenericInst%2CPType"><span class="Identifier">invalidGenericInst</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1398,6 +1532,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isCharArrayPtr-procs-all">
 <div id="isCharArrayPtr,PType,bool">
 <dt><pre><span class="Keyword">proc</span> <a href="#isCharArrayPtr%2CPType%2Cbool"><span class="Identifier">isCharArrayPtr</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">allowPointerToChar</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span>
     <span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span>
@@ -1406,60 +1544,80 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1689"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1694"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1689" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1694" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isCompileTimeOnly-procs-all">
 <div id="isCompileTimeOnly,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#isCompileTimeOnly%2CPType"><span class="Identifier">isCompileTimeOnly</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1421"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1426"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1421" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1426" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isDefectException-procs-all">
 <div id="isDefectException,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#isDefectException%2CPType"><span class="Identifier">isDefectException</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1657"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1662"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1657" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1662" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isEmptyContainer-procs-all">
 <div id="isEmptyContainer,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#isEmptyContainer%2CPType"><span class="Identifier">isEmptyContainer</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1482"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1487"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1482" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1487" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isException-procs-all">
 <div id="isException,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#isException%2CPType"><span class="Identifier">isException</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1646"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1651"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1646" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1651" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isFinal-procs-all">
 <div id="isFinal,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#isFinal%2CPType"><span class="Identifier">isFinal</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1472,6 +1630,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isFloatLit-procs-all">
 <div id="isFloatLit,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#isFloatLit%2CPType"><span class="Identifier">isFloatLit</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1484,6 +1646,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isGenericAlias-procs-all">
 <div id="isGenericAlias,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#isGenericAlias%2CPType"><span class="Identifier">isGenericAlias</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1496,6 +1662,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isIntLit-procs-all">
 <div id="isIntLit,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#isIntLit%2CPType"><span class="Identifier">isIntLit</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1508,6 +1678,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isOrdinalType-procs-all">
 <div id="isOrdinalType,PType,bool">
 <dt><pre><span class="Keyword">proc</span> <a href="#isOrdinalType%2CPType%2Cbool"><span class="Identifier">isOrdinalType</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">allowEnumWithHoles</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1521,6 +1695,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isPureObject-procs-all">
 <div id="isPureObject,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#isPureObject%2CPType"><span class="Identifier">isPureObject</span></a><span class="Other">(</span><span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1533,30 +1711,42 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isSinkTypeForParam-procs-all">
 <div id="isSinkTypeForParam,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#isSinkTypeForParam%2CPType"><span class="Identifier">isSinkTypeForParam</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1668"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1673"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1668" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1673" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isTupleRecursive-procs-all">
 <div id="isTupleRecursive,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#isTupleRecursive%2CPType"><span class="Identifier">isTupleRecursive</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1642"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1647"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1642" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1647" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isUnsigned-procs-all">
 <div id="isUnsigned,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#isUnsigned%2CPType"><span class="Identifier">isUnsigned</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1569,6 +1759,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="iterOverType-procs-all">
 <div id="iterOverType,PType,TTypeIter,RootRef">
 <dt><pre><span class="Keyword">proc</span> <a href="#iterOverType%2CPType%2CTTypeIter%2CRootRef"><span class="Identifier">iterOverType</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">iter</span><span class="Other">:</span> <a href="types.html#TTypeIter"><span class="Identifier">TTypeIter</span></a><span class="Other">;</span> <span class="Identifier">closure</span><span class="Other">:</span> <span class="Identifier">RootRef</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1582,6 +1776,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="lastFloat-procs-all">
 <div id="lastFloat,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#lastFloat%2CPType"><span class="Identifier">lastFloat</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestFloat</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span>
     <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span>
@@ -1596,6 +1794,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="lastOrd-procs-all">
 <div id="lastOrd,ConfigRef,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#lastOrd%2CConfigRef%2CPType"><span class="Identifier">lastOrd</span></a><span class="Other">(</span><span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="int128.html#Int128"><span class="Identifier">Int128</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span>
     <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span>
@@ -1610,6 +1812,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="lengthOrd-procs-all">
 <div id="lengthOrd,ConfigRef,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#lengthOrd%2CConfigRef%2CPType"><span class="Identifier">lengthOrd</span></a><span class="Other">(</span><span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="int128.html#Int128"><span class="Identifier">Int128</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span>
     <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span>
@@ -1624,18 +1830,26 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="lookupFieldAgain-procs-all">
 <div id="lookupFieldAgain,PType,PSym">
 <dt><pre><span class="Keyword">proc</span> <a href="#lookupFieldAgain%2CPType%2CPSym"><span class="Identifier">lookupFieldAgain</span></a><span class="Other">(</span><span class="Identifier">ty</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">field</span><span class="Other">:</span> <a href="ast.html#PSym"><span class="Identifier">PSym</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PSym"><span class="Identifier">PSym</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1679"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1684"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1679" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1684" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="matchType-procs-all">
 <div id="matchType,PType,openArray[tuple[TTypeKind,int]],TTypeKind">
 <dt><pre><span class="Keyword">proc</span> <a href="#matchType%2CPType%2CopenArray%5Btuple%5BTTypeKind%2Cint%5D%5D%2CTTypeKind"><span class="Identifier">matchType</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">pattern</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">k</span><span class="Other">:</span> <a href="ast.html#TTypeKind"><span class="Identifier">TTypeKind</span></a><span class="Other">,</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">]</span><span class="Other">]</span><span class="Other">;</span>
                <span class="Identifier">last</span><span class="Other">:</span> <a href="ast.html#TTypeKind"><span class="Identifier">TTypeKind</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1643,12 +1857,16 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1291"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1296"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1291" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1296" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="mutateType-procs-all">
 <div id="mutateType,PType,TTypeMutator,RootRef">
 <dt><pre><span class="Keyword">proc</span> <a href="#mutateType%2CPType%2CTTypeMutator%2CRootRef"><span class="Identifier">mutateType</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">iter</span><span class="Other">:</span> <a href="types.html#TTypeMutator"><span class="Identifier">TTypeMutator</span></a><span class="Other">;</span> <span class="Identifier">closure</span><span class="Other">:</span> <span class="Identifier">RootRef</span><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1662,6 +1880,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="safeInheritanceDiff-procs-all">
 <div id="safeInheritanceDiff,PType,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#safeInheritanceDiff%2CPType%2CPType"><span class="Identifier">safeInheritanceDiff</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1669,24 +1891,32 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1350"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1355"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1350" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1355" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="safeSkipTypes-procs-all">
 <div id="safeSkipTypes,PType,TTypeKinds">
 <dt><pre><span class="Keyword">proc</span> <a href="#safeSkipTypes%2CPType%2CTTypeKinds"><span class="Identifier">safeSkipTypes</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">kinds</span><span class="Other">:</span> <a href="ast.html#TTypeKinds"><span class="Identifier">TTypeKinds</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 same as 'skipTypes' but with a simple cycle detector.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1431"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1436"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1431" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1436" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="sameBackendType-procs-all">
 <div id="sameBackendType,PType,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#sameBackendType%2CPType%2CPType"><span class="Identifier">sameBackendType</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1694,12 +1924,16 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1226"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1231"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1226" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1231" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="sameDistinctTypes-procs-all">
 <div id="sameDistinctTypes,PType,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#sameDistinctTypes%2CPType%2CPType"><span class="Identifier">sameDistinctTypes</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1713,6 +1947,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="sameEnumTypes-procs-all">
 <div id="sameEnumTypes,PType,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#sameEnumTypes%2CPType%2CPType"><span class="Identifier">sameEnumTypes</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1725,6 +1963,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="sameFlags-procs-all">
 <div id="sameFlags,PType,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#sameFlags%2CPType%2CPType"><span class="Identifier">sameFlags</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1737,6 +1979,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="sameObjectTypes-procs-all">
 <div id="sameObjectTypes,PType,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#sameObjectTypes%2CPType%2CPType"><span class="Identifier">sameObjectTypes</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1750,6 +1996,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="sameType-procs-all">
 <div id="sameType,PType,PType,TTypeCmpFlags">
 <dt><pre><span class="Keyword">proc</span> <a href="#sameType%2CPType%2CPType%2CTTypeCmpFlags"><span class="Identifier">sameType</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">flags</span><span class="Other">:</span> <a href="types.html#TTypeCmpFlags"><span class="Identifier">TTypeCmpFlags</span></a> <span class="Other">=</span> <span class="Other">{</span><span class="Other">}</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1763,6 +2013,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="sameTypeOrNil-procs-all">
 <div id="sameTypeOrNil,PType,PType,TTypeCmpFlags">
 <dt><pre><span class="Keyword">proc</span> <a href="#sameTypeOrNil%2CPType%2CPType%2CTTypeCmpFlags"><span class="Identifier">sameTypeOrNil</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">flags</span><span class="Other">:</span> <a href="types.html#TTypeCmpFlags"><span class="Identifier">TTypeCmpFlags</span></a> <span class="Other">=</span> <span class="Other">{</span><span class="Other">}</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1776,6 +2030,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="searchTypeFor-procs-all">
 <div id="searchTypeFor,PType,TTypePredicate">
 <dt><pre><span class="Keyword">proc</span> <a href="#searchTypeFor%2CPType%2CTTypePredicate"><span class="Identifier">searchTypeFor</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">predicate</span><span class="Other">:</span> <a href="types.html#TTypePredicate"><span class="Identifier">TTypePredicate</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1789,30 +2047,42 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="skipConv-procs-all">
 <div id="skipConv,PNode">
 <dt><pre><span class="Keyword">proc</span> <a href="#skipConv%2CPNode"><span class="Identifier">skipConv</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1453"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1458"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1453" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1458" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="skipConvTakeType-procs-all">
 <div id="skipConvTakeType,PNode">
 <dt><pre><span class="Keyword">proc</span> <a href="#skipConvTakeType%2CPNode"><span class="Identifier">skipConvTakeType</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1478"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1483"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1478" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1483" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="skipGenericAlias-procs-all">
 <div id="skipGenericAlias,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#skipGenericAlias%2CPType"><span class="Identifier">skipGenericAlias</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1825,18 +2095,26 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="skipHidden-procs-all">
 <div id="skipHidden,PNode">
 <dt><pre><span class="Keyword">proc</span> <a href="#skipHidden%2CPNode"><span class="Identifier">skipHidden</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1466"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1471"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1466" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1471" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="skipHiddenSubConv-procs-all">
 <div id="skipHiddenSubConv,PNode,ModuleGraph,IdGenerator">
 <dt><pre><span class="Keyword">proc</span> <a href="#skipHiddenSubConv%2CPNode%2CModuleGraph%2CIdGenerator"><span class="Identifier">skipHiddenSubConv</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">g</span><span class="Other">:</span> <a href="modulegraphs.html#ModuleGraph"><span class="Identifier">ModuleGraph</span></a><span class="Other">;</span> <span class="Identifier">idgen</span><span class="Other">:</span> <a href="ast.html#IdGenerator"><span class="Identifier">IdGenerator</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1844,12 +2122,16 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1508"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1513"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1508" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1513" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="takeType-procs-all">
 <div id="takeType,PType,PType,ModuleGraph,IdGenerator">
 <dt><pre><span class="Keyword">proc</span> <a href="#takeType%2CPType%2CPType%2CModuleGraph%2CIdGenerator"><span class="Identifier">takeType</span></a><span class="Other">(</span><span class="Identifier">formal</span><span class="Other">,</span> <span class="Identifier">arg</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">g</span><span class="Other">:</span> <a href="modulegraphs.html#ModuleGraph"><span class="Identifier">ModuleGraph</span></a><span class="Other">;</span> <span class="Identifier">idgen</span><span class="Other">:</span> <a href="ast.html#IdGenerator"><span class="Identifier">IdGenerator</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1857,12 +2139,16 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1491"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1496"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1491" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1496" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="typeMismatch-procs-all">
 <div id="typeMismatch,ConfigRef,TLineInfo,PType,PType,PNode">
 <dt><pre><span class="Keyword">proc</span> <a href="#typeMismatch%2CConfigRef%2CTLineInfo%2CPType%2CPType%2CPNode"><span class="Identifier">typeMismatch</span></a><span class="Other">(</span><span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">info</span><span class="Other">:</span> <a href="lineinfos.html#TLineInfo"><span class="Identifier">TLineInfo</span></a><span class="Other">;</span> <span class="Identifier">formal</span><span class="Other">,</span> <span class="Identifier">actual</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span>
                   <span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span>
@@ -1872,12 +2158,16 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1587"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/types.nim#L1592"
 class="link-seesrc" target="_blank">Source</a>
-&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1587" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/types.nim#L1592" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="typeToString-procs-all">
 <div id="typeToString,PType,TPreferedDesc">
 <dt><pre><span class="Keyword">proc</span> <a href="#typeToString%2CPType%2CTPreferedDesc"><span class="Identifier">typeToString</span></a><span class="Other">(</span><span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">prefer</span><span class="Other">:</span> <a href="types.html#TPreferedDesc"><span class="Identifier">TPreferedDesc</span></a> <span class="Other">=</span> <span class="Identifier">preferName</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1892,10 +2182,14 @@ class="link-seesrc" target="_blank">Source</a>
 </dd>
 </div>
 
+</div>
+
 </dl></div>
 <div class="section" id="18">
 <h1><a class="toc-backref" href="#18">Templates</a></h1>
 <dl class="item">
+
+<div id="$-templates-all">
 <div id="$.t,PType">
 <dt><pre><span class="Keyword">template</span> <a href="#%24.t%2CPType"><span class="Identifier">`$`</span></a><span class="Other">(</span><span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
@@ -1908,6 +2202,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="bindConcreteTypeToUserTypeClass-templates-all">
 <div id="bindConcreteTypeToUserTypeClass.t,PType,PType">
 <dt><pre><span class="Keyword">template</span> <a href="#bindConcreteTypeToUserTypeClass.t%2CPType%2CPType"><span class="Identifier">bindConcreteTypeToUserTypeClass</span></a><span class="Other">(</span><span class="Identifier">tc</span><span class="Other">,</span> <span class="Identifier">concrete</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span></pre></dt>
 <dd>
@@ -1920,6 +2218,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="foldAlignOf-templates-all">
 <div id="foldAlignOf.t,ConfigRef,PNode,PNode">
 <dt><pre><span class="Keyword">template</span> <a href="#foldAlignOf.t%2CConfigRef%2CPNode%2CPNode"><span class="Identifier">foldAlignOf</span></a><span class="Other">(</span><span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">fallback</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a></pre></dt>
 <dd>
@@ -1932,6 +2234,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="foldOffsetOf-templates-all">
 <div id="foldOffsetOf.t,ConfigRef,PNode,PNode">
 <dt><pre><span class="Keyword">template</span> <a href="#foldOffsetOf.t%2CConfigRef%2CPNode%2CPNode"><span class="Identifier">foldOffsetOf</span></a><span class="Other">(</span><span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">fallback</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a></pre></dt>
 <dd>
@@ -1944,6 +2250,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="foldSizeOf-templates-all">
 <div id="foldSizeOf.t,ConfigRef,PNode,PNode">
 <dt><pre><span class="Keyword">template</span> <a href="#foldSizeOf.t%2CConfigRef%2CPNode%2CPNode"><span class="Identifier">foldSizeOf</span></a><span class="Other">(</span><span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">fallback</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a></pre></dt>
 <dd>
@@ -1956,6 +2266,10 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 </div>
+
+</div>
+
+<div id="isResolvedUserTypeClass-templates-all">
 <div id="isResolvedUserTypeClass.t,PType">
 <dt><pre><span class="Keyword">template</span> <a href="#isResolvedUserTypeClass.t%2CPType"><span class="Identifier">isResolvedUserTypeClass</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span></pre></dt>
 <dd>
@@ -1969,6 +2283,8 @@ class="link-seesrc" target="_blank">Source</a>
 </dd>
 </div>
 
+</div>
+
 </dl></div>
 
   </div>
@@ -1978,7 +2294,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-11-27 01:08:10 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-11-25 01:07:03 UTC</small>
       </div>
     </div>
   </div>
