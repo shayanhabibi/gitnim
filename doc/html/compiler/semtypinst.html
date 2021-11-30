@@ -17,7 +17,7 @@
 <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600' rel='stylesheet' type='text/css'/>
 
 <!-- CSS -->
-<title>semtypinst</title>
+<title>compiler/semtypinst</title>
 <link rel="stylesheet" type="text/css" href="nimdoc.out.css">
 
 <script type="text/javascript" src="dochack.js"></script>
@@ -34,7 +34,6 @@ function main() {
     }
   }
 
-  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
   function switchTheme(e) {
       if (e.target.checked) {
           document.documentElement.setAttribute('data-theme', 'dark');
@@ -45,24 +44,32 @@ function main() {
       }
   }
 
-  toggleSwitch.addEventListener('change', switchTheme, false);
+  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+  if (toggleSwitch !== null) {
+    toggleSwitch.addEventListener('change', switchTheme, false);
+  }
 
-  const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+  var currentTheme = localStorage.getItem('theme');
+  if (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    currentTheme = 'dark';
+  }
   if (currentTheme) {
     document.documentElement.setAttribute('data-theme', currentTheme);
 
-    if (currentTheme === 'dark') {
+    if (currentTheme === 'dark' && toggleSwitch !== null) {
       toggleSwitch.checked = true;
     }
   }
 }
+
+window.addEventListener('DOMContentLoaded', main);
 </script>
 
 </head>
-<body onload="main()">
+<body>
 <div class="document" id="documentId">
   <div class="container">
-    <h1 class="title">semtypinst</h1>
+    <h1 class="title">compiler/semtypinst</h1>
     <div class="row">
   <div class="three columns">
   <div class="theme-switch-wrapper">
@@ -122,85 +129,76 @@ function main() {
 <li>
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">skipIntLiteralParams
-      <li><a class="reference" href="#skipIntLiteralParams%2CPType"
-    title="skipIntLiteralParams(t: PType)">skipIntLiteralParams,<wbr>PType</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">recomputeFieldPositions
-      <li><a class="reference" href="#recomputeFieldPositions%2CPType%2CPNode%2Cint"
-    title="recomputeFieldPositions(t: PType; obj: PNode; currPosition: var int)">recomputeFieldPositions,<wbr>PType,<wbr>PNode,<wbr>int</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">searchInstTypes
-      <li><a class="reference" href="#searchInstTypes%2CPType"
-    title="searchInstTypes(key: PType): PType">searchInstTypes,<wbr>PType</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">newTypeMapLayer
-      <li><a class="reference" href="#newTypeMapLayer%2CTReplTypeVars"
-    title="newTypeMapLayer(cl: var TReplTypeVars): LayeredIdTable">newTypeMapLayer,<wbr>TReplTypeVars</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">instAllTypeBoundOp
-      <li><a class="reference" href="#instAllTypeBoundOp%2CPContext%2CTLineInfo"
-    title="instAllTypeBoundOp(c: PContext; info: TLineInfo)">instAllTypeBoundOp,<wbr>PContext,<wbr>TLineInfo</a></li>
+      <ul class="simple nested-toc-section">checkConstructedType
+      <li><a class="reference" href="#checkConstructedType%2CConfigRef%2CTLineInfo%2CPType"
+    title="checkConstructedType(conf: ConfigRef; info: TLineInfo; typ: PType)">checkConstructedType(conf: ConfigRef; info: TLineInfo; typ: PType)</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">eraseVoidParams
       <li><a class="reference" href="#eraseVoidParams%2CPType"
-    title="eraseVoidParams(t: PType)">eraseVoidParams,<wbr>PType</a></li>
+    title="eraseVoidParams(t: PType)">eraseVoidParams(t: PType)</a></li>
 
   </ul>
-  <ul class="simple nested-toc-section">prepareMetatypeForSigmatch
-      <li><a class="reference" href="#prepareMetatypeForSigmatch%2CPContext%2CTIdTable%2CTLineInfo%2CPType"
-    title="prepareMetatypeForSigmatch(p: PContext; pt: TIdTable; info: TLineInfo; t: PType): PType">prepareMetatypeForSigmatch,<wbr>PContext,<wbr>TIdTable,<wbr>TLineInfo,<wbr>PType</a></li>
+  <ul class="simple nested-toc-section">generateTypeInstance
+      <li><a class="reference" href="#generateTypeInstance%2CPContext%2CTIdTable%2CTLineInfo%2CPType"
+    title="generateTypeInstance(p: PContext; pt: TIdTable; info: TLineInfo; t: PType): PType">generateTypeInstance(p: PContext; pt: TIdTable; info: TLineInfo; t: PType): PType</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">initLayeredTypeMap
+      <li><a class="reference" href="#initLayeredTypeMap%2CTIdTable"
+    title="initLayeredTypeMap(pt: TIdTable): LayeredIdTable">initLayeredTypeMap(pt: TIdTable): LayeredIdTable</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">initTypeVars
       <li><a class="reference" href="#initTypeVars%2CPContext%2CLayeredIdTable%2CTLineInfo%2CPSym"
-    title="initTypeVars(p: PContext; typeMap: LayeredIdTable; info: TLineInfo; owner: PSym): TReplTypeVars">initTypeVars,<wbr>PContext,<wbr>LayeredIdTable,<wbr>TLineInfo,<wbr>PSym</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">replaceTypeVarsT
-      <li><a class="reference" href="#replaceTypeVarsT%2CTReplTypeVars%2CPType"
-    title="replaceTypeVarsT(cl: var TReplTypeVars; t: PType): PType">replaceTypeVarsT,<wbr>TReplTypeVars,<wbr>PType</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">checkConstructedType
-      <li><a class="reference" href="#checkConstructedType%2CConfigRef%2CTLineInfo%2CPType"
-    title="checkConstructedType(conf: ConfigRef; info: TLineInfo; typ: PType)">checkConstructedType,<wbr>ConfigRef,<wbr>TLineInfo,<wbr>PType</a></li>
+    title="initTypeVars(p: PContext; typeMap: LayeredIdTable; info: TLineInfo; owner: PSym): TReplTypeVars">initTypeVars(p: PContext; typeMap: LayeredIdTable; info: TLineInfo; owner: PSym): TReplTypeVars</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">instCopyType
       <li><a class="reference" href="#instCopyType%2CTReplTypeVars%2CPType"
-    title="instCopyType(cl: var TReplTypeVars; t: PType): PType">instCopyType,<wbr>TReplTypeVars,<wbr>PType</a></li>
+    title="instCopyType(cl: var TReplTypeVars; t: PType): PType">instCopyType(cl: var TReplTypeVars; t: PType): PType</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">newTypeMapLayer
+      <li><a class="reference" href="#newTypeMapLayer%2CTReplTypeVars"
+    title="newTypeMapLayer(cl: var TReplTypeVars): LayeredIdTable">newTypeMapLayer(cl: var TReplTypeVars): LayeredIdTable</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">prepareMetatypeForSigmatch
+      <li><a class="reference" href="#prepareMetatypeForSigmatch%2CPContext%2CTIdTable%2CTLineInfo%2CPType"
+    title="prepareMetatypeForSigmatch(p: PContext; pt: TIdTable; info: TLineInfo; t: PType): PType">prepareMetatypeForSigmatch(p: PContext; pt: TIdTable; info: TLineInfo; t: PType): PType</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">recomputeFieldPositions
+      <li><a class="reference" href="#recomputeFieldPositions%2CPType%2CPNode%2Cint"
+    title="recomputeFieldPositions(t: PType; obj: PNode; currPosition: var int)">recomputeFieldPositions(t: PType; obj: PNode; currPosition: var int)</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">replaceTypesInBody
       <li><a class="reference" href="#replaceTypesInBody%2CPContext%2CTIdTable%2CPNode%2CPSym"
     title="replaceTypesInBody(p: PContext; pt: TIdTable; n: PNode; owner: PSym;
-                   allowMetaTypes = false): PNode">replaceTypesInBody,<wbr>PContext,<wbr>TIdTable,<wbr>PNode,<wbr>PSym</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">generateTypeInstance
-      <li><a class="reference" href="#generateTypeInstance%2CPContext%2CTIdTable%2CTLineInfo%2CPType"
-    title="generateTypeInstance(p: PContext; pt: TIdTable; info: TLineInfo; t: PType): PType">generateTypeInstance,<wbr>PContext,<wbr>TIdTable,<wbr>TLineInfo,<wbr>PType</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">cacheTypeInst
-      <li><a class="reference" href="#cacheTypeInst%2CPType"
-    title="cacheTypeInst(inst: PType)">cacheTypeInst,<wbr>PType</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">initLayeredTypeMap
-      <li><a class="reference" href="#initLayeredTypeMap%2CTIdTable"
-    title="initLayeredTypeMap(pt: TIdTable): LayeredIdTable">initLayeredTypeMap,<wbr>TIdTable</a></li>
+                   allowMetaTypes = false): PNode">replaceTypesInBody(p: PContext; pt: TIdTable; n: PNode; owner: PSym;
+                   allowMetaTypes = false): PNode</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">replaceTypeVarsN
       <li><a class="reference" href="#replaceTypeVarsN%2CTReplTypeVars%2CPNode%2Cint"
-    title="replaceTypeVarsN(cl: var TReplTypeVars; n: PNode; start = 0): PNode">replaceTypeVarsN,<wbr>TReplTypeVars,<wbr>PNode,<wbr>int</a></li>
+    title="replaceTypeVarsN(cl: var TReplTypeVars; n: PNode; start = 0): PNode">replaceTypeVarsN(cl: var TReplTypeVars; n: PNode; start = 0): PNode</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">replaceTypeVarsT
+      <li><a class="reference" href="#replaceTypeVarsT%2CTReplTypeVars%2CPType"
+    title="replaceTypeVarsT(cl: var TReplTypeVars; t: PType): PType">replaceTypeVarsT(cl: var TReplTypeVars; t: PType): PType</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">searchInstTypes
+      <li><a class="reference" href="#searchInstTypes%2CModuleGraph%2CPType"
+    title="searchInstTypes(g: ModuleGraph; key: PType): PType">searchInstTypes(g: ModuleGraph; key: PType): PType</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">skipIntLiteralParams
+      <li><a class="reference" href="#skipIntLiteralParams%2CPType%2CIdGenerator"
+    title="skipIntLiteralParams(t: PType; idgen: IdGenerator)">skipIntLiteralParams(t: PType; idgen: IdGenerator)</a></li>
 
   </ul>
 
@@ -209,8 +207,11 @@ function main() {
 <li>
   <a class="reference reference-toplevel" href="#18" id="68">Templates</a>
   <ul class="simple simple-toc-section">
+      <ul class="simple nested-toc-section">generateTypeInstance
       <li><a class="reference" href="#generateTypeInstance.t%2CPContext%2CTIdTable%2CPNode%2CPType"
-    title="generateTypeInstance(p: PContext; pt: TIdTable; arg: PNode; t: PType): untyped">generateTypeInstance</a></li>
+    title="generateTypeInstance(p: PContext; pt: TIdTable; arg: PNode; t: PType): untyped">generateTypeInstance(p: PContext; pt: TIdTable; arg: PNode; t: PType): untyped</a></li>
+
+  </ul>
 
   </ul>
 </li>
@@ -218,6 +219,11 @@ function main() {
 </ul>
 
   </div>
+  &nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L1"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L1" class="link-seesrc" target="_blank" >Edit</a>
+
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
@@ -225,13 +231,13 @@ function main() {
   <div class="section" id="6">
 <h1><a class="toc-backref" href="#6">Imports</a></h1>
 <dl class="item">
-<a class="reference external" href="ast.html">ast</a>, <a class="reference external" href="astalgo.html">astalgo</a>, <a class="reference external" href="msgs.html">msgs</a>, <a class="reference external" href="types.html">types</a>, <a class="reference external" href="magicsys.html">magicsys</a>, <a class="reference external" href="semdata.html">semdata</a>, <a class="reference external" href="renderer.html">renderer</a>, <a class="reference external" href="options.html">options</a>, <a class="reference external" href="lineinfos.html">lineinfos</a>
+<a class="reference external" href="ast.html">ast</a>, <a class="reference external" href="astalgo.html">astalgo</a>, <a class="reference external" href="msgs.html">msgs</a>, <a class="reference external" href="types.html">types</a>, <a class="reference external" href="magicsys.html">magicsys</a>, <a class="reference external" href="semdata.html">semdata</a>, <a class="reference external" href="renderer.html">renderer</a>, <a class="reference external" href="options.html">options</a>, <a class="reference external" href="lineinfos.html">lineinfos</a>, <a class="reference external" href="modulegraphs.html">modulegraphs</a>, <a class="reference external" href="concepts.html">concepts</a>
 </dl></div>
 <div class="section" id="7">
 <h1><a class="toc-backref" href="#7">Types</a></h1>
 <dl class="item">
-<a id="LayeredIdTable"></a>
-<dt><pre><a href="semtypinst.html#LayeredIdTable"><span class="Identifier">LayeredIdTable</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">acyclic</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span>
+<div id="LayeredIdTable">
+<dt><pre><a href="semtypinst.html#LayeredIdTable"><span class="Identifier">LayeredIdTable</span></a> {.<span class="Identifier">acyclic</span>.} <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span>
   <span class="Identifier">topLayer</span><span class="Operator">*</span><span class="Other">:</span> <a href="ast.html#TIdTable"><span class="Identifier">TIdTable</span></a>
   <span class="Identifier">nextLayer</span><span class="Operator">*</span><span class="Other">:</span> <a href="semtypinst.html#LayeredIdTable"><span class="Identifier">LayeredIdTable</span></a>
 </pre></dt>
@@ -239,12 +245,13 @@ function main() {
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L70"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L67"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L70" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L67" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="TReplTypeVars"></a>
+</div>
+<div id="TReplTypeVars">
 <dt><pre><a href="semtypinst.html#TReplTypeVars"><span class="Identifier">TReplTypeVars</span></a> <span class="Other">=</span> <span class="Keyword">object</span>
   <span class="Identifier">c</span><span class="Operator">*</span><span class="Other">:</span> <a href="semdata.html#PContext"><span class="Identifier">PContext</span></a>
   <span class="Identifier">typeMap</span><span class="Operator">*</span><span class="Other">:</span> <a href="semtypinst.html#LayeredIdTable"><span class="Identifier">LayeredIdTable</span></a>
@@ -261,224 +268,218 @@ class="link-seesrc" target="_blank">Source</a>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L74"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L71"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L74" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L71" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
 
 </dl></div>
 <div class="section" id="12">
 <h1><a class="toc-backref" href="#12">Procs</a></h1>
 <dl class="item">
-<a id="checkConstructedType,ConfigRef,TLineInfo,PType"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#checkConstructedType%2CConfigRef%2CTLineInfo%2CPType"><span class="Identifier">checkConstructedType</span></a><span class="Other">(</span><span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">info</span><span class="Other">:</span> <a href="lineinfos.html#TLineInfo"><span class="Identifier">TLineInfo</span></a><span class="Other">;</span> <span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadEnvEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<div id="checkConstructedType,ConfigRef,TLineInfo,PType">
+<dt><pre><span class="Keyword">proc</span> <a href="#checkConstructedType%2CConfigRef%2CTLineInfo%2CPType"><span class="Identifier">checkConstructedType</span></a><span class="Other">(</span><span class="Identifier">conf</span><span class="Other">:</span> <a href="options.html#ConfigRef"><span class="Identifier">ConfigRef</span></a><span class="Other">;</span> <span class="Identifier">info</span><span class="Other">:</span> <a href="lineinfos.html#TLineInfo"><span class="Identifier">TLineInfo</span></a><span class="Other">;</span> <span class="Identifier">typ</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span>
+    <span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span>
+    <span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">ReadDirEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadEnvEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L21"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L23"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L21" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L23" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="searchInstTypes,PType"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#searchInstTypes%2CPType"><span class="Identifier">searchInstTypes</span></a><span class="Other">(</span><span class="Identifier">key</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="eraseVoidParams,PType">
+<dt><pre><span class="Keyword">proc</span> <a href="#eraseVoidParams%2CPType"><span class="Identifier">eraseVoidParams</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L33"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L450"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L33" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L450" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="cacheTypeInst,PType"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#cacheTypeInst%2CPType"><span class="Identifier">cacheTypeInst</span></a><span class="Other">(</span><span class="Identifier">inst</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="generateTypeInstance,PContext,TIdTable,TLineInfo,PType">
+<dt><pre><span class="Keyword">proc</span> <a href="#generateTypeInstance%2CPContext%2CTIdTable%2CTLineInfo%2CPType"><span class="Identifier">generateTypeInstance</span></a><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="semdata.html#PContext"><span class="Identifier">PContext</span></a><span class="Other">;</span> <span class="Identifier">pt</span><span class="Other">:</span> <a href="ast.html#TIdTable"><span class="Identifier">TIdTable</span></a><span class="Other">;</span> <span class="Identifier">info</span><span class="Other">:</span> <a href="lineinfos.html#TLineInfo"><span class="Identifier">TLineInfo</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L60"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L692"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L60" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L692" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="initLayeredTypeMap,TIdTable"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#initLayeredTypeMap%2CTIdTable"><span class="Identifier">initLayeredTypeMap</span></a><span class="Other">(</span><span class="Identifier">pt</span><span class="Other">:</span> <a href="ast.html#TIdTable"><span class="Identifier">TIdTable</span></a><span class="Other">)</span><span class="Other">:</span> <a href="semtypinst.html#LayeredIdTable"><span class="Identifier">LayeredIdTable</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="initLayeredTypeMap,TIdTable">
+<dt><pre><span class="Keyword">proc</span> <a href="#initLayeredTypeMap%2CTIdTable"><span class="Identifier">initLayeredTypeMap</span></a><span class="Other">(</span><span class="Identifier">pt</span><span class="Other">:</span> <a href="ast.html#TIdTable"><span class="Identifier">TIdTable</span></a><span class="Other">)</span><span class="Other">:</span> <a href="semtypinst.html#LayeredIdTable"><span class="Identifier">LayeredIdTable</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L93"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L90"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L93" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L90" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="newTypeMapLayer,TReplTypeVars"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#newTypeMapLayer%2CTReplTypeVars"><span class="Identifier">newTypeMapLayer</span></a><span class="Other">(</span><span class="Identifier">cl</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="semtypinst.html#TReplTypeVars"><span class="Identifier">TReplTypeVars</span></a><span class="Other">)</span><span class="Other">:</span> <a href="semtypinst.html#LayeredIdTable"><span class="Identifier">LayeredIdTable</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L97"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L97" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="replaceTypeVarsT,TReplTypeVars,PType"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#replaceTypeVarsT%2CTReplTypeVars%2CPType"><span class="Identifier">replaceTypeVarsT</span></a><span class="Other">(</span><span class="Identifier">cl</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="semtypinst.html#TReplTypeVars"><span class="Identifier">TReplTypeVars</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L120"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L120" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="replaceTypeVarsN,TReplTypeVars,PNode,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#replaceTypeVarsN%2CTReplTypeVars%2CPNode%2Cint"><span class="Identifier">replaceTypeVarsN</span></a><span class="Other">(</span><span class="Identifier">cl</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="semtypinst.html#TReplTypeVars"><span class="Identifier">TReplTypeVars</span></a><span class="Other">;</span> <span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">start</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadEnvEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L196"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L196" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="instCopyType,TReplTypeVars,PType"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#instCopyType%2CTReplTypeVars%2CPType"><span class="Identifier">instCopyType</span></a><span class="Other">(</span><span class="Identifier">cl</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="semtypinst.html#TReplTypeVars"><span class="Identifier">TReplTypeVars</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L303"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L303" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="eraseVoidParams,PType"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#eraseVoidParams%2CPType"><span class="Identifier">eraseVoidParams</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L443"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L443" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="skipIntLiteralParams,PType"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#skipIntLiteralParams%2CPType"><span class="Identifier">skipIntLiteralParams</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L462"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L462" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="instAllTypeBoundOp,PContext,TLineInfo"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#instAllTypeBoundOp%2CPContext%2CTLineInfo"><span class="Identifier">instAllTypeBoundOp</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="semdata.html#PContext"><span class="Identifier">PContext</span></a><span class="Other">;</span> <span class="Identifier">info</span><span class="Other">:</span> <a href="lineinfos.html#TLineInfo"><span class="Identifier">TLineInfo</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L647"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L647" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="initTypeVars,PContext,LayeredIdTable,TLineInfo,PSym"></a>
+</div>
+<div id="initTypeVars,PContext,LayeredIdTable,TLineInfo,PSym">
 <dt><pre><span class="Keyword">proc</span> <a href="#initTypeVars%2CPContext%2CLayeredIdTable%2CTLineInfo%2CPSym"><span class="Identifier">initTypeVars</span></a><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="semdata.html#PContext"><span class="Identifier">PContext</span></a><span class="Other">;</span> <span class="Identifier">typeMap</span><span class="Other">:</span> <a href="semtypinst.html#LayeredIdTable"><span class="Identifier">LayeredIdTable</span></a><span class="Other">;</span> <span class="Identifier">info</span><span class="Other">:</span> <a href="lineinfos.html#TLineInfo"><span class="Identifier">TLineInfo</span></a><span class="Other">;</span>
-                  <span class="Identifier">owner</span><span class="Other">:</span> <a href="ast.html#PSym"><span class="Identifier">PSym</span></a><span class="Other">)</span><span class="Other">:</span> <a href="semtypinst.html#TReplTypeVars"><span class="Identifier">TReplTypeVars</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+                  <span class="Identifier">owner</span><span class="Other">:</span> <a href="ast.html#PSym"><span class="Identifier">PSym</span></a><span class="Other">)</span><span class="Other">:</span> <a href="semtypinst.html#TReplTypeVars"><span class="Identifier">TReplTypeVars</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L657"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L647"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L657" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L647" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="replaceTypesInBody,PContext,TIdTable,PNode,PSym"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#replaceTypesInBody%2CPContext%2CTIdTable%2CPNode%2CPSym"><span class="Identifier">replaceTypesInBody</span></a><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="semdata.html#PContext"><span class="Identifier">PContext</span></a><span class="Other">;</span> <span class="Identifier">pt</span><span class="Other">:</span> <a href="ast.html#TIdTable"><span class="Identifier">TIdTable</span></a><span class="Other">;</span> <span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">owner</span><span class="Other">:</span> <a href="ast.html#PSym"><span class="Identifier">PSym</span></a><span class="Other">;</span>
-                        <span class="Identifier">allowMetaTypes</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadEnvEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="instCopyType,TReplTypeVars,PType">
+<dt><pre><span class="Keyword">proc</span> <a href="#instCopyType%2CTReplTypeVars%2CPType"><span class="Identifier">instCopyType</span></a><span class="Other">(</span><span class="Identifier">cl</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="semtypinst.html#TReplTypeVars"><span class="Identifier">TReplTypeVars</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L666"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L302"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L666" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L302" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="recomputeFieldPositions,PType,PNode,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#recomputeFieldPositions%2CPType%2CPNode%2Cint"><span class="Identifier">recomputeFieldPositions</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">currPosition</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">int</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="newTypeMapLayer,TReplTypeVars">
+<dt><pre><span class="Keyword">proc</span> <a href="#newTypeMapLayer%2CTReplTypeVars"><span class="Identifier">newTypeMapLayer</span></a><span class="Other">(</span><span class="Identifier">cl</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="semtypinst.html#TReplTypeVars"><span class="Identifier">TReplTypeVars</span></a><span class="Other">)</span><span class="Other">:</span> <a href="semtypinst.html#LayeredIdTable"><span class="Identifier">LayeredIdTable</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L686"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L94"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L686" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L94" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="generateTypeInstance,PContext,TIdTable,TLineInfo,PType"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#generateTypeInstance%2CPContext%2CTIdTable%2CTLineInfo%2CPType"><span class="Identifier">generateTypeInstance</span></a><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="semdata.html#PContext"><span class="Identifier">PContext</span></a><span class="Other">;</span> <span class="Identifier">pt</span><span class="Other">:</span> <a href="ast.html#TIdTable"><span class="Identifier">TIdTable</span></a><span class="Other">;</span> <span class="Identifier">info</span><span class="Other">:</span> <a href="lineinfos.html#TLineInfo"><span class="Identifier">TLineInfo</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L702"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L702" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="prepareMetatypeForSigmatch,PContext,TIdTable,TLineInfo,PType"></a>
+</div>
+<div id="prepareMetatypeForSigmatch,PContext,TIdTable,TLineInfo,PType">
 <dt><pre><span class="Keyword">proc</span> <a href="#prepareMetatypeForSigmatch%2CPContext%2CTIdTable%2CTLineInfo%2CPType"><span class="Identifier">prepareMetatypeForSigmatch</span></a><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="semdata.html#PContext"><span class="Identifier">PContext</span></a><span class="Other">;</span> <span class="Identifier">pt</span><span class="Other">:</span> <a href="ast.html#TIdTable"><span class="Identifier">TIdTable</span></a><span class="Other">;</span> <span class="Identifier">info</span><span class="Other">:</span> <a href="lineinfos.html#TLineInfo"><span class="Identifier">TLineInfo</span></a><span class="Other">;</span>
-                                <span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+                                <span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L718"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L708"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L718" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L708" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
+<div id="recomputeFieldPositions,PType,PNode,int">
+<dt><pre><span class="Keyword">proc</span> <a href="#recomputeFieldPositions%2CPType%2CPNode%2Cint"><span class="Identifier">recomputeFieldPositions</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">obj</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">currPosition</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">int</span><span class="Other">)</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L676"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L676" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="replaceTypesInBody,PContext,TIdTable,PNode,PSym">
+<dt><pre><span class="Keyword">proc</span> <a href="#replaceTypesInBody%2CPContext%2CTIdTable%2CPNode%2CPSym"><span class="Identifier">replaceTypesInBody</span></a><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="semdata.html#PContext"><span class="Identifier">PContext</span></a><span class="Other">;</span> <span class="Identifier">pt</span><span class="Other">:</span> <a href="ast.html#TIdTable"><span class="Identifier">TIdTable</span></a><span class="Other">;</span> <span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">owner</span><span class="Other">:</span> <a href="ast.html#PSym"><span class="Identifier">PSym</span></a><span class="Other">;</span>
+                        <span class="Identifier">allowMetaTypes</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span>
+    <span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span>
+    <span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">ReadDirEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadEnvEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L656"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L656" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="replaceTypeVarsN,TReplTypeVars,PNode,int">
+<dt><pre><span class="Keyword">proc</span> <a href="#replaceTypeVarsN%2CTReplTypeVars%2CPNode%2Cint"><span class="Identifier">replaceTypeVarsN</span></a><span class="Other">(</span><span class="Identifier">cl</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="semtypinst.html#TReplTypeVars"><span class="Identifier">TReplTypeVars</span></a><span class="Other">;</span> <span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">start</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span>
+    <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span>
+    <span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">ReadDirEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadEnvEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L193"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L193" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="replaceTypeVarsT,TReplTypeVars,PType">
+<dt><pre><span class="Keyword">proc</span> <a href="#replaceTypeVarsT%2CTReplTypeVars%2CPType"><span class="Identifier">replaceTypeVarsT</span></a><span class="Other">(</span><span class="Identifier">cl</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="semtypinst.html#TReplTypeVars"><span class="Identifier">TReplTypeVars</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L117"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L117" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="searchInstTypes,ModuleGraph,PType">
+<dt><pre><span class="Keyword">proc</span> <a href="#searchInstTypes%2CModuleGraph%2CPType"><span class="Identifier">searchInstTypes</span></a><span class="Other">(</span><span class="Identifier">g</span><span class="Other">:</span> <a href="modulegraphs.html#ModuleGraph"><span class="Identifier">ModuleGraph</span></a><span class="Other">;</span> <span class="Identifier">key</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ERecoverableError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadDirEffect</span><span class="Other">,</span> <span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L35"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L35" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="skipIntLiteralParams,PType,IdGenerator">
+<dt><pre><span class="Keyword">proc</span> <a href="#skipIntLiteralParams%2CPType%2CIdGenerator"><span class="Identifier">skipIntLiteralParams</span></a><span class="Other">(</span><span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">;</span> <span class="Identifier">idgen</span><span class="Other">:</span> <a href="ast.html#IdGenerator"><span class="Identifier">IdGenerator</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L469"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L469" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
 
 </dl></div>
 <div class="section" id="18">
 <h1><a class="toc-backref" href="#18">Templates</a></h1>
 <dl class="item">
-<a id="generateTypeInstance.t,PContext,TIdTable,PNode,PType"></a>
+<div id="generateTypeInstance.t,PContext,TIdTable,PNode,PType">
 <dt><pre><span class="Keyword">template</span> <a href="#generateTypeInstance.t%2CPContext%2CTIdTable%2CPNode%2CPType"><span class="Identifier">generateTypeInstance</span></a><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="semdata.html#PContext"><span class="Identifier">PContext</span></a><span class="Other">;</span> <span class="Identifier">pt</span><span class="Other">:</span> <a href="ast.html#TIdTable"><span class="Identifier">TIdTable</span></a><span class="Other">;</span> <span class="Identifier">arg</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">t</span><span class="Other">:</span> <a href="ast.html#PType"><span class="Identifier">PType</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/semtypinst.nim#L727"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/semtypinst.nim#L717"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L727" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/semtypinst.nim#L717" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
 
 </dl></div>
 
@@ -489,7 +490,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-05-25 01:02:41 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-11-27 01:08:11 UTC</small>
       </div>
     </div>
   </div>

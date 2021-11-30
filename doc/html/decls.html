@@ -17,7 +17,7 @@
 <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600' rel='stylesheet' type='text/css'/>
 
 <!-- CSS -->
-<title>decls</title>
+<title>std/decls</title>
 <link rel="stylesheet" type="text/css" href="nimdoc.out.css">
 
 <script type="text/javascript" src="dochack.js"></script>
@@ -34,7 +34,6 @@ function main() {
     }
   }
 
-  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
   function switchTheme(e) {
       if (e.target.checked) {
           document.documentElement.setAttribute('data-theme', 'dark');
@@ -45,24 +44,32 @@ function main() {
       }
   }
 
-  toggleSwitch.addEventListener('change', switchTheme, false);
+  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+  if (toggleSwitch !== null) {
+    toggleSwitch.addEventListener('change', switchTheme, false);
+  }
 
-  const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+  var currentTheme = localStorage.getItem('theme');
+  if (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    currentTheme = 'dark';
+  }
   if (currentTheme) {
     document.documentElement.setAttribute('data-theme', currentTheme);
 
-    if (currentTheme === 'dark') {
+    if (currentTheme === 'dark' && toggleSwitch !== null) {
       toggleSwitch.checked = true;
     }
   }
 }
+
+window.addEventListener('DOMContentLoaded', main);
 </script>
 
 </head>
-<body onload="main()">
+<body>
 <div class="document" id="documentId">
   <div class="container">
-    <h1 class="title">decls</h1>
+    <h1 class="title">std/decls</h1>
     <div class="row">
   <div class="three columns">
   <div class="theme-switch-wrapper">
@@ -74,21 +81,12 @@ function main() {
   </div>
   <div id="global-links">
     <ul class="simple-boot">
-      <li>
-        <a href="manual.html">Manual</a>
-      </li>
-      <li>
-        <a href="lib.html">Standard library</a>
-      </li>
-      <li>
-        <a href="theindex.html">Index</a>
-      </li>
-      <li>
-        <a href="compiler/theindex.html">Compiler docs</a>
-      </li>
-      <li>
-        <a href="https://nim-lang.github.io/fusion/theindex.html">Fusion docs</a>
-      </li>
+      <li><a href="manual.html">Manual</a></li>
+      <li><a href="lib.html">Standard library</a></li>
+      <li> <a href="theindex.html">Index</a></li>
+      <li><a href="compiler/theindex.html">Compiler docs</a></li>
+      <li><a href="https://nim-lang.github.io/fusion/theindex.html">Fusion docs</a></li>
+      <li><a href="https://nim-lang.github.io/Nim/">devel</a>, <a href="https://nim-lang.org/documentation.html">stable</a></li>
     </ul>
   </div>
   <div id="searchInputDiv">
@@ -100,8 +98,11 @@ function main() {
 <li>
   <a class="reference reference-toplevel" href="#18" id="68">Templates</a>
   <ul class="simple simple-toc-section">
+      <ul class="simple nested-toc-section">byaddr
       <li><a class="reference" href="#byaddr.t%2C%2C%2C"
-    title="byaddr(lhs, typ, ex)">byaddr</a></li>
+    title="byaddr(lhs, typ, ex)">byaddr(lhs, typ, ex)</a></li>
+
+  </ul>
 
   </ul>
 </li>
@@ -109,6 +110,11 @@ function main() {
 </ul>
 
   </div>
+  &nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/std/decls.nim#L1"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/std/decls.nim#L1" class="link-seesrc" target="_blank" >Edit</a>
+
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
@@ -116,25 +122,26 @@ function main() {
   <div class="section" id="18">
 <h1><a class="toc-backref" href="#18">Templates</a></h1>
 <dl class="item">
-<a id="byaddr.t,,,"></a>
+<div id="byaddr.t,,,">
 <dt><pre><span class="Keyword">template</span> <a href="#byaddr.t%2C%2C%2C"><span class="Identifier">byaddr</span></a><span class="Other">(</span><span class="Identifier">lhs</span><span class="Other">,</span> <span class="Identifier">typ</span><span class="Other">,</span> <span class="Identifier">ex</span><span class="Other">)</span></pre></dt>
 <dd>
 
-Allows a syntax for lvalue reference, exact analog to <tt class="docutils literal"><span class="pre">auto&amp; a = ex;</span></tt> in C++
+Allows a syntax for lvalue reference, exact analog to <tt class="docutils literal"><span class="pre"><span class="Identifier">auto</span><span class="Operator">&amp;</span> <span class="Identifier">a</span> <span class="Operator">=</span> <span class="Identifier">ex</span><span class="Punctuation">;</span></span></tt> in C++
 <p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Keyword">var</span><span class="Whitespace"> </span><span class="Identifier">s</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Operator">@</span><span class="Punctuation">[</span><span class="DecNumber">10</span><span class="Punctuation">,</span><span class="DecNumber">11</span><span class="Punctuation">,</span><span class="DecNumber">12</span><span class="Punctuation">]</span><span class="Whitespace">
-</span><span class="Keyword">var</span><span class="Whitespace"> </span><span class="Identifier">a</span><span class="Whitespace"> </span><span class="Punctuation">{</span><span class="Operator">.</span><span class="Identifier">byaddr</span><span class="Operator">.</span><span class="Punctuation">}</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">s</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span><span class="Whitespace">
-</span><span class="Identifier">a</span><span class="Operator">+=</span><span class="DecNumber">100</span><span class="Whitespace">
-</span><span class="Identifier">doAssert</span><span class="Whitespace"> </span><span class="Identifier">s</span><span class="Whitespace"> </span><span class="Operator">==</span><span class="Whitespace"> </span><span class="Operator">@</span><span class="Punctuation">[</span><span class="DecNumber">110</span><span class="Punctuation">,</span><span class="DecNumber">11</span><span class="Punctuation">,</span><span class="DecNumber">12</span><span class="Punctuation">]</span><span class="Whitespace">
-</span><span class="Identifier">doAssert</span><span class="Whitespace"> </span><span class="Identifier">a</span><span class="Whitespace"> </span><span class="Keyword">is</span><span class="Whitespace"> </span><span class="Identifier">int</span><span class="Whitespace">
-</span><span class="Keyword">var</span><span class="Whitespace"> </span><span class="Identifier">b</span><span class="Whitespace"> </span><span class="Punctuation">{</span><span class="Operator">.</span><span class="Identifier">byaddr</span><span class="Operator">.</span><span class="Punctuation">}</span><span class="Punctuation">:</span><span class="Whitespace"> </span><span class="Identifier">int</span><span class="Whitespace"> </span><span class="Operator">=</span><span class="Whitespace"> </span><span class="Identifier">s</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span><span class="Whitespace">
-</span><span class="Identifier">doAssert</span><span class="Whitespace"> </span><span class="Identifier">a</span><span class="Operator">.</span><span class="Keyword">addr</span><span class="Whitespace"> </span><span class="Operator">==</span><span class="Whitespace"> </span><span class="Identifier">b</span><span class="Operator">.</span><span class="Keyword">addr</span></pre>
+<pre class="listing"><span class="Keyword">var</span> <span class="Identifier">s</span> <span class="Operator">=</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="DecNumber">10</span><span class="Punctuation">,</span><span class="DecNumber">11</span><span class="Punctuation">,</span><span class="DecNumber">12</span><span class="Punctuation">]</span>
+<span class="Keyword">var</span> <span class="Identifier">a</span> <span class="Punctuation">{</span><span class="Operator">.</span><span class="Identifier">byaddr</span><span class="Operator">.</span><span class="Punctuation">}</span> <span class="Operator">=</span> <span class="Identifier">s</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span>
+<span class="Identifier">a</span><span class="Operator">+=</span><span class="DecNumber">100</span>
+<span class="Identifier">doAssert</span> <span class="Identifier">s</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="DecNumber">110</span><span class="Punctuation">,</span><span class="DecNumber">11</span><span class="Punctuation">,</span><span class="DecNumber">12</span><span class="Punctuation">]</span>
+<span class="Identifier">doAssert</span> <span class="Identifier">a</span> <span class="Keyword">is</span> <span class="Identifier">int</span>
+<span class="Keyword">var</span> <span class="Identifier">b</span> <span class="Punctuation">{</span><span class="Operator">.</span><span class="Identifier">byaddr</span><span class="Operator">.</span><span class="Punctuation">}</span><span class="Punctuation">:</span> <span class="Identifier">int</span> <span class="Operator">=</span> <span class="Identifier">s</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span>
+<span class="Identifier">doAssert</span> <span class="Identifier">a</span><span class="Operator">.</span><span class="Keyword">addr</span> <span class="Operator">==</span> <span class="Identifier">b</span><span class="Operator">.</span><span class="Keyword">addr</span></pre>
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/std/decls.nim#L4"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/std/decls.nim#L4"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/std/decls.nim#L4" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/std/decls.nim#L4" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
 
 </dl></div>
 
@@ -145,7 +152,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-05-25 01:00:36 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-11-27 01:06:17 UTC</small>
       </div>
     </div>
   </div>

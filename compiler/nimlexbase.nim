@@ -61,7 +61,7 @@ proc handleCR*(L: var TBaseLexer, pos: int): int
   # position to continue the scanning from. `pos` must be the position
   # of the CR.
 proc handleLF*(L: var TBaseLexer, pos: int): int
-  # Call this if you scanned over LF in the buffer; it returns the the
+  # Call this if you scanned over LF in the buffer; it returns the
   # position to continue the scanning from. `pos` must be the position
   # of the LF.
 # implementation
@@ -104,7 +104,7 @@ proc fillBuffer(L: var TBaseLexer) =
         oldBufLen = L.bufLen
         L.bufLen = L.bufLen * 2
         L.bufStorage.setLen(L.bufLen)
-        L.buf = L.bufStorage
+        L.buf = L.bufStorage.cstring
         assert(L.bufLen - oldBufLen == oldBufLen)
         charsRead = llStreamRead(L.stream, addr(L.buf[oldBufLen]),
                                  oldBufLen)
@@ -147,7 +147,7 @@ proc openBaseLexer(L: var TBaseLexer, inputstream: PLLStream, bufLen = 8192) =
   L.bufpos = 0
   L.offsetBase = 0
   L.bufStorage = newString(bufLen)
-  L.buf = L.bufStorage
+  L.buf = L.bufStorage.cstring
   L.bufLen = bufLen
   L.sentinel = bufLen - 1
   L.lineStart = 0

@@ -32,7 +32,7 @@ when defined(nimv2):
       else:
         dealloc(a.data)
 
-  proc `=`(a: var WideCStringObj; b: WideCStringObj) {.error.}
+  proc `=copy`(a: var WideCStringObj; b: WideCStringObj) {.error.}
 
   proc `=sink`(a: var WideCStringObj; b: WideCStringObj) =
     a.bytes = b.bytes
@@ -75,8 +75,8 @@ const
   UNI_REPLACEMENT_CHAR = Utf16Char(0xFFFD'i16)
   UNI_MAX_BMP = 0x0000FFFF
   UNI_MAX_UTF16 = 0x0010FFFF
-  UNI_MAX_UTF32 = 0x7FFFFFFF
-  UNI_MAX_LEGAL_UTF32 = 0x0010FFFF
+  # UNI_MAX_UTF32 = 0x7FFFFFFF
+  # UNI_MAX_LEGAL_UTF32 = 0x0010FFFF
 
   halfShift = 10
   halfBase = 0x0010000
@@ -91,7 +91,7 @@ const
 template ones(n: untyped): untyped = ((1 shl n)-1)
 
 template fastRuneAt(s: cstring, i, L: int, result: untyped, doInc = true) =
-  ## Returns the unicode character ``s[i]`` in `result`. If ``doInc == true``
+  ## Returns the unicode character `s[i]` in `result`. If `doInc == true`
   ## `i` is incremented by the number of bytes that have been processed.
   bind ones
 
@@ -142,6 +142,9 @@ iterator runes(s: cstring, L: int): int =
     fastRuneAt(s, i, L, result, true)
     yield result
 
+proc newWideCString*(size: int): WideCStringObj =
+  createWide(result, size * 2 + 2)
+
 proc newWideCString*(source: cstring, L: int): WideCStringObj =
   createWide(result, L * 2 + 2)
   var d = 0
@@ -168,7 +171,7 @@ proc newWideCString*(s: cstring): WideCStringObj =
   result = newWideCString(s, s.len)
 
 proc newWideCString*(s: string): WideCStringObj =
-  result = newWideCString(s, s.len)
+  result = newWideCString(cstring s, s.len)
 
 proc `$`*(w: WideCString, estimate: int, replacement: int = 0xFFFD): string =
   result = newStringOfCap(estimate + estimate shr 2)

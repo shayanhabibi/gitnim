@@ -17,7 +17,7 @@
 <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600' rel='stylesheet' type='text/css'/>
 
 <!-- CSS -->
-<title>stackframes</title>
+<title>std/stackframes</title>
 <link rel="stylesheet" type="text/css" href="nimdoc.out.css">
 
 <script type="text/javascript" src="dochack.js"></script>
@@ -34,7 +34,6 @@ function main() {
     }
   }
 
-  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
   function switchTheme(e) {
       if (e.target.checked) {
           document.documentElement.setAttribute('data-theme', 'dark');
@@ -45,24 +44,32 @@ function main() {
       }
   }
 
-  toggleSwitch.addEventListener('change', switchTheme, false);
+  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+  if (toggleSwitch !== null) {
+    toggleSwitch.addEventListener('change', switchTheme, false);
+  }
 
-  const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+  var currentTheme = localStorage.getItem('theme');
+  if (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    currentTheme = 'dark';
+  }
   if (currentTheme) {
     document.documentElement.setAttribute('data-theme', currentTheme);
 
-    if (currentTheme === 'dark') {
+    if (currentTheme === 'dark' && toggleSwitch !== null) {
       toggleSwitch.checked = true;
     }
   }
 }
+
+window.addEventListener('DOMContentLoaded', main);
 </script>
 
 </head>
-<body onload="main()">
+<body>
 <div class="document" id="documentId">
   <div class="container">
-    <h1 class="title">stackframes</h1>
+    <h1 class="title">std/stackframes</h1>
     <div class="row">
   <div class="three columns">
   <div class="theme-switch-wrapper">
@@ -74,21 +81,12 @@ function main() {
   </div>
   <div id="global-links">
     <ul class="simple-boot">
-      <li>
-        <a href="manual.html">Manual</a>
-      </li>
-      <li>
-        <a href="lib.html">Standard library</a>
-      </li>
-      <li>
-        <a href="theindex.html">Index</a>
-      </li>
-      <li>
-        <a href="compiler/theindex.html">Compiler docs</a>
-      </li>
-      <li>
-        <a href="https://nim-lang.github.io/fusion/theindex.html">Fusion docs</a>
-      </li>
+      <li><a href="manual.html">Manual</a></li>
+      <li><a href="lib.html">Standard library</a></li>
+      <li> <a href="theindex.html">Index</a></li>
+      <li><a href="compiler/theindex.html">Compiler docs</a></li>
+      <li><a href="https://nim-lang.github.io/fusion/theindex.html">Fusion docs</a></li>
+      <li><a href="https://nim-lang.github.io/Nim/">devel</a>, <a href="https://nim-lang.org/documentation.html">stable</a></li>
     </ul>
   </div>
   <div id="searchInputDiv">
@@ -100,12 +98,21 @@ function main() {
 <li>
   <a class="reference reference-toplevel" href="#18" id="68">Templates</a>
   <ul class="simple simple-toc-section">
+      <ul class="simple nested-toc-section">getPFrame
+      <li><a class="reference" href="#getPFrame.t"
+    title="getPFrame(): PFrame">getPFrame(): PFrame</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">procName
       <li><a class="reference" href="#procName.t"
-    title="procName(): string">procName</a></li>
-  <li><a class="reference" href="#getPFrame.t"
-    title="getPFrame(): PFrame">getPFrame</a></li>
-  <li><a class="reference" href="#setFrameMsg.t%2Cstring%2Cstring"
-    title="setFrameMsg(msg: string; prefix = &quot; &quot;)">setFrameMsg</a></li>
+    title="procName(): string">procName(): string</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setFrameMsg
+      <li><a class="reference" href="#setFrameMsg.t%2Cstring%2Cstring"
+    title="setFrameMsg(msg: string; prefix = &quot; &quot;)">setFrameMsg(msg: string; prefix = &quot; &quot;)</a></li>
+
+  </ul>
 
   </ul>
 </li>
@@ -113,6 +120,11 @@ function main() {
 </ul>
 
   </div>
+  &nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/std/stackframes.nim#L1"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/std/stackframes.nim#L1" class="link-seesrc" target="_blank" >Edit</a>
+
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
@@ -120,39 +132,42 @@ function main() {
   <div class="section" id="18">
 <h1><a class="toc-backref" href="#18">Templates</a></h1>
 <dl class="item">
-<a id="procName.t"></a>
+<div id="getPFrame.t">
+<dt><pre><span class="Keyword">template</span> <a href="#getPFrame.t"><span class="Identifier">getPFrame</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#PFrame"><span class="Identifier">PFrame</span></a></pre></dt>
+<dd>
+
+avoids a function call (unlike <tt class="docutils literal"><span class="pre"><span class="Identifier">getFrame</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>)
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/std/stackframes.nim#L11"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/std/stackframes.nim#L11" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="procName.t">
 <dt><pre><span class="Keyword">template</span> <a href="#procName.t"><span class="Identifier">procName</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a></pre></dt>
 <dd>
 
 returns current C/C++ function name
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/std/stackframes.nim#L4"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/std/stackframes.nim#L4"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/std/stackframes.nim#L4" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/std/stackframes.nim#L4" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="getPFrame.t"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#getPFrame.t"><span class="Identifier">getPFrame</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#PFrame"><span class="Identifier">PFrame</span></a></pre></dt>
-<dd>
-
-avoids a function call (unlike <tt class="docutils literal"><span class="pre">getFrame()</span></tt>)
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/std/stackframes.nim#L11"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/std/stackframes.nim#L11" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="setFrameMsg.t,string,string"></a>
+</div>
+<div id="setFrameMsg.t,string,string">
 <dt><pre><span class="Keyword">template</span> <a href="#setFrameMsg.t%2Cstring%2Cstring"><span class="Identifier">setFrameMsg</span></a><span class="Other">(</span><span class="Identifier">msg</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a><span class="Other">;</span> <span class="Identifier">prefix</span> <span class="Other">=</span> <span class="StringLit">&quot; &quot;</span><span class="Other">)</span></pre></dt>
 <dd>
 
-attach a msg to current <tt class="docutils literal"><span class="pre">PFrame</span></tt>. This can be called multiple times in a given PFrame. Noop unless passing --stacktraceMsgs and --stacktrace
+attach a msg to current <tt class="docutils literal"><span class="pre"><span class="Identifier">PFrame</span></span></tt>. This can be called multiple times in a given PFrame. Noop unless passing --stacktraceMsgs and --stacktrace
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/std/stackframes.nim#L19"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/std/stackframes.nim#L19"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/std/stackframes.nim#L19" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/std/stackframes.nim#L19" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
 
 </dl></div>
 
@@ -163,7 +178,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-05-25 01:00:41 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-11-27 01:06:27 UTC</small>
       </div>
     </div>
   </div>

@@ -17,7 +17,7 @@
 <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600' rel='stylesheet' type='text/css'/>
 
 <!-- CSS -->
-<title>terminal</title>
+<title>std/terminal</title>
 <link rel="stylesheet" type="text/css" href="nimdoc.out.css">
 
 <script type="text/javascript" src="dochack.js"></script>
@@ -34,7 +34,6 @@ function main() {
     }
   }
 
-  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
   function switchTheme(e) {
       if (e.target.checked) {
           document.documentElement.setAttribute('data-theme', 'dark');
@@ -45,24 +44,32 @@ function main() {
       }
   }
 
-  toggleSwitch.addEventListener('change', switchTheme, false);
+  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+  if (toggleSwitch !== null) {
+    toggleSwitch.addEventListener('change', switchTheme, false);
+  }
 
-  const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+  var currentTheme = localStorage.getItem('theme');
+  if (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    currentTheme = 'dark';
+  }
   if (currentTheme) {
     document.documentElement.setAttribute('data-theme', currentTheme);
 
-    if (currentTheme === 'dark') {
+    if (currentTheme === 'dark' && toggleSwitch !== null) {
       toggleSwitch.checked = true;
     }
   }
 }
+
+window.addEventListener('DOMContentLoaded', main);
 </script>
 
 </head>
-<body onload="main()">
+<body>
 <div class="document" id="documentId">
   <div class="container">
-    <h1 class="title">terminal</h1>
+    <h1 class="title">std/terminal</h1>
     <div class="row">
   <div class="three columns">
   <div class="theme-switch-wrapper">
@@ -74,21 +81,12 @@ function main() {
   </div>
   <div id="global-links">
     <ul class="simple-boot">
-      <li>
-        <a href="manual.html">Manual</a>
-      </li>
-      <li>
-        <a href="lib.html">Standard library</a>
-      </li>
-      <li>
-        <a href="theindex.html">Index</a>
-      </li>
-      <li>
-        <a href="compiler/theindex.html">Compiler docs</a>
-      </li>
-      <li>
-        <a href="https://nim-lang.github.io/fusion/theindex.html">Fusion docs</a>
-      </li>
+      <li><a href="manual.html">Manual</a></li>
+      <li><a href="lib.html">Standard library</a></li>
+      <li> <a href="theindex.html">Index</a></li>
+      <li><a href="compiler/theindex.html">Compiler docs</a></li>
+      <li><a href="https://nim-lang.github.io/fusion/theindex.html">Fusion docs</a></li>
+      <li><a href="https://nim-lang.github.io/Nim/">devel</a>, <a href="https://nim-lang.org/documentation.html">stable</a></li>
     </ul>
   </div>
   <div id="searchInputDiv">
@@ -97,7 +95,9 @@ function main() {
   </div>
   
   <ul class="simple simple-toc" id="toc-list">
-<li>
+<li><a class="reference" id="progress-bar_toc" href="#progress-bar">Progress bar</a></li>
+<ul class="simple"><li><a class="reference" id="progress-bar-playing-with-colorful-and-styled-text_toc" href="#progress-bar-playing-with-colorful-and-styled-text">Playing with colorful and styled text</a></li>
+</ul><li>
   <a class="reference reference-toplevel" href="#6" id="56">Imports</a>
   <ul class="simple simple-toc-section">
     
@@ -106,17 +106,18 @@ function main() {
 <li>
   <a class="reference reference-toplevel" href="#7" id="57">Types</a>
   <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#Style"
-    title="Style = enum
-  styleBright = 1,          ## bright text
-  styleDim,                 ## dim text
-  styleItalic,              ## italic (or reverse on terminals not supporting)
-  styleUnderscore,          ## underscored text
-  styleBlink,               ## blinking/bold text
-  styleBlinkRapid,          ## rapid blinking/bold text (not widely supported)
-  styleReverse,             ## reverse
-  styleHidden,              ## hidden text
-  styleStrikethrough         ## strikethrough">Style</a></li>
+      <li><a class="reference" href="#BackgroundColor"
+    title="BackgroundColor = enum
+  bgBlack = 40,             ## black
+  bgRed,                    ## red
+  bgGreen,                  ## green
+  bgYellow,                 ## yellow
+  bgBlue,                   ## blue
+  bgMagenta,                ## magenta
+  bgCyan,                   ## cyan
+  bgWhite,                  ## white
+  bg8Bit,                   ## 256-color (not supported, see `enableTrueColors` instead.)
+  bgDefault                  ## default terminal background color">BackgroundColor</a></li>
   <li><a class="reference" href="#ForegroundColor"
     title="ForegroundColor = enum
   fgBlack = 30,             ## black
@@ -127,25 +128,24 @@ function main() {
   fgMagenta,                ## magenta
   fgCyan,                   ## cyan
   fgWhite,                  ## white
-  fg8Bit,                   ## 256-color (not supported, see ``enableTrueColors`` instead.)
+  fg8Bit,                   ## 256-color (not supported, see `enableTrueColors` instead.)
   fgDefault                  ## default terminal foreground color">ForegroundColor</a></li>
-  <li><a class="reference" href="#BackgroundColor"
-    title="BackgroundColor = enum
-  bgBlack = 40,             ## black
-  bgRed,                    ## red
-  bgGreen,                  ## green
-  bgYellow,                 ## yellow
-  bgBlue,                   ## blue
-  bgMagenta,                ## magenta
-  bgCyan,                   ## cyan
-  bgWhite,                  ## white
-  bg8Bit,                   ## 256-color (not supported, see ``enableTrueColors`` instead.)
-  bgDefault                  ## default terminal background color">BackgroundColor</a></li>
+  <li><a class="reference" href="#Style"
+    title="Style = enum
+  styleBright = 1,          ## bright text
+  styleDim,                 ## dim text
+  styleItalic,              ## italic (or reverse on terminals not supporting)
+  styleUnderscore,          ## underscored text
+  styleBlink,               ## blinking/bold text
+  styleBlinkRapid,          ## rapid blinking/bold text (not widely supported)
+  styleReverse,             ## reverse
+  styleHidden,              ## hidden text
+  styleStrikethrough         ## strikethrough">Style</a></li>
   <li><a class="reference" href="#TerminalCmd"
     title="TerminalCmd = enum
   resetStyle,               ## reset attributes
-  fgColor,                  ## set foreground&apos;s true color
-  bgColor                    ## set background&apos;s true color">TerminalCmd</a></li>
+  fgColor,                  ## set foreground's true color
+  bgColor                    ## set background's true color">TerminalCmd</a></li>
 
   </ul>
 </li>
@@ -162,162 +162,162 @@ function main() {
   <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">ansiBackgroundColorCode
       <li><a class="reference" href="#ansiBackgroundColorCode%2CColor"
-    title="ansiBackgroundColorCode(color: Color): string">ansiBackgroundColorCode,<wbr>Color</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">resetAttributes
-      <li><a class="reference" href="#resetAttributes%2CFile"
-    title="resetAttributes(f: File)">resetAttributes,<wbr>File</a></li>
-  <li><a class="reference" href="#resetAttributes"
-    title="resetAttributes()">resetAttributes</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">terminalWidth
-      <li><a class="reference" href="#terminalWidth"
-    title="terminalWidth(): int">terminalWidth</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">cursorForward
-      <li><a class="reference" href="#cursorForward%2CFile%2Cint"
-    title="cursorForward(f: File; count = 1)">cursorForward,<wbr>File,<wbr>int</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">setForegroundColor
-      <li><a class="reference" href="#setForegroundColor%2CFile%2CForegroundColor"
-    title="setForegroundColor(f: File; fg: ForegroundColor; bright = false)">setForegroundColor,<wbr>File,<wbr>ForegroundColor</a></li>
-  <li><a class="reference" href="#setForegroundColor%2CFile%2CColor"
-    title="setForegroundColor(f: File; color: Color)">setForegroundColor,<wbr>File,<wbr>Color</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">cursorUp
-      <li><a class="reference" href="#cursorUp%2CFile%2Cint"
-    title="cursorUp(f: File; count = 1)">cursorUp,<wbr>File,<wbr>int</a></li>
+    title="ansiBackgroundColorCode(color: Color): string">ansiBackgroundColorCode(color: Color): string</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">ansiForegroundColorCode
-      <li><a class="reference" href="#ansiForegroundColorCode%2CForegroundColor"
-    title="ansiForegroundColorCode(fg: ForegroundColor; bright = false): string">ansiForegroundColorCode,<wbr>ForegroundColor</a></li>
-  <li><a class="reference" href="#ansiForegroundColorCode%2CColor"
-    title="ansiForegroundColorCode(color: Color): string">ansiForegroundColorCode,<wbr>Color</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">setCursorYPos
-      <li><a class="reference" href="#setCursorYPos%2CFile%2Cint"
-    title="setCursorYPos(f: File; y: int)">setCursorYPos,<wbr>File,<wbr>int</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">eraseScreen
-      <li><a class="reference" href="#eraseScreen%2CFile"
-    title="eraseScreen(f: File)">eraseScreen,<wbr>File</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">isatty
-      <li><a class="reference" href="#isatty%2CFile"
-    title="isatty(f: File): bool">isatty,<wbr>File</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">setStyle
-      <li><a class="reference" href="#setStyle%2CFile%2Cset%5BStyle%5D"
-    title="setStyle(f: File; style: set[Style])">setStyle,<wbr>File,<wbr>set[Style]</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">setCursorPos
-      <li><a class="reference" href="#setCursorPos%2CFile%2Cint%2Cint"
-    title="setCursorPos(f: File; x, y: int)">setCursorPos,<wbr>File,<wbr>int,<wbr>int</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">setCursorXPos
-      <li><a class="reference" href="#setCursorXPos%2CFile%2Cint"
-    title="setCursorXPos(f: File; x: int)">setCursorXPos,<wbr>File,<wbr>int</a></li>
+      <li><a class="reference" href="#ansiForegroundColorCode%2CColor"
+    title="ansiForegroundColorCode(color: Color): string">ansiForegroundColorCode(color: Color): string</a></li>
+  <li><a class="reference" href="#ansiForegroundColorCode%2CForegroundColor"
+    title="ansiForegroundColorCode(fg: ForegroundColor; bright = false): string">ansiForegroundColorCode(fg: ForegroundColor; bright = false): string</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">ansiStyleCode
       <li><a class="reference" href="#ansiStyleCode%2Cint"
-    title="ansiStyleCode(style: int): string">ansiStyleCode,<wbr>int</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">terminalSize
-      <li><a class="reference" href="#terminalSize"
-    title="terminalSize(): tuple[w, h: int]">terminalSize</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">readPasswordFromStdin
-      <li><a class="reference" href="#readPasswordFromStdin%2Cstring%2CTaintedString"
-    title="readPasswordFromStdin(prompt: string; password: var TaintedString): bool">readPasswordFromStdin,<wbr>string,<wbr>TaintedString</a></li>
-  <li><a class="reference" href="#readPasswordFromStdin%2Cstring"
-    title="readPasswordFromStdin(prompt = &quot;password: &quot;): TaintedString">readPasswordFromStdin,<wbr>string</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">showCursor
-      <li><a class="reference" href="#showCursor%2CFile"
-    title="showCursor(f: File)">showCursor,<wbr>File</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">writeStyled
-      <li><a class="reference" href="#writeStyled%2Cstring%2Cset%5BStyle%5D"
-    title="writeStyled(txt: string; style: set[Style] = {styleBright})">writeStyled,<wbr>string,<wbr>set[Style]</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">terminalWidthIoctl
-      <li><a class="reference" href="#terminalWidthIoctl%2CopenArray%5BHandle%5D"
-    title="terminalWidthIoctl(handles: openArray[Handle]): int">terminalWidthIoctl,<wbr>openArray[Handle]</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">setBackgroundColor
-      <li><a class="reference" href="#setBackgroundColor%2CFile%2CBackgroundColor"
-    title="setBackgroundColor(f: File; bg: BackgroundColor; bright = false)">setBackgroundColor,<wbr>File,<wbr>BackgroundColor</a></li>
-  <li><a class="reference" href="#setBackgroundColor%2CFile%2CColor"
-    title="setBackgroundColor(f: File; color: Color)">setBackgroundColor,<wbr>File,<wbr>Color</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">disableTrueColors
-      <li><a class="reference" href="#disableTrueColors"
-    title="disableTrueColors()">disableTrueColors</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">hideCursor
-      <li><a class="reference" href="#hideCursor%2CFile"
-    title="hideCursor(f: File)">hideCursor,<wbr>File</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">enableTrueColors
-      <li><a class="reference" href="#enableTrueColors"
-    title="enableTrueColors()">enableTrueColors</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">terminalHeight
-      <li><a class="reference" href="#terminalHeight"
-    title="terminalHeight(): int">terminalHeight</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">isTrueColorSupported
-      <li><a class="reference" href="#isTrueColorSupported"
-    title="isTrueColorSupported(): bool">isTrueColorSupported</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">cursorDown
-      <li><a class="reference" href="#cursorDown%2CFile%2Cint"
-    title="cursorDown(f: File; count = 1)">cursorDown,<wbr>File,<wbr>int</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">terminalHeightIoctl
-      <li><a class="reference" href="#terminalHeightIoctl%2CopenArray%5BHandle%5D"
-    title="terminalHeightIoctl(handles: openArray[Handle]): int">terminalHeightIoctl,<wbr>openArray[Handle]</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">eraseLine
-      <li><a class="reference" href="#eraseLine%2CFile"
-    title="eraseLine(f: File)">eraseLine,<wbr>File</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">getch
-      <li><a class="reference" href="#getch"
-    title="getch(): char">getch</a></li>
+    title="ansiStyleCode(style: int): string">ansiStyleCode(style: int): string</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">cursorBackward
       <li><a class="reference" href="#cursorBackward%2CFile%2Cint"
-    title="cursorBackward(f: File; count = 1)">cursorBackward,<wbr>File,<wbr>int</a></li>
+    title="cursorBackward(f: File; count = 1)">cursorBackward(f: File; count = 1)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">cursorDown
+      <li><a class="reference" href="#cursorDown%2CFile%2Cint"
+    title="cursorDown(f: File; count = 1)">cursorDown(f: File; count = 1)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">cursorForward
+      <li><a class="reference" href="#cursorForward%2CFile%2Cint"
+    title="cursorForward(f: File; count = 1)">cursorForward(f: File; count = 1)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">cursorUp
+      <li><a class="reference" href="#cursorUp%2CFile%2Cint"
+    title="cursorUp(f: File; count = 1)">cursorUp(f: File; count = 1)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">disableTrueColors
+      <li><a class="reference" href="#disableTrueColors"
+    title="disableTrueColors()">disableTrueColors()</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">enableTrueColors
+      <li><a class="reference" href="#enableTrueColors"
+    title="enableTrueColors()">enableTrueColors()</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">eraseLine
+      <li><a class="reference" href="#eraseLine%2CFile"
+    title="eraseLine(f: File)">eraseLine(f: File)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">eraseScreen
+      <li><a class="reference" href="#eraseScreen%2CFile"
+    title="eraseScreen(f: File)">eraseScreen(f: File)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">getch
+      <li><a class="reference" href="#getch"
+    title="getch(): char">getch(): char</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">hideCursor
+      <li><a class="reference" href="#hideCursor%2CFile"
+    title="hideCursor(f: File)">hideCursor(f: File)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">isatty
+      <li><a class="reference" href="#isatty%2CFile"
+    title="isatty(f: File): bool">isatty(f: File): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">isTrueColorSupported
+      <li><a class="reference" href="#isTrueColorSupported"
+    title="isTrueColorSupported(): bool">isTrueColorSupported(): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">readPasswordFromStdin
+      <li><a class="reference" href="#readPasswordFromStdin%2Cstring"
+    title="readPasswordFromStdin(prompt = &quot;password: &quot;): string">readPasswordFromStdin(prompt = &quot;password: &quot;): string</a></li>
+  <li><a class="reference" href="#readPasswordFromStdin%2Cstring%2Cstring"
+    title="readPasswordFromStdin(prompt: string; password: var string): bool">readPasswordFromStdin(prompt: string; password: var string): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">resetAttributes
+      <li><a class="reference" href="#resetAttributes"
+    title="resetAttributes()">resetAttributes()</a></li>
+  <li><a class="reference" href="#resetAttributes%2CFile"
+    title="resetAttributes(f: File)">resetAttributes(f: File)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setBackgroundColor
+      <li><a class="reference" href="#setBackgroundColor%2CFile%2CBackgroundColor"
+    title="setBackgroundColor(f: File; bg: BackgroundColor; bright = false)">setBackgroundColor(f: File; bg: BackgroundColor; bright = false)</a></li>
+  <li><a class="reference" href="#setBackgroundColor%2CFile%2CColor"
+    title="setBackgroundColor(f: File; color: Color)">setBackgroundColor(f: File; color: Color)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setCursorPos
+      <li><a class="reference" href="#setCursorPos%2CFile%2Cint%2Cint"
+    title="setCursorPos(f: File; x, y: int)">setCursorPos(f: File; x, y: int)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setCursorXPos
+      <li><a class="reference" href="#setCursorXPos%2CFile%2Cint"
+    title="setCursorXPos(f: File; x: int)">setCursorXPos(f: File; x: int)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setCursorYPos
+      <li><a class="reference" href="#setCursorYPos%2CFile%2Cint"
+    title="setCursorYPos(f: File; y: int)">setCursorYPos(f: File; y: int)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setForegroundColor
+      <li><a class="reference" href="#setForegroundColor%2CFile%2CColor"
+    title="setForegroundColor(f: File; color: Color)">setForegroundColor(f: File; color: Color)</a></li>
+  <li><a class="reference" href="#setForegroundColor%2CFile%2CForegroundColor"
+    title="setForegroundColor(f: File; fg: ForegroundColor; bright = false)">setForegroundColor(f: File; fg: ForegroundColor; bright = false)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setStyle
+      <li><a class="reference" href="#setStyle%2CFile%2Cset%5BStyle%5D"
+    title="setStyle(f: File; style: set[Style])">setStyle(f: File; style: set[Style])</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">showCursor
+      <li><a class="reference" href="#showCursor%2CFile"
+    title="showCursor(f: File)">showCursor(f: File)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">terminalHeight
+      <li><a class="reference" href="#terminalHeight"
+    title="terminalHeight(): int">terminalHeight(): int</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">terminalHeightIoctl
+      <li><a class="reference" href="#terminalHeightIoctl%2CopenArray%5BHandle%5D"
+    title="terminalHeightIoctl(handles: openArray[Handle]): int">terminalHeightIoctl(handles: openArray[Handle]): int</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">terminalSize
+      <li><a class="reference" href="#terminalSize"
+    title="terminalSize(): tuple[w, h: int]">terminalSize(): tuple[w, h: int]</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">terminalWidth
+      <li><a class="reference" href="#terminalWidth"
+    title="terminalWidth(): int">terminalWidth(): int</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">terminalWidthIoctl
+      <li><a class="reference" href="#terminalWidthIoctl%2CopenArray%5BHandle%5D"
+    title="terminalWidthIoctl(handles: openArray[Handle]): int">terminalWidthIoctl(handles: openArray[Handle]): int</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">writeStyled
+      <li><a class="reference" href="#writeStyled%2Cstring%2Cset%5BStyle%5D"
+    title="writeStyled(txt: string; style: set[Style] = {styleBright})">writeStyled(txt: string; style: set[Style] = {styleBright})</a></li>
 
   </ul>
 
@@ -326,61 +326,122 @@ function main() {
 <li>
   <a class="reference reference-toplevel" href="#17" id="67">Macros</a>
   <ul class="simple simple-toc-section">
+      <ul class="simple nested-toc-section">styledWrite
       <li><a class="reference" href="#styledWrite.m%2CFile%2Cvarargs%5Btyped%5D"
-    title="styledWrite(f: File; m: varargs[typed]): untyped">styledWrite</a></li>
+    title="styledWrite(f: File; m: varargs[typed]): untyped">styledWrite(f: File; m: varargs[typed]): untyped</a></li>
+
+  </ul>
 
   </ul>
 </li>
 <li>
   <a class="reference reference-toplevel" href="#18" id="68">Templates</a>
   <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#ansiStyleCode.t%2CStyle"
-    title="ansiStyleCode(style: Style): string">ansiStyleCode</a></li>
-  <li><a class="reference" href="#ansiStyleCode.t%2Cstatic%5BStyle%5D"
-    title="ansiStyleCode(style: static[Style]): string">ansiStyleCode</a></li>
+      <ul class="simple nested-toc-section">ansiBackgroundColorCode
+      <li><a class="reference" href="#ansiBackgroundColorCode.t%2Cstatic%5BColor%5D"
+    title="ansiBackgroundColorCode(color: static[Color]): string">ansiBackgroundColorCode(color: static[Color]): string</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">ansiForegroundColorCode
+      <li><a class="reference" href="#ansiForegroundColorCode.t%2Cstatic%5BColor%5D"
+    title="ansiForegroundColorCode(color: static[Color]): string">ansiForegroundColorCode(color: static[Color]): string</a></li>
   <li><a class="reference" href="#ansiForegroundColorCode.t%2Cstatic%5BForegroundColor%5D%2Cstatic%5Bbool%5D"
     title="ansiForegroundColorCode(fg: static[ForegroundColor];
-                        bright: static[bool] = false): string">ansiForegroundColorCode</a></li>
-  <li><a class="reference" href="#ansiForegroundColorCode.t%2Cstatic%5BColor%5D"
-    title="ansiForegroundColorCode(color: static[Color]): string">ansiForegroundColorCode</a></li>
-  <li><a class="reference" href="#ansiBackgroundColorCode.t%2Cstatic%5BColor%5D"
-    title="ansiBackgroundColorCode(color: static[Color]): string">ansiBackgroundColorCode</a></li>
-  <li><a class="reference" href="#styledWriteLine.t%2CFile%2Cvarargs%5Buntyped%5D"
-    title="styledWriteLine(f: File; args: varargs[untyped])">styledWriteLine</a></li>
-  <li><a class="reference" href="#styledEcho.t%2Cvarargs%5Buntyped%5D"
-    title="styledEcho(args: varargs[untyped])">styledEcho</a></li>
-  <li><a class="reference" href="#hideCursor.t"
-    title="hideCursor()">hideCursor</a></li>
-  <li><a class="reference" href="#showCursor.t"
-    title="showCursor()">showCursor</a></li>
-  <li><a class="reference" href="#setCursorPos.t%2Cint%2Cint"
-    title="setCursorPos(x, y: int)">setCursorPos</a></li>
-  <li><a class="reference" href="#setCursorXPos.t%2Cint"
-    title="setCursorXPos(x: int)">setCursorXPos</a></li>
-  <li><a class="reference" href="#setCursorYPos.t%2Cint"
-    title="setCursorYPos(x: int)">setCursorYPos</a></li>
-  <li><a class="reference" href="#cursorUp.t%2Cint"
-    title="cursorUp(count = 1)">cursorUp</a></li>
-  <li><a class="reference" href="#cursorDown.t%2Cint"
-    title="cursorDown(count = 1)">cursorDown</a></li>
-  <li><a class="reference" href="#cursorForward.t%2Cint"
-    title="cursorForward(count = 1)">cursorForward</a></li>
-  <li><a class="reference" href="#cursorBackward.t%2Cint"
-    title="cursorBackward(count = 1)">cursorBackward</a></li>
-  <li><a class="reference" href="#eraseLine.t"
-    title="eraseLine()">eraseLine</a></li>
-  <li><a class="reference" href="#eraseScreen.t"
-    title="eraseScreen()">eraseScreen</a></li>
-  <li><a class="reference" href="#setStyle.t%2Cset%5BStyle%5D"
-    title="setStyle(style: set[Style])">setStyle</a></li>
-  <li><a class="reference" href="#setForegroundColor.t%2CForegroundColor"
-    title="setForegroundColor(fg: ForegroundColor; bright = false)">setForegroundColor</a></li>
-  <li><a class="reference" href="#setBackgroundColor.t%2CBackgroundColor"
-    title="setBackgroundColor(bg: BackgroundColor; bright = false)">setBackgroundColor</a></li>
-  <li><a class="reference" href="#setForegroundColor.t%2CColor"
-    title="setForegroundColor(color: Color)">setForegroundColor</a></li>
+                        bright: static[bool] = false): string">ansiForegroundColorCode(fg: static[ForegroundColor];
+                        bright: static[bool] = false): string</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">ansiStyleCode
+      <li><a class="reference" href="#ansiStyleCode.t%2Cstatic%5BStyle%5D"
+    title="ansiStyleCode(style: static[Style]): string">ansiStyleCode(style: static[Style]): string</a></li>
+  <li><a class="reference" href="#ansiStyleCode.t%2CStyle"
+    title="ansiStyleCode(style: Style): string">ansiStyleCode(style: Style): string</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">cursorBackward
+      <li><a class="reference" href="#cursorBackward.t%2Cint"
+    title="cursorBackward(count = 1)">cursorBackward(count = 1)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">cursorDown
+      <li><a class="reference" href="#cursorDown.t%2Cint"
+    title="cursorDown(count = 1)">cursorDown(count = 1)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">cursorForward
+      <li><a class="reference" href="#cursorForward.t%2Cint"
+    title="cursorForward(count = 1)">cursorForward(count = 1)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">cursorUp
+      <li><a class="reference" href="#cursorUp.t%2Cint"
+    title="cursorUp(count = 1)">cursorUp(count = 1)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">eraseLine
+      <li><a class="reference" href="#eraseLine.t"
+    title="eraseLine()">eraseLine()</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">eraseScreen
+      <li><a class="reference" href="#eraseScreen.t"
+    title="eraseScreen()">eraseScreen()</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">hideCursor
+      <li><a class="reference" href="#hideCursor.t"
+    title="hideCursor()">hideCursor()</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setBackgroundColor
+      <li><a class="reference" href="#setBackgroundColor.t%2CBackgroundColor"
+    title="setBackgroundColor(bg: BackgroundColor; bright = false)">setBackgroundColor(bg: BackgroundColor; bright = false)</a></li>
   <li><a class="reference" href="#setBackgroundColor.t%2CColor"
-    title="setBackgroundColor(color: Color)">setBackgroundColor</a></li>
+    title="setBackgroundColor(color: Color)">setBackgroundColor(color: Color)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setCursorPos
+      <li><a class="reference" href="#setCursorPos.t%2Cint%2Cint"
+    title="setCursorPos(x, y: int)">setCursorPos(x, y: int)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setCursorXPos
+      <li><a class="reference" href="#setCursorXPos.t%2Cint"
+    title="setCursorXPos(x: int)">setCursorXPos(x: int)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setCursorYPos
+      <li><a class="reference" href="#setCursorYPos.t%2Cint"
+    title="setCursorYPos(x: int)">setCursorYPos(x: int)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setForegroundColor
+      <li><a class="reference" href="#setForegroundColor.t%2CColor"
+    title="setForegroundColor(color: Color)">setForegroundColor(color: Color)</a></li>
+  <li><a class="reference" href="#setForegroundColor.t%2CForegroundColor"
+    title="setForegroundColor(fg: ForegroundColor; bright = false)">setForegroundColor(fg: ForegroundColor; bright = false)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setStyle
+      <li><a class="reference" href="#setStyle.t%2Cset%5BStyle%5D"
+    title="setStyle(style: set[Style])">setStyle(style: set[Style])</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">showCursor
+      <li><a class="reference" href="#showCursor.t"
+    title="showCursor()">showCursor()</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">styledEcho
+      <li><a class="reference" href="#styledEcho.t%2Cvarargs%5Buntyped%5D"
+    title="styledEcho(args: varargs[untyped])">styledEcho(args: varargs[untyped])</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">styledWriteLine
+      <li><a class="reference" href="#styledWriteLine.t%2CFile%2Cvarargs%5Buntyped%5D"
+    title="styledWriteLine(f: File; args: varargs[untyped])">styledWriteLine(f: File; args: varargs[untyped])</a></li>
+
+  </ul>
 
   </ul>
 </li>
@@ -388,19 +449,99 @@ function main() {
 </ul>
 
   </div>
+  &nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L1"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L1" class="link-seesrc" target="_blank" >Edit</a>
+
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
-  <p class="module-desc">This module contains a few procedures to control the <em>terminal</em> (also called <em>console</em>). On UNIX, the implementation simply uses ANSI escape sequences and does not depend on any other module, on Windows it uses the Windows API. Changing the style is permanent even after program termination! Use the code <tt class="docutils literal"><span class="pre">system.addQuitProc(resetAttributes)</span></tt> to restore the defaults. Similarly, if you hide the cursor, make sure to unhide it with <tt class="docutils literal"><span class="pre">showCursor</span></tt> before quitting.</p>
+  <p class="module-desc">This module contains a few procedures to control the <em>terminal</em> (also called <em>console</em>). On UNIX, the implementation simply uses ANSI escape sequences and does not depend on any other module, on Windows it uses the Windows API. Changing the style is permanent even after program termination! Use the code <tt class="docutils literal"><span class="pre"><span class="Identifier">exitprocs</span><span class="Operator">.</span><span class="Identifier">addExitProc</span><span class="Punctuation">(</span><span class="Identifier">resetAttributes</span><span class="Punctuation">)</span></span></tt> to restore the defaults. Similarly, if you hide the cursor, make sure to unhide it with <tt class="docutils literal"><span class="pre"><span class="Identifier">showCursor</span></span></tt> before quitting.
+<h1><a class="toc-backref" id="progress-bar" href="#progress-bar">Progress bar</a></h1><p>Basic progress bar example:</p>
+
+<p><strong class="examples_text">Example: cmd: -r:off</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">std</span><span class="Operator">/</span><span class="Identifier">terminal</span>
+<span class="Keyword">import</span> <span class="Identifier">std</span><span class="Operator">/</span><span class="Punctuation">[</span><span class="Identifier">os</span><span class="Punctuation">,</span> <span class="Identifier">strutils</span><span class="Punctuation">]</span>
+
+<span class="Keyword">for</span> <span class="Identifier">i</span> <span class="Keyword">in</span> <span class="FloatNumber">0.</span><span class="Operator">.</span><span class="DecNumber">100</span><span class="Punctuation">:</span>
+  <span class="Identifier">stdout</span><span class="Operator">.</span><span class="Identifier">styledWriteLine</span><span class="Punctuation">(</span><span class="Identifier">fgRed</span><span class="Punctuation">,</span> <span class="StringLit">&quot;0% &quot;</span><span class="Punctuation">,</span> <span class="Identifier">fgWhite</span><span class="Punctuation">,</span> <span class="CharLit">'#'</span><span class="Operator">.</span><span class="Identifier">repeat</span> <span class="Identifier">i</span><span class="Punctuation">,</span> <span class="Keyword">if</span> <span class="Identifier">i</span> <span class="Operator">&gt;</span> <span class="DecNumber">50</span><span class="Punctuation">:</span> <span class="Identifier">fgGreen</span> <span class="Keyword">else</span><span class="Punctuation">:</span> <span class="Identifier">fgYellow</span><span class="Punctuation">,</span> <span class="StringLit">&quot;</span><span class="EscapeSequence">\t</span><span class="StringLit">&quot;</span><span class="Punctuation">,</span> <span class="Operator">$</span><span class="Identifier">i</span> <span class="Punctuation">,</span> <span class="StringLit">&quot;%&quot;</span><span class="Punctuation">)</span>
+  <span class="Identifier">sleep</span> <span class="DecNumber">42</span>
+  <span class="Identifier">cursorUp</span> <span class="DecNumber">1</span>
+  <span class="Identifier">eraseLine</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
+
+<span class="Identifier">stdout</span><span class="Operator">.</span><span class="Identifier">resetAttributes</span><span class="Punctuation">(</span><span class="Punctuation">)</span></pre>
+<h2><a class="toc-backref" id="progress-bar-playing-with-colorful-and-styled-text" href="#progress-bar-playing-with-colorful-and-styled-text">Playing with colorful and styled text</a></h2>Procs like <tt class="docutils literal"><span class="pre"><span class="Identifier">styledWriteLine</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">styledEcho</span></span></tt> etc. have a temporary effect on text parameters. Style parameters only affect the text parameter right after them. After being called, these procs will reset the default style of the terminal. While <tt class="docutils literal"><span class="pre"><span class="Identifier">setBackGroundColor</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">setForeGroundColor</span></span></tt> etc. have a lasting influence on the terminal, you can use <tt class="docutils literal"><span class="pre"><span class="Identifier">resetAttributes</span></span></tt> to reset the default style of the terminal.
+<p><strong class="examples_text">Example: cmd: -r:off</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">std</span><span class="Operator">/</span><span class="Identifier">terminal</span>
+<span class="Identifier">stdout</span><span class="Operator">.</span><span class="Identifier">styledWriteLine</span><span class="Punctuation">(</span><span class="Punctuation">{</span><span class="Identifier">styleBright</span><span class="Punctuation">,</span> <span class="Identifier">styleBlink</span><span class="Punctuation">,</span> <span class="Identifier">styleUnderscore</span><span class="Punctuation">}</span><span class="Punctuation">,</span> <span class="StringLit">&quot;styled text &quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">stdout</span><span class="Operator">.</span><span class="Identifier">styledWriteLine</span><span class="Punctuation">(</span><span class="Identifier">fgRed</span><span class="Punctuation">,</span> <span class="StringLit">&quot;red text &quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">stdout</span><span class="Operator">.</span><span class="Identifier">styledWriteLine</span><span class="Punctuation">(</span><span class="Identifier">fgWhite</span><span class="Punctuation">,</span> <span class="Identifier">bgRed</span><span class="Punctuation">,</span> <span class="StringLit">&quot;white text in red background&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">stdout</span><span class="Operator">.</span><span class="Identifier">styledWriteLine</span><span class="Punctuation">(</span><span class="StringLit">&quot; ordinary text without style &quot;</span><span class="Punctuation">)</span>
+
+<span class="Identifier">stdout</span><span class="Operator">.</span><span class="Identifier">setBackGroundColor</span><span class="Punctuation">(</span><span class="Identifier">bgCyan</span><span class="Punctuation">,</span> <span class="Identifier">true</span><span class="Punctuation">)</span>
+<span class="Identifier">stdout</span><span class="Operator">.</span><span class="Identifier">setForeGroundColor</span><span class="Punctuation">(</span><span class="Identifier">fgBlue</span><span class="Punctuation">)</span>
+<span class="Identifier">stdout</span><span class="Operator">.</span><span class="Identifier">write</span><span class="Punctuation">(</span><span class="StringLit">&quot;blue text in cyan background&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">stdout</span><span class="Operator">.</span><span class="Identifier">resetAttributes</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
+
+<span class="Comment"># You can specify multiple text parameters. Style parameters</span>
+<span class="Comment"># only affect the text parameter right after them.</span>
+<span class="Identifier">styledEcho</span> <span class="Identifier">styleBright</span><span class="Punctuation">,</span> <span class="Identifier">fgGreen</span><span class="Punctuation">,</span> <span class="StringLit">&quot;[PASS]&quot;</span><span class="Punctuation">,</span> <span class="Identifier">resetStyle</span><span class="Punctuation">,</span> <span class="Identifier">fgGreen</span><span class="Punctuation">,</span> <span class="StringLit">&quot; Yay!&quot;</span>
+
+<span class="Identifier">stdout</span><span class="Operator">.</span><span class="Identifier">styledWriteLine</span><span class="Punctuation">(</span><span class="Identifier">fgRed</span><span class="Punctuation">,</span> <span class="StringLit">&quot;red text &quot;</span><span class="Punctuation">,</span> <span class="Identifier">styleBright</span><span class="Punctuation">,</span> <span class="StringLit">&quot;bold red&quot;</span><span class="Punctuation">,</span> <span class="Identifier">fgDefault</span><span class="Punctuation">,</span> <span class="StringLit">&quot; bold text&quot;</span><span class="Punctuation">)</span></pre></p>
   <div class="section" id="6">
 <h1><a class="toc-backref" href="#6">Imports</a></h1>
 <dl class="item">
-<a class="reference external" href="macros.html">macros</a>, <a class="reference external" href="strformat.html">strformat</a>, <a class="reference external" href="strutils.html">strutils</a>, <a class="reference external" href="colors.html">colors</a>, <a class="reference external" href="winlean.html">winlean</a>, <a class="reference external" href="winlean.html">winlean</a>, <a class="reference external" href="os.html">os</a>, <a class="reference external" href="unicode.html">unicode</a>, <a class="reference external" href="os.html">os</a>
+<a class="reference external" href="macros.html">macros</a>, <a class="reference external" href="strformat.html">strformat</a>, <a class="reference external" href="strutils.html">strutils</a>, <a class="reference external" href="colors.html">colors</a>, <a class="reference external" href="winlean.html">winlean</a>, <a class="reference external" href="winlean.html">winlean</a>, <a class="reference external" href="os.html">os</a>, <a class="reference external" href="os.html">os</a>
 </dl></div>
 <div class="section" id="7">
 <h1><a class="toc-backref" href="#7">Types</a></h1>
 <dl class="item">
-<a id="Style"></a>
+<div id="BackgroundColor">
+<dt><pre><a href="terminal.html#BackgroundColor"><span class="Identifier">BackgroundColor</span></a> <span class="Other">=</span> <span class="Keyword">enum</span>
+  <span class="Identifier">bgBlack</span> <span class="Other">=</span> <span class="DecNumber">40</span><span class="Other">,</span>             <span class="Comment">## black</span>
+  <span class="Identifier">bgRed</span><span class="Other">,</span>                    <span class="Comment">## red</span>
+  <span class="Identifier">bgGreen</span><span class="Other">,</span>                  <span class="Comment">## green</span>
+  <span class="Identifier">bgYellow</span><span class="Other">,</span>                 <span class="Comment">## yellow</span>
+  <span class="Identifier">bgBlue</span><span class="Other">,</span>                   <span class="Comment">## blue</span>
+  <span class="Identifier">bgMagenta</span><span class="Other">,</span>                <span class="Comment">## magenta</span>
+  <span class="Identifier">bgCyan</span><span class="Other">,</span>                   <span class="Comment">## cyan</span>
+  <span class="Identifier">bgWhite</span><span class="Other">,</span>                  <span class="Comment">## white</span>
+  <span class="Identifier">bg8Bit</span><span class="Other">,</span>                   <span class="Comment">## 256-color (not supported, see `enableTrueColors` instead.)</span>
+  <span class="Identifier">bgDefault</span>                  <span class="Comment">## default terminal background color</span></pre></dt>
+<dd>
+
+Terminal's background colors.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L594"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L594" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="ForegroundColor">
+<dt><pre><a href="terminal.html#ForegroundColor"><span class="Identifier">ForegroundColor</span></a> <span class="Other">=</span> <span class="Keyword">enum</span>
+  <span class="Identifier">fgBlack</span> <span class="Other">=</span> <span class="DecNumber">30</span><span class="Other">,</span>             <span class="Comment">## black</span>
+  <span class="Identifier">fgRed</span><span class="Other">,</span>                    <span class="Comment">## red</span>
+  <span class="Identifier">fgGreen</span><span class="Other">,</span>                  <span class="Comment">## green</span>
+  <span class="Identifier">fgYellow</span><span class="Other">,</span>                 <span class="Comment">## yellow</span>
+  <span class="Identifier">fgBlue</span><span class="Other">,</span>                   <span class="Comment">## blue</span>
+  <span class="Identifier">fgMagenta</span><span class="Other">,</span>                <span class="Comment">## magenta</span>
+  <span class="Identifier">fgCyan</span><span class="Other">,</span>                   <span class="Comment">## cyan</span>
+  <span class="Identifier">fgWhite</span><span class="Other">,</span>                  <span class="Comment">## white</span>
+  <span class="Identifier">fg8Bit</span><span class="Other">,</span>                   <span class="Comment">## 256-color (not supported, see `enableTrueColors` instead.)</span>
+  <span class="Identifier">fgDefault</span>                  <span class="Comment">## default terminal foreground color</span></pre></dt>
+<dd>
+
+Terminal's foreground colors.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L582"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L582" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="Style">
 <dt><pre><a href="terminal.html#Style"><span class="Identifier">Style</span></a> <span class="Other">=</span> <span class="Keyword">enum</span>
   <span class="Identifier">styleBright</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">,</span>          <span class="Comment">## bright text</span>
   <span class="Identifier">styleDim</span><span class="Other">,</span>                 <span class="Comment">## dim text</span>
@@ -413,56 +554,15 @@ function main() {
   <span class="Identifier">styleStrikethrough</span>         <span class="Comment">## strikethrough</span></pre></dt>
 <dd>
 
-different styles for text output
+Different styles for text output.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L483"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L528"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L483" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L528" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="ForegroundColor"></a>
-<dt><pre><a href="terminal.html#ForegroundColor"><span class="Identifier">ForegroundColor</span></a> <span class="Other">=</span> <span class="Keyword">enum</span>
-  <span class="Identifier">fgBlack</span> <span class="Other">=</span> <span class="DecNumber">30</span><span class="Other">,</span>             <span class="Comment">## black</span>
-  <span class="Identifier">fgRed</span><span class="Other">,</span>                    <span class="Comment">## red</span>
-  <span class="Identifier">fgGreen</span><span class="Other">,</span>                  <span class="Comment">## green</span>
-  <span class="Identifier">fgYellow</span><span class="Other">,</span>                 <span class="Comment">## yellow</span>
-  <span class="Identifier">fgBlue</span><span class="Other">,</span>                   <span class="Comment">## blue</span>
-  <span class="Identifier">fgMagenta</span><span class="Other">,</span>                <span class="Comment">## magenta</span>
-  <span class="Identifier">fgCyan</span><span class="Other">,</span>                   <span class="Comment">## cyan</span>
-  <span class="Identifier">fgWhite</span><span class="Other">,</span>                  <span class="Comment">## white</span>
-  <span class="Identifier">fg8Bit</span><span class="Other">,</span>                   <span class="Comment">## 256-color (not supported, see ``enableTrueColors`` instead.)</span>
-  <span class="Identifier">fgDefault</span>                  <span class="Comment">## default terminal foreground color</span></pre></dt>
-<dd>
-
-terminal's foreground colors
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L537"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L537" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="BackgroundColor"></a>
-<dt><pre><a href="terminal.html#BackgroundColor"><span class="Identifier">BackgroundColor</span></a> <span class="Other">=</span> <span class="Keyword">enum</span>
-  <span class="Identifier">bgBlack</span> <span class="Other">=</span> <span class="DecNumber">40</span><span class="Other">,</span>             <span class="Comment">## black</span>
-  <span class="Identifier">bgRed</span><span class="Other">,</span>                    <span class="Comment">## red</span>
-  <span class="Identifier">bgGreen</span><span class="Other">,</span>                  <span class="Comment">## green</span>
-  <span class="Identifier">bgYellow</span><span class="Other">,</span>                 <span class="Comment">## yellow</span>
-  <span class="Identifier">bgBlue</span><span class="Other">,</span>                   <span class="Comment">## blue</span>
-  <span class="Identifier">bgMagenta</span><span class="Other">,</span>                <span class="Comment">## magenta</span>
-  <span class="Identifier">bgCyan</span><span class="Other">,</span>                   <span class="Comment">## cyan</span>
-  <span class="Identifier">bgWhite</span><span class="Other">,</span>                  <span class="Comment">## white</span>
-  <span class="Identifier">bg8Bit</span><span class="Other">,</span>                   <span class="Comment">## 256-color (not supported, see ``enableTrueColors`` instead.)</span>
-  <span class="Identifier">bgDefault</span>                  <span class="Comment">## default terminal background color</span></pre></dt>
-<dd>
-
-terminal's background colors
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L549"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L549" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="TerminalCmd"></a>
+</div>
+<div id="TerminalCmd">
 <dt><pre><a href="terminal.html#TerminalCmd"><span class="Identifier">TerminalCmd</span></a> <span class="Other">=</span> <span class="Keyword">enum</span>
   <span class="Identifier">resetStyle</span><span class="Other">,</span>               <span class="Comment">## reset attributes</span>
   <span class="Identifier">fgColor</span><span class="Other">,</span>                  <span class="Comment">## set foreground's true color</span>
@@ -471,708 +571,772 @@ class="link-seesrc" target="_blank">Source</a>
 
 commands that can be expressed as arguments
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L678"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L723"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L678" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L723" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
 
 </dl></div>
 <div class="section" id="10">
 <h1><a class="toc-backref" href="#10">Consts</a></h1>
 <dl class="item">
-<a id="ansiResetCode"></a>
+<div id="ansiResetCode">
 <dt><pre><a href="terminal.html#ansiResetCode"><span class="Identifier">ansiResetCode</span></a> <span class="Other">=</span> <span class="StringLit">&quot;\e[0m&quot;</span></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L53"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L95"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L53" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L95" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
 
 </dl></div>
 <div class="section" id="12">
 <h1><a class="toc-backref" href="#12">Procs</a></h1>
 <dl class="item">
-<a id="terminalWidthIoctl,openArray[Handle]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#terminalWidthIoctl%2CopenArray%5BHandle%5D"><span class="Identifier">terminalWidthIoctl</span></a><span class="Other">(</span><span class="Identifier">handles</span><span class="Other">:</span> <a href="system.html#openArray"><span class="Identifier">openArray</span></a><span class="Other">[</span><a href="winlean.html#Handle"><span class="Identifier">Handle</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<div id="ansiBackgroundColorCode,Color">
+<dt><pre><span class="Keyword">proc</span> <a href="#ansiBackgroundColorCode%2CColor"><span class="Identifier">ansiBackgroundColorCode</span></a><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L116"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L685"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L116" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L685" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="terminalHeightIoctl,openArray[Handle]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#terminalHeightIoctl%2CopenArray%5BHandle%5D"><span class="Identifier">terminalHeightIoctl</span></a><span class="Other">(</span><span class="Identifier">handles</span><span class="Other">:</span> <a href="system.html#openArray"><span class="Identifier">openArray</span></a><span class="Other">[</span><a href="winlean.html#Handle"><span class="Identifier">Handle</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="ansiForegroundColorCode,Color">
+<dt><pre><span class="Keyword">proc</span> <a href="#ansiForegroundColorCode%2CColor"><span class="Identifier">ansiForegroundColorCode</span></a><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L123"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L676"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L123" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L676" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="terminalWidth"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#terminalWidth"><span class="Identifier">terminalWidth</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="ansiForegroundColorCode,ForegroundColor">
+<dt><pre><span class="Keyword">proc</span> <a href="#ansiForegroundColorCode%2CForegroundColor"><span class="Identifier">ansiForegroundColorCode</span></a><span class="Other">(</span><span class="Identifier">fg</span><span class="Other">:</span> <a href="terminal.html#ForegroundColor"><span class="Identifier">ForegroundColor</span></a><span class="Other">;</span> <span class="Identifier">bright</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L130"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L667"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L130" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L667" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="terminalHeight"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#terminalHeight"><span class="Identifier">terminalHeight</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="ansiStyleCode,int">
+<dt><pre><span class="Keyword">proc</span> <a href="#ansiStyleCode%2Cint"><span class="Identifier">ansiStyleCode</span></a><span class="Other">(</span><span class="Identifier">style</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L138"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L539"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L138" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L539" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="terminalSize"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#terminalSize"><span class="Identifier">terminalSize</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">w</span><span class="Other">,</span> <span class="Identifier">h</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">]</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="cursorBackward,File,int">
+<dt><pre><span class="Keyword">proc</span> <a href="#cursorBackward%2CFile%2Cint"><span class="Identifier">cursorBackward</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-Returns the terminal width and height as a tuple. Internally calls <tt class="docutils literal"><span class="pre">terminalWidth</span></tt> and <tt class="docutils literal"><span class="pre">terminalHeight</span></tt>, so the same assumptions apply.
+Moves the cursor backward by <tt class="docutils literal"><span class="pre"><span class="Identifier">count</span></span></tt> columns.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L278"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L420"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L278" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L420" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="hideCursor,File"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#hideCursor%2CFile"><span class="Identifier">hideCursor</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="cursorDown,File,int">
+<dt><pre><span class="Keyword">proc</span> <a href="#cursorDown%2CFile%2Cint"><span class="Identifier">cursorDown</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-Hides the cursor.
+Moves the cursor down by <tt class="docutils literal"><span class="pre"><span class="Identifier">count</span></span></tt> rows.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L293"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L400"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L293" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L400" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="showCursor,File"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#showCursor%2CFile"><span class="Identifier">showCursor</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="cursorForward,File,int">
+<dt><pre><span class="Keyword">proc</span> <a href="#cursorForward%2CFile%2Cint"><span class="Identifier">cursorForward</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-Shows the cursor.
+Moves the cursor forward by <tt class="docutils literal"><span class="pre"><span class="Identifier">count</span></span></tt> columns.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L300"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L410"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L300" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L410" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="setCursorPos,File,int,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#setCursorPos%2CFile%2Cint%2Cint"><span class="Identifier">setCursorPos</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="cursorUp,File,int">
+<dt><pre><span class="Keyword">proc</span> <a href="#cursorUp%2CFile%2Cint"><span class="Identifier">cursorUp</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-Sets the terminal's cursor to the (x,y) position. (0,0) is the upper left of the screen.
+Moves the cursor up by <tt class="docutils literal"><span class="pre"><span class="Identifier">count</span></span></tt> rows.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L307"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L390"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L307" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L390" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="setCursorXPos,File,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#setCursorXPos%2CFile%2Cint"><span class="Identifier">setCursorXPos</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="disableTrueColors">
+<dt><pre><span class="Keyword">proc</span> <a href="#disableTrueColors"><span class="Identifier">disableTrueColors</span></a><span class="Other">(</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">ReadEnvEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-Sets the terminal's cursor to the x position. The y position is not changed.
+Disables true color.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L316"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L924"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L316" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L924" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="setCursorYPos,File,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#setCursorYPos%2CFile%2Cint"><span class="Identifier">setCursorYPos</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="enableTrueColors">
+<dt><pre><span class="Keyword">proc</span> <a href="#enableTrueColors"><span class="Identifier">enableTrueColors</span></a><span class="Other">(</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">ReadEnvEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-Sets the terminal's cursor to the y position. The x position is not changed. <strong>Warning</strong>: This is not supported on UNIX!
+Enables true color.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L332"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L891"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L332" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L891" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="cursorUp,File,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#cursorUp%2CFile%2Cint"><span class="Identifier">cursorUp</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Moves the cursor up by <tt class="docutils literal"><span class="pre">count</span></tt> rows.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L348"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L348" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="cursorDown,File,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#cursorDown%2CFile%2Cint"><span class="Identifier">cursorDown</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Moves the cursor down by <tt class="docutils literal"><span class="pre">count</span></tt> rows.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L358"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L358" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="cursorForward,File,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#cursorForward%2CFile%2Cint"><span class="Identifier">cursorForward</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Moves the cursor forward by <tt class="docutils literal"><span class="pre">count</span></tt> columns.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L368"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L368" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="cursorBackward,File,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#cursorBackward%2CFile%2Cint"><span class="Identifier">cursorBackward</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Moves the cursor backward by <tt class="docutils literal"><span class="pre">count</span></tt> columns.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L378"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L378" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="eraseLine,File"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#eraseLine%2CFile"><span class="Identifier">eraseLine</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="eraseLine,File">
+<dt><pre><span class="Keyword">proc</span> <a href="#eraseLine%2CFile"><span class="Identifier">eraseLine</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 Erases the entire current line.
+<p><strong class="examples_text">Example: cmd: -r:off</strong></p>
+<pre class="listing"><span class="Identifier">write</span><span class="Punctuation">(</span><span class="Identifier">stdout</span><span class="Punctuation">,</span> <span class="StringLit">&quot;never mind&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">stdout</span><span class="Operator">.</span><span class="Identifier">eraseLine</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Comment"># nothing will be printed on the screen</span></pre>
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L419"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L461"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L419" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L461" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="eraseScreen,File"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#eraseScreen%2CFile"><span class="Identifier">eraseScreen</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="eraseScreen,File">
+<dt><pre><span class="Keyword">proc</span> <a href="#eraseScreen%2CFile"><span class="Identifier">eraseScreen</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 Erases the screen with the background colour and moves the cursor to home.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L442"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L487"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L442" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L487" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="resetAttributes,File"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#resetAttributes%2CFile"><span class="Identifier">resetAttributes</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="getch">
+<dt><pre><span class="Keyword">proc</span> <a href="#getch"><span class="Identifier">getch</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#char"><span class="Identifier">char</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-Resets all attributes.
+Reads a single character from the terminal, blocking until it is entered. The character is not printed to the terminal.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L469"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L786"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L469" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L786" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="ansiStyleCode,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#ansiStyleCode%2Cint"><span class="Identifier">ansiStyleCode</span></a><span class="Other">(</span><span class="Identifier">style</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="hideCursor,File">
+<dt><pre><span class="Keyword">proc</span> <a href="#hideCursor%2CFile"><span class="Identifier">hideCursor</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Hides the cursor.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L494"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L335"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L494" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L335" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="setStyle,File,set[Style]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#setStyle%2CFile%2Cset%5BStyle%5D"><span class="Identifier">setStyle</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <a href="system.html#set"><span class="Identifier">set</span></a><span class="Other">[</span><a href="terminal.html#Style"><span class="Identifier">Style</span></a><span class="Other">]</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="isatty,File">
+<dt><pre><span class="Keyword">proc</span> <a href="#isatty%2CFile"><span class="Identifier">isatty</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">)</span><span class="Other">:</span> <a href="system.html#bool"><span class="Identifier">bool</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-Sets the terminal style.
+Returns true if <tt class="docutils literal"><span class="pre"><span class="Identifier">f</span></span></tt> is associated with a terminal device.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L504"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L711"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L504" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L711" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="writeStyled,string,set[Style]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#writeStyled%2Cstring%2Cset%5BStyle%5D"><span class="Identifier">writeStyled</span></a><span class="Other">(</span><span class="Identifier">txt</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <a href="system.html#set"><span class="Identifier">set</span></a><span class="Other">[</span><a href="terminal.html#Style"><span class="Identifier">Style</span></a><span class="Other">]</span> <span class="Other">=</span> <span class="Other">{</span><span class="Identifier">styleBright</span><span class="Other">}</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Writes the text <tt class="docutils literal"><span class="pre">txt</span></tt> in a given <tt class="docutils literal"><span class="pre">style</span></tt> to stdout.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L519"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L519" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="setForegroundColor,File,ForegroundColor"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#setForegroundColor%2CFile%2CForegroundColor"><span class="Identifier">setForegroundColor</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">fg</span><span class="Other">:</span> <a href="terminal.html#ForegroundColor"><span class="Identifier">ForegroundColor</span></a><span class="Other">;</span> <span class="Identifier">bright</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Sets the terminal's foreground color.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L564"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L564" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="setBackgroundColor,File,BackgroundColor"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#setBackgroundColor%2CFile%2CBackgroundColor"><span class="Identifier">setBackgroundColor</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">bg</span><span class="Other">:</span> <a href="terminal.html#BackgroundColor"><span class="Identifier">BackgroundColor</span></a><span class="Other">;</span> <span class="Identifier">bright</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Sets the terminal's background color.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L593"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L593" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="ansiForegroundColorCode,ForegroundColor"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#ansiForegroundColorCode%2CForegroundColor"><span class="Identifier">ansiForegroundColorCode</span></a><span class="Other">(</span><span class="Identifier">fg</span><span class="Other">:</span> <a href="terminal.html#ForegroundColor"><span class="Identifier">ForegroundColor</span></a><span class="Other">;</span> <span class="Identifier">bright</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L622"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L622" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="ansiForegroundColorCode,Color"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#ansiForegroundColorCode%2CColor"><span class="Identifier">ansiForegroundColorCode</span></a><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L631"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L631" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="ansiBackgroundColorCode,Color"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#ansiBackgroundColorCode%2CColor"><span class="Identifier">ansiBackgroundColorCode</span></a><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L640"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L640" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="setForegroundColor,File,Color"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#setForegroundColor%2CFile%2CColor"><span class="Identifier">setForegroundColor</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">color</span><span class="Other">:</span> <a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Sets the terminal's foreground true color.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L649"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L649" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="setBackgroundColor,File,Color"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#setBackgroundColor%2CFile%2CColor"><span class="Identifier">setBackgroundColor</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">color</span><span class="Other">:</span> <a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Sets the terminal's background true color.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L654"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L654" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="isatty,File"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#isatty%2CFile"><span class="Identifier">isatty</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">)</span><span class="Other">:</span> <a href="system.html#bool"><span class="Identifier">bool</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Returns true if <tt class="docutils literal"><span class="pre">f</span></tt> is associated with a terminal device.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L666"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L666" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="getch"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#getch"><span class="Identifier">getch</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#char"><span class="Identifier">char</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Read a single character from the terminal, blocking until it is entered. The character is not printed to the terminal.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L749"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L749" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="readPasswordFromStdin,string,TaintedString"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#readPasswordFromStdin%2Cstring%2CTaintedString"><span class="Identifier">readPasswordFromStdin</span></a><span class="Other">(</span><span class="Identifier">prompt</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a><span class="Other">;</span> <span class="Identifier">password</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="system.html#TaintedString"><span class="Identifier">TaintedString</span></a><span class="Other">)</span><span class="Other">:</span> <a href="system.html#bool"><span class="Identifier">bool</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><a href="system.html#ReadIOEffect"><span class="Identifier">ReadIOEffect</span></a><span class="Other">,</span> <a href="system.html#WriteIOEffect"><span class="Identifier">WriteIOEffect</span></a><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Reads a <tt class="docutils literal"><span class="pre">password</span></tt> from stdin without printing it. <tt class="docutils literal"><span class="pre">password</span></tt> must not be <tt class="docutils literal"><span class="pre">nil</span></tt>! Returns <tt class="docutils literal"><span class="pre">false</span></tt> if the end of the file has been reached, <tt class="docutils literal"><span class="pre">true</span></tt> otherwise.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L774"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L774" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="readPasswordFromStdin,string"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#readPasswordFromStdin%2Cstring"><span class="Identifier">readPasswordFromStdin</span></a><span class="Other">(</span><span class="Identifier">prompt</span> <span class="Other">=</span> <span class="StringLit">&quot;password: &quot;</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#TaintedString"><span class="Identifier">TaintedString</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Reads a password from stdin without printing it.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L814"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L814" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="resetAttributes"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#resetAttributes"><span class="Identifier">resetAttributes</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">noconv</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Resets all attributes on stdout. It is advisable to register this as a quit proc with <tt class="docutils literal"><span class="pre">system.addQuitProc(resetAttributes)</span></tt>.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L843"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L843" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="isTrueColorSupported"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#isTrueColorSupported"><span class="Identifier">isTrueColorSupported</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#bool"><span class="Identifier">bool</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="isTrueColorSupported">
+<dt><pre><span class="Keyword">proc</span> <a href="#isTrueColorSupported"><span class="Identifier">isTrueColorSupported</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#bool"><span class="Identifier">bool</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 Returns true if a terminal supports true color.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L849"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L884"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L849" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L884" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="enableTrueColors"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#enableTrueColors"><span class="Identifier">enableTrueColors</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">ReadEnvEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="readPasswordFromStdin,string">
+<dt><pre><span class="Keyword">proc</span> <a href="#readPasswordFromStdin%2Cstring"><span class="Identifier">readPasswordFromStdin</span></a><span class="Other">(</span><span class="Identifier">prompt</span> <span class="Other">=</span> <span class="StringLit">&quot;password: &quot;</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-Enable true color.
+Reads a password from stdin without printing it.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L856"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L849"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L856" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L849" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="disableTrueColors"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#disableTrueColors"><span class="Identifier">disableTrueColors</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">ReadEnvEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="readPasswordFromStdin,string,string">
+<dt><pre><span class="Keyword">proc</span> <a href="#readPasswordFromStdin%2Cstring%2Cstring"><span class="Identifier">readPasswordFromStdin</span></a><span class="Other">(</span><span class="Identifier">prompt</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a><span class="Other">;</span> <span class="Identifier">password</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="system.html#string"><span class="Identifier">string</span></a><span class="Other">)</span><span class="Other">:</span> <a href="system.html#bool"><span class="Identifier">bool</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><a href="system.html#ReadIOEffect"><span class="Identifier">ReadIOEffect</span></a><span class="Other">,</span> <a href="system.html#WriteIOEffect"><span class="Identifier">WriteIOEffect</span></a><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-Disable true color.
+Reads a <tt class="docutils literal"><span class="pre"><span class="Identifier">password</span></span></tt> from stdin without printing it. <tt class="docutils literal"><span class="pre"><span class="Identifier">password</span></span></tt> must not be <tt class="docutils literal"><span class="pre"><span class="Keyword">nil</span></span></tt>! Returns <tt class="docutils literal"><span class="pre"><span class="Identifier">false</span></span></tt> if the end of the file has been reached, <tt class="docutils literal"><span class="pre"><span class="Identifier">true</span></span></tt> otherwise.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L889"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L809"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L889" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L809" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
+<div id="resetAttributes">
+<dt><pre><span class="Keyword">proc</span> <a href="#resetAttributes"><span class="Identifier">resetAttributes</span></a><span class="Other">(</span><span class="Other">)</span> {.<span class="Identifier">noconv</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Resets all attributes on stdout. It is advisable to register this as a quit proc with <tt class="docutils literal"><span class="pre"><span class="Identifier">exitprocs</span><span class="Operator">.</span><span class="Identifier">addExitProc</span><span class="Punctuation">(</span><span class="Identifier">resetAttributes</span><span class="Punctuation">)</span></span></tt>.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L878"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L878" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="resetAttributes,File">
+<dt><pre><span class="Keyword">proc</span> <a href="#resetAttributes%2CFile"><span class="Identifier">resetAttributes</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Resets all attributes.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L514"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L514" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="setBackgroundColor,File,BackgroundColor">
+<dt><pre><span class="Keyword">proc</span> <a href="#setBackgroundColor%2CFile%2CBackgroundColor"><span class="Identifier">setBackgroundColor</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">bg</span><span class="Other">:</span> <a href="terminal.html#BackgroundColor"><span class="Identifier">BackgroundColor</span></a><span class="Other">;</span> <span class="Identifier">bright</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Sets the terminal's background color.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L638"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L638" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="setBackgroundColor,File,Color">
+<dt><pre><span class="Keyword">proc</span> <a href="#setBackgroundColor%2CFile%2CColor"><span class="Identifier">setBackgroundColor</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">color</span><span class="Other">:</span> <a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Sets the terminal's background true color.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L699"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L699" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="setCursorPos,File,int,int">
+<dt><pre><span class="Keyword">proc</span> <a href="#setCursorPos%2CFile%2Cint%2Cint"><span class="Identifier">setCursorPos</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Sets the terminal's cursor to the (x,y) position. (0,0) is the upper left of the screen.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L349"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L349" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="setCursorXPos,File,int">
+<dt><pre><span class="Keyword">proc</span> <a href="#setCursorXPos%2CFile%2Cint"><span class="Identifier">setCursorXPos</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Sets the terminal's cursor to the x position. The y position is not changed.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L358"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L358" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="setCursorYPos,File,int">
+<dt><pre><span class="Keyword">proc</span> <a href="#setCursorYPos%2CFile%2Cint"><span class="Identifier">setCursorYPos</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Sets the terminal's cursor to the y position. The x position is not changed. .. warning:: This is not supported on UNIX!
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L374"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L374" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="setForegroundColor,File,Color">
+<dt><pre><span class="Keyword">proc</span> <a href="#setForegroundColor%2CFile%2CColor"><span class="Identifier">setForegroundColor</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">color</span><span class="Other">:</span> <a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Sets the terminal's foreground true color.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L694"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L694" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="setForegroundColor,File,ForegroundColor">
+<dt><pre><span class="Keyword">proc</span> <a href="#setForegroundColor%2CFile%2CForegroundColor"><span class="Identifier">setForegroundColor</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">fg</span><span class="Other">:</span> <a href="terminal.html#ForegroundColor"><span class="Identifier">ForegroundColor</span></a><span class="Other">;</span> <span class="Identifier">bright</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Sets the terminal's foreground color.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L609"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L609" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="setStyle,File,set[Style]">
+<dt><pre><span class="Keyword">proc</span> <a href="#setStyle%2CFile%2Cset%5BStyle%5D"><span class="Identifier">setStyle</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <a href="system.html#set"><span class="Identifier">set</span></a><span class="Other">[</span><a href="terminal.html#Style"><span class="Identifier">Style</span></a><span class="Other">]</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Sets the terminal style.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L549"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L549" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="showCursor,File">
+<dt><pre><span class="Keyword">proc</span> <a href="#showCursor%2CFile"><span class="Identifier">showCursor</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Shows the cursor.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L342"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L342" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="terminalHeight">
+<dt><pre><span class="Keyword">proc</span> <a href="#terminalHeight"><span class="Identifier">terminalHeight</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L180"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L180" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="terminalHeightIoctl,openArray[Handle]">
+<dt><pre><span class="Keyword">proc</span> <a href="#terminalHeightIoctl%2CopenArray%5BHandle%5D"><span class="Identifier">terminalHeightIoctl</span></a><span class="Other">(</span><span class="Identifier">handles</span><span class="Other">:</span> <a href="system.html#openArray"><span class="Identifier">openArray</span></a><span class="Other">[</span><a href="winlean.html#Handle"><span class="Identifier">Handle</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L165"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L165" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="terminalSize">
+<dt><pre><span class="Keyword">proc</span> <a href="#terminalSize"><span class="Identifier">terminalSize</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">w</span><span class="Other">,</span> <span class="Identifier">h</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Returns the terminal width and height as a tuple. Internally calls <tt class="docutils literal"><span class="pre"><span class="Identifier">terminalWidth</span></span></tt> and <tt class="docutils literal"><span class="pre"><span class="Identifier">terminalHeight</span></span></tt>, so the same assumptions apply.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L320"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L320" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="terminalWidth">
+<dt><pre><span class="Keyword">proc</span> <a href="#terminalWidth"><span class="Identifier">terminalWidth</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L172"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L172" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="terminalWidthIoctl,openArray[Handle]">
+<dt><pre><span class="Keyword">proc</span> <a href="#terminalWidthIoctl%2CopenArray%5BHandle%5D"><span class="Identifier">terminalWidthIoctl</span></a><span class="Other">(</span><span class="Identifier">handles</span><span class="Other">:</span> <a href="system.html#openArray"><span class="Identifier">openArray</span></a><span class="Other">[</span><a href="winlean.html#Handle"><span class="Identifier">Handle</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L158"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L158" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="writeStyled,string,set[Style]">
+<dt><pre><span class="Keyword">proc</span> <a href="#writeStyled%2Cstring%2Cset%5BStyle%5D"><span class="Identifier">writeStyled</span></a><span class="Other">(</span><span class="Identifier">txt</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <a href="system.html#set"><span class="Identifier">set</span></a><span class="Other">[</span><a href="terminal.html#Style"><span class="Identifier">Style</span></a><span class="Other">]</span> <span class="Other">=</span> <span class="Other">{</span><span class="Identifier">styleBright</span><span class="Other">}</span><span class="Other">)</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Writes the text <tt class="docutils literal"><span class="pre"><span class="Identifier">txt</span></span></tt> in a given <tt class="docutils literal"><span class="pre"><span class="Identifier">style</span></span></tt> to stdout.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L564"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L564" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
 
 </dl></div>
 <div class="section" id="17">
 <h1><a class="toc-backref" href="#17">Macros</a></h1>
 <dl class="item">
-<a id="styledWrite.m,File,varargs[typed]"></a>
+<div id="styledWrite.m,File,varargs[typed]">
 <dt><pre><span class="Keyword">macro</span> <a href="#styledWrite.m%2CFile%2Cvarargs%5Btyped%5D"><span class="Identifier">styledWrite</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">m</span><span class="Other">:</span> <a href="system.html#varargs"><span class="Identifier">varargs</span></a><span class="Other">[</span><a href="system.html#typed"><span class="Identifier">typed</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#untyped"><span class="Identifier">untyped</span></a></pre></dt>
 <dd>
 
-<p>Similar to <tt class="docutils literal"><span class="pre">write</span></tt>, but treating terminal style arguments specially. When some argument is <tt class="docutils literal"><span class="pre">Style</span></tt>, <tt class="docutils literal"><span class="pre">set[Style]</span></tt>, <tt class="docutils literal"><span class="pre">ForegroundColor</span></tt>, <tt class="docutils literal"><span class="pre">BackgroundColor</span></tt> or <tt class="docutils literal"><span class="pre">TerminalCmd</span></tt> then it is not sent directly to <tt class="docutils literal"><span class="pre">f</span></tt>, but instead corresponding terminal style proc is called.</p>
-<p>Example:</p>
+Similar to <tt class="docutils literal"><span class="pre"><span class="Identifier">write</span></span></tt>, but treating terminal style arguments specially. When some argument is <tt class="docutils literal"><span class="pre"><span class="Identifier">Style</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">set</span><span class="Punctuation">[</span><span class="Identifier">Style</span><span class="Punctuation">]</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">ForegroundColor</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">BackgroundColor</span></span></tt> or <tt class="docutils literal"><span class="pre"><span class="Identifier">TerminalCmd</span></span></tt> then it is not sent directly to <tt class="docutils literal"><span class="pre"><span class="Identifier">f</span></span></tt>, but instead corresponding terminal style proc is called.
+<p><strong class="examples_text">Example: cmd: -r:off</strong></p>
 <pre class="listing"><span class="Identifier">stdout</span><span class="Operator">.</span><span class="Identifier">styledWrite</span><span class="Punctuation">(</span><span class="Identifier">fgRed</span><span class="Punctuation">,</span> <span class="StringLit">&quot;red text &quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">stdout</span><span class="Operator">.</span><span class="Identifier">styledWrite</span><span class="Punctuation">(</span><span class="Identifier">fgGreen</span><span class="Punctuation">,</span> <span class="StringLit">&quot;green text&quot;</span><span class="Punctuation">)</span></pre>
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L699"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L744"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L699" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L744" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
 
 </dl></div>
 <div class="section" id="18">
 <h1><a class="toc-backref" href="#18">Templates</a></h1>
 <dl class="item">
-<a id="ansiStyleCode.t,Style"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#ansiStyleCode.t%2CStyle"><span class="Identifier">ansiStyleCode</span></a><span class="Other">(</span><span class="Identifier">style</span><span class="Other">:</span> <a href="terminal.html#Style"><span class="Identifier">Style</span></a><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a></pre></dt>
+<div id="ansiBackgroundColorCode.t,static[Color]">
+<dt><pre><span class="Keyword">template</span> <a href="#ansiBackgroundColorCode.t%2Cstatic%5BColor%5D"><span class="Identifier">ansiBackgroundColorCode</span></a><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <a href="system.html#static"><span class="Identifier">static</span></a><span class="Other">[</span><a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L497"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L689"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L497" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L689" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="ansiStyleCode.t,static[Style]"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#ansiStyleCode.t%2Cstatic%5BStyle%5D"><span class="Identifier">ansiStyleCode</span></a><span class="Other">(</span><span class="Identifier">style</span><span class="Other">:</span> <a href="system.html#static"><span class="Identifier">static</span></a><span class="Other">[</span><a href="terminal.html#Style"><span class="Identifier">Style</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a></pre></dt>
+</div>
+<div id="ansiForegroundColorCode.t,static[Color]">
+<dt><pre><span class="Keyword">template</span> <a href="#ansiForegroundColorCode.t%2Cstatic%5BColor%5D"><span class="Identifier">ansiForegroundColorCode</span></a><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <a href="system.html#static"><span class="Identifier">static</span></a><span class="Other">[</span><a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L501"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L680"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L501" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L680" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="ansiForegroundColorCode.t,static[ForegroundColor],static[bool]"></a>
+</div>
+<div id="ansiForegroundColorCode.t,static[ForegroundColor],static[bool]">
 <dt><pre><span class="Keyword">template</span> <a href="#ansiForegroundColorCode.t%2Cstatic%5BForegroundColor%5D%2Cstatic%5Bbool%5D"><span class="Identifier">ansiForegroundColorCode</span></a><span class="Other">(</span><span class="Identifier">fg</span><span class="Other">:</span> <a href="system.html#static"><span class="Identifier">static</span></a><span class="Other">[</span><a href="terminal.html#ForegroundColor"><span class="Identifier">ForegroundColor</span></a><span class="Other">]</span><span class="Other">;</span>
                                  <span class="Identifier">bright</span><span class="Other">:</span> <a href="system.html#static"><span class="Identifier">static</span></a><span class="Other">[</span><a href="system.html#bool"><span class="Identifier">bool</span></a><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L627"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L672"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L627" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L672" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="ansiForegroundColorCode.t,static[Color]"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#ansiForegroundColorCode.t%2Cstatic%5BColor%5D"><span class="Identifier">ansiForegroundColorCode</span></a><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <a href="system.html#static"><span class="Identifier">static</span></a><span class="Other">[</span><a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a></pre></dt>
+</div>
+<div id="ansiStyleCode.t,static[Style]">
+<dt><pre><span class="Keyword">template</span> <a href="#ansiStyleCode.t%2Cstatic%5BStyle%5D"><span class="Identifier">ansiStyleCode</span></a><span class="Other">(</span><span class="Identifier">style</span><span class="Other">:</span> <a href="system.html#static"><span class="Identifier">static</span></a><span class="Other">[</span><a href="terminal.html#Style"><span class="Identifier">Style</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L635"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L546"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L635" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L546" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="ansiBackgroundColorCode.t,static[Color]"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#ansiBackgroundColorCode.t%2Cstatic%5BColor%5D"><span class="Identifier">ansiBackgroundColorCode</span></a><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <a href="system.html#static"><span class="Identifier">static</span></a><span class="Other">[</span><a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a></pre></dt>
+</div>
+<div id="ansiStyleCode.t,Style">
+<dt><pre><span class="Keyword">template</span> <a href="#ansiStyleCode.t%2CStyle"><span class="Identifier">ansiStyleCode</span></a><span class="Other">(</span><span class="Identifier">style</span><span class="Other">:</span> <a href="terminal.html#Style"><span class="Identifier">Style</span></a><span class="Other">)</span><span class="Other">:</span> <a href="system.html#string"><span class="Identifier">string</span></a></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L644"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L542"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L644" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L542" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="styledWriteLine.t,File,varargs[untyped]"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#styledWriteLine.t%2CFile%2Cvarargs%5Buntyped%5D"><span class="Identifier">styledWriteLine</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">args</span><span class="Other">:</span> <a href="system.html#varargs"><span class="Identifier">varargs</span></a><span class="Other">[</span><a href="system.html#untyped"><span class="Identifier">untyped</span></a><span class="Other">]</span><span class="Other">)</span></pre></dt>
-<dd>
-
-<p>Calls <tt class="docutils literal"><span class="pre">styledWrite</span></tt> and appends a newline at the end.</p>
-<p>Example:</p>
-<pre class="listing"><span class="Keyword">proc</span> <span class="Identifier">error</span><span class="Punctuation">(</span><span class="Identifier">msg</span><span class="Punctuation">:</span> <span class="Identifier">string</span><span class="Punctuation">)</span> <span class="Operator">=</span>
-  <span class="Identifier">styledWriteLine</span><span class="Punctuation">(</span><span class="Identifier">stderr</span><span class="Punctuation">,</span> <span class="Identifier">fgRed</span><span class="Punctuation">,</span> <span class="StringLit">&quot;Error: &quot;</span><span class="Punctuation">,</span> <span class="Identifier">resetStyle</span><span class="Punctuation">,</span> <span class="Identifier">msg</span><span class="Punctuation">)</span></pre>
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L732"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L732" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="styledEcho.t,varargs[untyped]"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#styledEcho.t%2Cvarargs%5Buntyped%5D"><span class="Identifier">styledEcho</span></a><span class="Other">(</span><span class="Identifier">args</span><span class="Other">:</span> <a href="system.html#varargs"><span class="Identifier">varargs</span></a><span class="Other">[</span><a href="system.html#untyped"><span class="Identifier">untyped</span></a><span class="Other">]</span><span class="Other">)</span></pre></dt>
-<dd>
-
-Echoes styles arguments to stdout using <tt class="docutils literal"><span class="pre">styledWriteLine</span></tt>.
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L745"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L745" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="hideCursor.t"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#hideCursor.t"><span class="Identifier">hideCursor</span></a><span class="Other">(</span><span class="Other">)</span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L821"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L821" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="showCursor.t"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#showCursor.t"><span class="Identifier">showCursor</span></a><span class="Other">(</span><span class="Other">)</span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L822"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L822" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="setCursorPos.t,int,int"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#setCursorPos.t%2Cint%2Cint"><span class="Identifier">setCursorPos</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">)</span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L823"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L823" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="setCursorXPos.t,int"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#setCursorXPos.t%2Cint"><span class="Identifier">setCursorXPos</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">)</span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L824"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L824" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="setCursorYPos.t,int"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#setCursorYPos.t%2Cint"><span class="Identifier">setCursorYPos</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">)</span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L826"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L826" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="cursorUp.t,int"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#cursorUp.t%2Cint"><span class="Identifier">cursorUp</span></a><span class="Other">(</span><span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L827"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L827" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="cursorDown.t,int"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#cursorDown.t%2Cint"><span class="Identifier">cursorDown</span></a><span class="Other">(</span><span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L828"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L828" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="cursorForward.t,int"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#cursorForward.t%2Cint"><span class="Identifier">cursorForward</span></a><span class="Other">(</span><span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L829"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L829" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="cursorBackward.t,int"></a>
+</div>
+<div id="cursorBackward.t,int">
 <dt><pre><span class="Keyword">template</span> <a href="#cursorBackward.t%2Cint"><span class="Identifier">cursorBackward</span></a><span class="Other">(</span><span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L830"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L865"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L830" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L865" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="eraseLine.t"></a>
+</div>
+<div id="cursorDown.t,int">
+<dt><pre><span class="Keyword">template</span> <a href="#cursorDown.t%2Cint"><span class="Identifier">cursorDown</span></a><span class="Other">(</span><span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span></pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L863"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L863" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="cursorForward.t,int">
+<dt><pre><span class="Keyword">template</span> <a href="#cursorForward.t%2Cint"><span class="Identifier">cursorForward</span></a><span class="Other">(</span><span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span></pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L864"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L864" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="cursorUp.t,int">
+<dt><pre><span class="Keyword">template</span> <a href="#cursorUp.t%2Cint"><span class="Identifier">cursorUp</span></a><span class="Other">(</span><span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span></pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L862"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L862" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="eraseLine.t">
 <dt><pre><span class="Keyword">template</span> <a href="#eraseLine.t"><span class="Identifier">eraseLine</span></a><span class="Other">(</span><span class="Other">)</span></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L831"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L866"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L831" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L866" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="eraseScreen.t"></a>
+</div>
+<div id="eraseScreen.t">
 <dt><pre><span class="Keyword">template</span> <a href="#eraseScreen.t"><span class="Identifier">eraseScreen</span></a><span class="Other">(</span><span class="Other">)</span></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L832"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L867"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L832" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L867" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="setStyle.t,set[Style]"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#setStyle.t%2Cset%5BStyle%5D"><span class="Identifier">setStyle</span></a><span class="Other">(</span><span class="Identifier">style</span><span class="Other">:</span> <a href="system.html#set"><span class="Identifier">set</span></a><span class="Other">[</span><a href="terminal.html#Style"><span class="Identifier">Style</span></a><span class="Other">]</span><span class="Other">)</span></pre></dt>
+</div>
+<div id="hideCursor.t">
+<dt><pre><span class="Keyword">template</span> <a href="#hideCursor.t"><span class="Identifier">hideCursor</span></a><span class="Other">(</span><span class="Other">)</span></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L833"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L856"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L833" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L856" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="setForegroundColor.t,ForegroundColor"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#setForegroundColor.t%2CForegroundColor"><span class="Identifier">setForegroundColor</span></a><span class="Other">(</span><span class="Identifier">fg</span><span class="Other">:</span> <a href="terminal.html#ForegroundColor"><span class="Identifier">ForegroundColor</span></a><span class="Other">;</span> <span class="Identifier">bright</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L835"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L835" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="setBackgroundColor.t,BackgroundColor"></a>
+</div>
+<div id="setBackgroundColor.t,BackgroundColor">
 <dt><pre><span class="Keyword">template</span> <a href="#setBackgroundColor.t%2CBackgroundColor"><span class="Identifier">setBackgroundColor</span></a><span class="Other">(</span><span class="Identifier">bg</span><span class="Other">:</span> <a href="terminal.html#BackgroundColor"><span class="Identifier">BackgroundColor</span></a><span class="Other">;</span> <span class="Identifier">bright</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L837"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L872"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L837" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L872" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="setForegroundColor.t,Color"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#setForegroundColor.t%2CColor"><span class="Identifier">setForegroundColor</span></a><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">)</span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L839"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L839" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="setBackgroundColor.t,Color"></a>
+</div>
+<div id="setBackgroundColor.t,Color">
 <dt><pre><span class="Keyword">template</span> <a href="#setBackgroundColor.t%2CColor"><span class="Identifier">setBackgroundColor</span></a><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">)</span></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/terminal.nim#L841"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L876"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L841" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L876" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
+<div id="setCursorPos.t,int,int">
+<dt><pre><span class="Keyword">template</span> <a href="#setCursorPos.t%2Cint%2Cint"><span class="Identifier">setCursorPos</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">)</span></pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L858"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L858" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="setCursorXPos.t,int">
+<dt><pre><span class="Keyword">template</span> <a href="#setCursorXPos.t%2Cint"><span class="Identifier">setCursorXPos</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">)</span></pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L859"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L859" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="setCursorYPos.t,int">
+<dt><pre><span class="Keyword">template</span> <a href="#setCursorYPos.t%2Cint"><span class="Identifier">setCursorYPos</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="system.html#int"><span class="Identifier">int</span></a><span class="Other">)</span></pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L861"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L861" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="setForegroundColor.t,Color">
+<dt><pre><span class="Keyword">template</span> <a href="#setForegroundColor.t%2CColor"><span class="Identifier">setForegroundColor</span></a><span class="Other">(</span><span class="Identifier">color</span><span class="Other">:</span> <a href="colors.html#Color"><span class="Identifier">Color</span></a><span class="Other">)</span></pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L874"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L874" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="setForegroundColor.t,ForegroundColor">
+<dt><pre><span class="Keyword">template</span> <a href="#setForegroundColor.t%2CForegroundColor"><span class="Identifier">setForegroundColor</span></a><span class="Other">(</span><span class="Identifier">fg</span><span class="Other">:</span> <a href="terminal.html#ForegroundColor"><span class="Identifier">ForegroundColor</span></a><span class="Other">;</span> <span class="Identifier">bright</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span></pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L870"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L870" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="setStyle.t,set[Style]">
+<dt><pre><span class="Keyword">template</span> <a href="#setStyle.t%2Cset%5BStyle%5D"><span class="Identifier">setStyle</span></a><span class="Other">(</span><span class="Identifier">style</span><span class="Other">:</span> <a href="system.html#set"><span class="Identifier">set</span></a><span class="Other">[</span><a href="terminal.html#Style"><span class="Identifier">Style</span></a><span class="Other">]</span><span class="Other">)</span></pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L868"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L868" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="showCursor.t">
+<dt><pre><span class="Keyword">template</span> <a href="#showCursor.t"><span class="Identifier">showCursor</span></a><span class="Other">(</span><span class="Other">)</span></pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L857"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L857" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="styledEcho.t,varargs[untyped]">
+<dt><pre><span class="Keyword">template</span> <a href="#styledEcho.t%2Cvarargs%5Buntyped%5D"><span class="Identifier">styledEcho</span></a><span class="Other">(</span><span class="Identifier">args</span><span class="Other">:</span> <a href="system.html#varargs"><span class="Identifier">varargs</span></a><span class="Other">[</span><a href="system.html#untyped"><span class="Identifier">untyped</span></a><span class="Other">]</span><span class="Other">)</span></pre></dt>
+<dd>
+
+Echoes styles arguments to stdout using <tt class="docutils literal"><span class="pre"><span class="Identifier">styledWriteLine</span></span></tt>.
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L782"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L782" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="styledWriteLine.t,File,varargs[untyped]">
+<dt><pre><span class="Keyword">template</span> <a href="#styledWriteLine.t%2CFile%2Cvarargs%5Buntyped%5D"><span class="Identifier">styledWriteLine</span></a><span class="Other">(</span><span class="Identifier">f</span><span class="Other">:</span> <a href="io.html#File"><span class="Identifier">File</span></a><span class="Other">;</span> <span class="Identifier">args</span><span class="Other">:</span> <a href="system.html#varargs"><span class="Identifier">varargs</span></a><span class="Other">[</span><a href="system.html#untyped"><span class="Identifier">untyped</span></a><span class="Other">]</span><span class="Other">)</span></pre></dt>
+<dd>
+
+Calls <tt class="docutils literal"><span class="pre"><span class="Identifier">styledWrite</span></span></tt> and appends a newline at the end.
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">proc</span> <span class="Identifier">error</span><span class="Punctuation">(</span><span class="Identifier">msg</span><span class="Punctuation">:</span> <span class="Identifier">string</span><span class="Punctuation">)</span> <span class="Operator">=</span>
+  <span class="Identifier">styledWriteLine</span><span class="Punctuation">(</span><span class="Identifier">stderr</span><span class="Punctuation">,</span> <span class="Identifier">fgRed</span><span class="Punctuation">,</span> <span class="StringLit">&quot;Error: &quot;</span><span class="Punctuation">,</span> <span class="Identifier">resetStyle</span><span class="Punctuation">,</span> <span class="Identifier">msg</span><span class="Punctuation">)</span></pre>
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/terminal.nim#L773"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/terminal.nim#L773" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
 
 </dl></div>
 
@@ -1183,7 +1347,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-05-25 01:01:50 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-11-27 01:07:37 UTC</small>
       </div>
     </div>
   </div>

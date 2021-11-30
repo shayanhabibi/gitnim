@@ -13,8 +13,6 @@
 # does not support strings. Without this the code would
 # be slow and unreadable.
 
-from strutils import cmpIgnoreStyle
-
 type
   TSpecialWord* = enum
     wInvalid = "",
@@ -37,10 +35,12 @@ type
     wMagic = "magic", wThread = "thread", wFinal = "final", wProfiler = "profiler",
     wMemTracker = "memtracker", wObjChecks = "objchecks",
     wIntDefine = "intdefine", wStrDefine = "strdefine", wBoolDefine = "booldefine",
-    wCursor = "cursor", wNoalias = "noalias",
+    wCursor = "cursor", wNoalias = "noalias", wEffectsOf = "effectsOf",
+    wUncheckedAssign = "uncheckedAssign",
 
     wImmediate = "immediate", wConstructor = "constructor", wDestructor = "destructor",
     wDelegator = "delegator", wOverride = "override", wImportCpp = "importcpp",
+    wCppNonPod = "cppNonPod",
     wImportObjC = "importobjc", wImportCompilerProc = "importcompilerproc",
     wImportc = "importc", wImportJs = "importjs", wExportc = "exportc", wExportCpp = "exportcpp",
     wExportNims = "exportnims",
@@ -51,7 +51,10 @@ type
     wNosinks = "nosinks", wMerge = "merge", wLib = "lib", wDynlib = "dynlib",
     wCompilerProc = "compilerproc", wCore = "core", wProcVar = "procvar",
     wBase = "base", wUsed = "used", wFatal = "fatal", wError = "error", wWarning = "warning",
-    wHint = "hint", wWarningAsError = "warningAsError", wLine = "line", wPush = "push",
+    wHint = "hint",
+    wWarningAsError = "warningAsError",
+    wHintAsError = "hintAsError",
+    wLine = "line", wPush = "push",
     wPop = "pop", wDefine = "define", wUndef = "undef", wLineDir = "lineDir",
     wStackTrace = "stackTrace", wLineTrace = "lineTrace", wLink = "link", wCompile = "compile",
     wLinksys = "linksys", wDeprecated = "deprecated", wVarargs = "varargs", wCallconv = "callconv",
@@ -77,13 +80,13 @@ type
     wLocalPassc = "localPassC", wBorrow = "borrow", wDiscardable = "discardable",
     wFieldChecks = "fieldChecks", wSubsChar = "subschar", wAcyclic = "acyclic",
     wShallow = "shallow", wUnroll = "unroll", wLinearScanEnd = "linearScanEnd",
-    wComputedGoto = "computedGoto", wInjectStmt = "injectStmt", wExperimental = "experimental",
+    wComputedGoto = "computedGoto", wExperimental = "experimental",
     wWrite = "write", wGensym = "gensym", wInject = "inject", wDirty = "dirty",
     wInheritable = "inheritable", wThreadVar = "threadvar", wEmit = "emit",
     wAsmNoStackFrame = "asmNoStackFrame", wImplicitStatic = "implicitStatic",
     wGlobal = "global", wCodegenDecl = "codegenDecl", wUnchecked = "unchecked",
     wGuard = "guard", wLocks = "locks", wPartial = "partial", wExplain = "explain",
-    wLiftLocals = "liftlocals",
+    wLiftLocals = "liftlocals", wEnforceNoRaises = "enforceNoRaises",
 
     wAuto = "auto", wBool = "bool", wCatch = "catch", wChar = "char",
     wClass = "class", wCompl = "compl", wConst_cast = "const_cast", wDefault = "default",
@@ -107,7 +110,7 @@ type
     wStdIn = "stdin", wStdOut = "stdout", wStdErr = "stderr",
 
     wInOut = "inout", wByCopy = "bycopy", wByRef = "byref", wOneWay = "oneway",
-    wBitsize = "bitsize"
+    wBitsize = "bitsize", wImportHidden = "all",
 
   TSpecialWords* = set[TSpecialWord]
 
@@ -125,8 +128,21 @@ const
     wAsm, wBreak, wCase, wConst, wContinue, wDo, wElse, wEnum, wExport,
     wFor, wIf, wReturn, wStatic, wTemplate, wTry, wWhile, wUsing}
 
-proc findStr*[T:enum](a: Slice[T], s: string, default: T): T =
-  for i in a:
-    if cmpIgnoreStyle($i, s) == 0:
-      return i
-  result = default
+
+const enumUtilsExist = compiles:
+  import std/enumutils
+
+when enumUtilsExist:
+  from std/enumutils import genEnumCaseStmt
+  from strutils import normalize
+  proc findStr*[T: enum](a, b: static[T], s: string, default: T): T =
+    genEnumCaseStmt(T, s, default, ord(a), ord(b), normalize)
+
+else:
+  from strutils import cmpIgnoreStyle
+  proc findStr*[T: enum](a, b: static[T], s: string, default: T): T {.deprecated.} =
+    # used for compiler bootstrapping only
+    for i in a..b:
+      if cmpIgnoreStyle($i, s) == 0:
+        return i
+    result = default

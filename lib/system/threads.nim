@@ -11,7 +11,7 @@
 ##
 ## **Note**: This is part of the system module. Do not import it directly.
 ## To activate thread support you need to compile
-## with the ``--threads:on`` command line switch.
+## with the `--threads:on`:option: command line switch.
 ##
 ## Nim's memory model for threads is quite different from other common
 ## programming languages (C, Pascal): Each thread has its own
@@ -24,7 +24,7 @@
 ##
 ## .. code-block:: Nim
 ##
-##  import locks
+##  import std/locks
 ##
 ##  var
 ##    thr: array[0..4, Thread[tuple[a,b: int]]]
@@ -41,7 +41,7 @@
 ##  for i in 0..high(thr):
 ##    createThread(thr[i], threadFunc, (i*10, i*10+5))
 ##  joinThreads(thr)
-## 
+##
 ##  deinitLock(L)
 
 when not declared(ThisIsSystem):
@@ -90,6 +90,8 @@ type
       dataFn: proc (m: TArg) {.nimcall, gcsafe.}
       data: TArg
 
+proc `=copy`*[TArg](x: var Thread[TArg], y: Thread[TArg]) {.error.}
+
 var
   threadDestructionHandlers {.rtlThreadVar.}: seq[proc () {.closure, gcsafe, raises: [].}]
 
@@ -97,7 +99,7 @@ proc onThreadDestruction*(handler: proc () {.closure, gcsafe, raises: [].}) =
   ## Registers a *thread local* handler that is called at the thread's
   ## destruction.
   ##
-  ## A thread is destructed when the ``.thread`` proc returns
+  ## A thread is destructed when the `.thread` proc returns
   ## normally or when it raises an exception. Note that unhandled exceptions
   ## in a thread nevertheless cause the whole process to die.
   threadDestructionHandlers.add handler
@@ -261,7 +263,7 @@ when hostOS == "windows":
     ## Creates a new thread `t` and starts its execution.
     ##
     ## Entry point is the proc `tp`.
-    ## `param` is passed to `tp`. `TArg` can be ``void`` if you
+    ## `param` is passed to `tp`. `TArg` can be `void` if you
     ## don't need to pass any data to the thread.
     t.core = cast[PGcThread](allocShared0(sizeof(GcThread)))
 
@@ -310,7 +312,7 @@ else:
     ## Creates a new thread `t` and starts its execution.
     ##
     ## Entry point is the proc `tp`. `param` is passed to `tp`.
-    ## `TArg` can be ``void`` if you
+    ## `TArg` can be `void` if you
     ## don't need to pass any data to the thread.
     t.core = cast[PGcThread](allocShared0(sizeof(GcThread)))
 
@@ -393,7 +395,7 @@ elif defined(netbsd):
 
 elif defined(freebsd):
   proc syscall(arg: cint, arg0: ptr cint): cint {.varargs, importc: "syscall", header: "<unistd.h>".}
-  var SYS_thr_self {.importc:"SYS_thr_self", header:"<sys/syscall.h>"}: cint
+  var SYS_thr_self {.importc:"SYS_thr_self", header:"<sys/syscall.h>".}: cint
 
   proc getThreadId*(): int =
     ## Gets the ID of the currently running thread.

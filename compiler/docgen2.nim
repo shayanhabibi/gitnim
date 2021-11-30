@@ -31,6 +31,7 @@ template closeImpl(body: untyped) {.dirty.} =
   let useWarning = sfMainModule notin g.module.flags
   let groupedToc = true
   if shouldProcess(g):
+    finishGenerateDoc(g.doc)
     body
     try:
       generateIndex(g.doc)
@@ -68,13 +69,18 @@ template myOpenImpl(ext: untyped) {.dirty.} =
   g.doc = d
   result = g
 
-proc myOpen(graph: ModuleGraph; module: PSym): PPassContext =
+proc myOpen(graph: ModuleGraph; module: PSym; idgen: IdGenerator): PPassContext =
   myOpenImpl(HtmlExt)
 
-proc myOpenJson(graph: ModuleGraph; module: PSym): PPassContext =
+proc myOpenTex(graph: ModuleGraph; module: PSym; idgen: IdGenerator): PPassContext =
+  myOpenImpl(TexExt)
+
+proc myOpenJson(graph: ModuleGraph; module: PSym; idgen: IdGenerator): PPassContext =
   myOpenImpl(JsonExt)
 
 const docgen2Pass* = makePass(open = myOpen, process = processNode, close = close)
+const docgen2TexPass* = makePass(open = myOpenTex, process = processNode,
+                                 close = close)
 const docgen2JsonPass* = makePass(open = myOpenJson, process = processNodeJson,
                                   close = closeJson)
 

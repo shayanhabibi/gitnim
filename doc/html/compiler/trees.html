@@ -17,7 +17,7 @@
 <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600' rel='stylesheet' type='text/css'/>
 
 <!-- CSS -->
-<title>trees</title>
+<title>compiler/trees</title>
 <link rel="stylesheet" type="text/css" href="nimdoc.out.css">
 
 <script type="text/javascript" src="dochack.js"></script>
@@ -34,7 +34,6 @@ function main() {
     }
   }
 
-  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
   function switchTheme(e) {
       if (e.target.checked) {
           document.documentElement.setAttribute('data-theme', 'dark');
@@ -45,24 +44,32 @@ function main() {
       }
   }
 
-  toggleSwitch.addEventListener('change', switchTheme, false);
+  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+  if (toggleSwitch !== null) {
+    toggleSwitch.addEventListener('change', switchTheme, false);
+  }
 
-  const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+  var currentTheme = localStorage.getItem('theme');
+  if (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    currentTheme = 'dark';
+  }
   if (currentTheme) {
     document.documentElement.setAttribute('data-theme', currentTheme);
 
-    if (currentTheme === 'dark') {
+    if (currentTheme === 'dark' && toggleSwitch !== null) {
       toggleSwitch.checked = true;
     }
   }
 }
+
+window.addEventListener('DOMContentLoaded', main);
 </script>
 
 </head>
-<body onload="main()">
+<body>
 <div class="document" id="documentId">
   <div class="container">
-    <h1 class="title">trees</h1>
+    <h1 class="title">compiler/trees</h1>
     <div class="row">
   <div class="three columns">
   <div class="theme-switch-wrapper">
@@ -100,99 +107,99 @@ function main() {
 <li>
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">isRange
-      <li><a class="reference" href="#isRange%2CPNode"
-    title="isRange(n: PNode): bool">isRange,<wbr>PNode</a></li>
+      <ul class="simple nested-toc-section">cyclicTree
+      <li><a class="reference" href="#cyclicTree%2CPNode"
+    title="cyclicTree(n: PNode): bool">cyclicTree(n: PNode): bool</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">dontInlineConstant
       <li><a class="reference" href="#dontInlineConstant%2CPNode%2CPNode"
-    title="dontInlineConstant(orig, cnst: PNode): bool">dontInlineConstant,<wbr>PNode,<wbr>PNode</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">propSpec
-      <li><a class="reference" href="#propSpec%2CPNode%2CTSpecialWord"
-    title="propSpec(n: PNode; effectType: TSpecialWord): PNode">propSpec,<wbr>PNode,<wbr>TSpecialWord</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">isTrue
-      <li><a class="reference" href="#isTrue%2CPNode"
-    title="isTrue(n: PNode): bool">isTrue,<wbr>PNode</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">isNoSideEffectPragma
-      <li><a class="reference" href="#isNoSideEffectPragma%2CPNode"
-    title="isNoSideEffectPragma(n: PNode): bool">isNoSideEffectPragma,<wbr>PNode</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">stupidStmtListExpr
-      <li><a class="reference" href="#stupidStmtListExpr%2CPNode"
-    title="stupidStmtListExpr(n: PNode): bool">stupidStmtListExpr,<wbr>PNode</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">extractRange
-      <li><a class="reference" href="#extractRange%2CTNodeKind%2CPNode%2Cint%2Cint"
-    title="extractRange(k: TNodeKind; n: PNode; a, b: int): PNode">extractRange,<wbr>TNodeKind,<wbr>PNode,<wbr>int,<wbr>int</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">exprStructuralEquivalent
-      <li><a class="reference" href="#exprStructuralEquivalent%2CPNode%2CPNode"
-    title="exprStructuralEquivalent(a, b: PNode; strictSymEquality = false): bool">exprStructuralEquivalent,<wbr>PNode,<wbr>PNode</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">getRoot
-      <li><a class="reference" href="#getRoot%2CPNode"
-    title="getRoot(n: PNode): PSym">getRoot,<wbr>PNode</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">isConstExpr
-      <li><a class="reference" href="#isConstExpr%2CPNode"
-    title="isConstExpr(n: PNode): bool">isConstExpr,<wbr>PNode</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">getMagic
-      <li><a class="reference" href="#getMagic%2CPNode"
-    title="getMagic(op: PNode): TMagic">getMagic,<wbr>PNode</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">sameTree
-      <li><a class="reference" href="#sameTree%2CPNode%2CPNode"
-    title="sameTree(a, b: PNode): bool">sameTree,<wbr>PNode,<wbr>PNode</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">flattenStmts
-      <li><a class="reference" href="#flattenStmts%2CPNode"
-    title="flattenStmts(n: PNode): PNode">flattenStmts,<wbr>PNode</a></li>
+    title="dontInlineConstant(orig, cnst: PNode): bool">dontInlineConstant(orig, cnst: PNode): bool</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">effectSpec
       <li><a class="reference" href="#effectSpec%2CPNode%2CTSpecialWord"
-    title="effectSpec(n: PNode; effectType: TSpecialWord): PNode">effectSpec,<wbr>PNode,<wbr>TSpecialWord</a></li>
+    title="effectSpec(n: PNode; effectType: TSpecialWord): PNode">effectSpec(n: PNode; effectType: TSpecialWord): PNode</a></li>
 
   </ul>
-  <ul class="simple nested-toc-section">cyclicTree
-      <li><a class="reference" href="#cyclicTree%2CPNode"
-    title="cyclicTree(n: PNode): bool">cyclicTree,<wbr>PNode</a></li>
+  <ul class="simple nested-toc-section">exprStructuralEquivalent
+      <li><a class="reference" href="#exprStructuralEquivalent%2CPNode%2CPNode"
+    title="exprStructuralEquivalent(a, b: PNode; strictSymEquality = false): bool">exprStructuralEquivalent(a, b: PNode; strictSymEquality = false): bool</a></li>
 
   </ul>
-  <ul class="simple nested-toc-section">isCaseObj
-      <li><a class="reference" href="#isCaseObj%2CPNode"
-    title="isCaseObj(n: PNode): bool">isCaseObj,<wbr>PNode</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">isDeepConstExpr
-      <li><a class="reference" href="#isDeepConstExpr%2CPNode"
-    title="isDeepConstExpr(n: PNode; preventInheritance = false): bool">isDeepConstExpr,<wbr>PNode</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">whichPragma
-      <li><a class="reference" href="#whichPragma%2CPNode"
-    title="whichPragma(n: PNode): TSpecialWord">whichPragma,<wbr>PNode</a></li>
+  <ul class="simple nested-toc-section">extractRange
+      <li><a class="reference" href="#extractRange%2CTNodeKind%2CPNode%2Cint%2Cint"
+    title="extractRange(k: TNodeKind; n: PNode; a, b: int): PNode">extractRange(k: TNodeKind; n: PNode; a, b: int): PNode</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">findPragma
       <li><a class="reference" href="#findPragma%2CPNode%2CTSpecialWord"
-    title="findPragma(n: PNode; which: TSpecialWord): PNode">findPragma,<wbr>PNode,<wbr>TSpecialWord</a></li>
+    title="findPragma(n: PNode; which: TSpecialWord): PNode">findPragma(n: PNode; which: TSpecialWord): PNode</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">flattenStmts
+      <li><a class="reference" href="#flattenStmts%2CPNode"
+    title="flattenStmts(n: PNode): PNode">flattenStmts(n: PNode): PNode</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">getMagic
+      <li><a class="reference" href="#getMagic%2CPNode"
+    title="getMagic(op: PNode): TMagic">getMagic(op: PNode): TMagic</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">getRoot
+      <li><a class="reference" href="#getRoot%2CPNode"
+    title="getRoot(n: PNode): PSym">getRoot(n: PNode): PSym</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">isCaseObj
+      <li><a class="reference" href="#isCaseObj%2CPNode"
+    title="isCaseObj(n: PNode): bool">isCaseObj(n: PNode): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">isConstExpr
+      <li><a class="reference" href="#isConstExpr%2CPNode"
+    title="isConstExpr(n: PNode): bool">isConstExpr(n: PNode): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">isDeepConstExpr
+      <li><a class="reference" href="#isDeepConstExpr%2CPNode"
+    title="isDeepConstExpr(n: PNode; preventInheritance = false): bool">isDeepConstExpr(n: PNode; preventInheritance = false): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">isNoSideEffectPragma
+      <li><a class="reference" href="#isNoSideEffectPragma%2CPNode"
+    title="isNoSideEffectPragma(n: PNode): bool">isNoSideEffectPragma(n: PNode): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">isRange
+      <li><a class="reference" href="#isRange%2CPNode"
+    title="isRange(n: PNode): bool">isRange(n: PNode): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">isTrue
+      <li><a class="reference" href="#isTrue%2CPNode"
+    title="isTrue(n: PNode): bool">isTrue(n: PNode): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">propSpec
+      <li><a class="reference" href="#propSpec%2CPNode%2CTSpecialWord"
+    title="propSpec(n: PNode; effectType: TSpecialWord): PNode">propSpec(n: PNode; effectType: TSpecialWord): PNode</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">sameTree
+      <li><a class="reference" href="#sameTree%2CPNode%2CPNode"
+    title="sameTree(a, b: PNode): bool">sameTree(a, b: PNode): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">stupidStmtListExpr
+      <li><a class="reference" href="#stupidStmtListExpr%2CPNode"
+    title="stupidStmtListExpr(n: PNode): bool">stupidStmtListExpr(n: PNode): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">whichPragma
+      <li><a class="reference" href="#whichPragma%2CPNode"
+    title="whichPragma(n: PNode): TSpecialWord">whichPragma(n: PNode): TSpecialWord</a></li>
 
   </ul>
 
@@ -202,6 +209,11 @@ function main() {
 </ul>
 
   </div>
+  &nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L1"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L1" class="link-seesrc" target="_blank" >Edit</a>
+
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
@@ -214,219 +226,238 @@ function main() {
 <div class="section" id="12">
 <h1><a class="toc-backref" href="#12">Procs</a></h1>
 <dl class="item">
-<a id="cyclicTree,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#cyclicTree%2CPNode"><span class="Identifier">cyclicTree</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<div id="cyclicTree,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#cyclicTree%2CPNode"><span class="Identifier">cyclicTree</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L25"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L25"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L25" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L25" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="exprStructuralEquivalent,PNode,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#exprStructuralEquivalent%2CPNode%2CPNode"><span class="Identifier">exprStructuralEquivalent</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">strictSymEquality</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="dontInlineConstant,PNode,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#dontInlineConstant%2CPNode%2CPNode"><span class="Identifier">dontInlineConstant</span></a><span class="Other">(</span><span class="Identifier">orig</span><span class="Other">,</span> <span class="Identifier">cnst</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L33"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L211"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L33" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L211" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="sameTree,PNode,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#sameTree%2CPNode%2CPNode"><span class="Identifier">sameTree</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="effectSpec,PNode,TSpecialWord">
+<dt><pre><span class="Keyword">proc</span> <a href="#effectSpec%2CPNode%2CTSpecialWord"><span class="Identifier">effectSpec</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">effectType</span><span class="Other">:</span> <a href="wordrecg.html#TSpecialWord"><span class="Identifier">TSpecialWord</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L57"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L153"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L57" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L153" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="getMagic,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#getMagic%2CPNode"><span class="Identifier">getMagic</span></a><span class="Other">(</span><span class="Identifier">op</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#TMagic"><span class="Identifier">TMagic</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="exprStructuralEquivalent,PNode,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#exprStructuralEquivalent%2CPNode%2CPNode"><span class="Identifier">exprStructuralEquivalent</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">strictSymEquality</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L80"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L33"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L80" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L33" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="isConstExpr,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#isConstExpr%2CPNode"><span class="Identifier">isConstExpr</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="extractRange,TNodeKind,PNode,int,int">
+<dt><pre><span class="Keyword">proc</span> <a href="#extractRange%2CTNodeKind%2CPNode%2Cint%2Cint"><span class="Identifier">extractRange</span></a><span class="Other">(</span><span class="Identifier">k</span><span class="Other">:</span> <a href="ast.html#TNodeKind"><span class="Identifier">TNodeKind</span></a><span class="Other">;</span> <span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L89"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L181"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L89" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L181" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="isCaseObj,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#isCaseObj%2CPNode"><span class="Identifier">isCaseObj</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="findPragma,PNode,TSpecialWord">
+<dt><pre><span class="Keyword">proc</span> <a href="#findPragma%2CPNode%2CTSpecialWord"><span class="Identifier">findPragma</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">which</span><span class="Other">:</span> <a href="wordrecg.html#TSpecialWord"><span class="Identifier">TSpecialWord</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L93"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L147"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L93" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L147" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="isDeepConstExpr,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#isDeepConstExpr%2CPNode"><span class="Identifier">isDeepConstExpr</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">preventInheritance</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="flattenStmts,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#flattenStmts%2CPNode"><span class="Identifier">flattenStmts</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L98"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L175"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L98" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L175" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="isRange,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#isRange%2CPNode"><span class="Identifier">isRange</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="getMagic,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#getMagic%2CPNode"><span class="Identifier">getMagic</span></a><span class="Other">(</span><span class="Identifier">op</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#TMagic"><span class="Identifier">TMagic</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L122"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L80"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L122" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L80" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="whichPragma,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#whichPragma%2CPNode"><span class="Identifier">whichPragma</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="wordrecg.html#TSpecialWord"><span class="Identifier">TSpecialWord</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L131"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L131" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="isNoSideEffectPragma,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#isNoSideEffectPragma%2CPNode"><span class="Identifier">isNoSideEffectPragma</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L141"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L141" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="findPragma,PNode,TSpecialWord"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#findPragma%2CPNode%2CTSpecialWord"><span class="Identifier">findPragma</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">which</span><span class="Other">:</span> <a href="wordrecg.html#TSpecialWord"><span class="Identifier">TSpecialWord</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L147"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L147" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="effectSpec,PNode,TSpecialWord"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#effectSpec%2CPNode%2CTSpecialWord"><span class="Identifier">effectSpec</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">effectType</span><span class="Other">:</span> <a href="wordrecg.html#TSpecialWord"><span class="Identifier">TSpecialWord</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L153"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L153" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="propSpec,PNode,TSpecialWord"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#propSpec%2CPNode%2CTSpecialWord"><span class="Identifier">propSpec</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">effectType</span><span class="Other">:</span> <a href="wordrecg.html#TSpecialWord"><span class="Identifier">TSpecialWord</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L163"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L163" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="flattenStmts,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#flattenStmts%2CPNode"><span class="Identifier">flattenStmts</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L175"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L175" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="extractRange,TNodeKind,PNode,int,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#extractRange%2CTNodeKind%2CPNode%2Cint%2Cint"><span class="Identifier">extractRange</span></a><span class="Other">(</span><span class="Identifier">k</span><span class="Other">:</span> <a href="ast.html#TNodeKind"><span class="Identifier">TNodeKind</span></a><span class="Other">;</span> <span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L181"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L181" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="isTrue,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#isTrue%2CPNode"><span class="Identifier">isTrue</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-&nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L185"
-class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L185" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
-<a id="getRoot,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#getRoot%2CPNode"><span class="Identifier">getRoot</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PSym"><span class="Identifier">PSym</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="getRoot,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#getRoot%2CPNode"><span class="Identifier">getRoot</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PSym"><span class="Identifier">PSym</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 <tt class="docutils literal"><span class="pre">getRoot</span></tt> takes a <em>path</em> <tt class="docutils literal"><span class="pre">n</span></tt>. A path is an lvalue expression like <tt class="docutils literal"><span class="pre">obj.x[i].y</span></tt>. The <em>root</em> of a path is the symbol that can be determined as the owner; <tt class="docutils literal"><span class="pre">obj</span></tt> in the example.
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L189"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L189"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L189" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L189" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="stupidStmtListExpr,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#stupidStmtListExpr%2CPNode"><span class="Identifier">stupidStmtListExpr</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="isCaseObj,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#isCaseObj%2CPNode"><span class="Identifier">isCaseObj</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L206"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L93"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L206" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L93" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="dontInlineConstant,PNode,PNode"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#dontInlineConstant%2CPNode%2CPNode"><span class="Identifier">dontInlineConstant</span></a><span class="Other">(</span><span class="Identifier">orig</span><span class="Other">,</span> <span class="Identifier">cnst</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="isConstExpr,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#isConstExpr%2CPNode"><span class="Identifier">isConstExpr</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/trees.nim#L211"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L89"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L211" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L89" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
+<div id="isDeepConstExpr,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#isDeepConstExpr%2CPNode"><span class="Identifier">isDeepConstExpr</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">preventInheritance</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L98"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L98" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="isNoSideEffectPragma,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#isNoSideEffectPragma%2CPNode"><span class="Identifier">isNoSideEffectPragma</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L141"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L141" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="isRange,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#isRange%2CPNode"><span class="Identifier">isRange</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L122"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L122" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="isTrue,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#isTrue%2CPNode"><span class="Identifier">isTrue</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L185"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L185" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="propSpec,PNode,TSpecialWord">
+<dt><pre><span class="Keyword">proc</span> <a href="#propSpec%2CPNode%2CTSpecialWord"><span class="Identifier">propSpec</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">;</span> <span class="Identifier">effectType</span><span class="Other">:</span> <a href="wordrecg.html#TSpecialWord"><span class="Identifier">TSpecialWord</span></a><span class="Other">)</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L163"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L163" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="sameTree,PNode,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#sameTree%2CPNode%2CPNode"><span class="Identifier">sameTree</span></a><span class="Other">(</span><span class="Identifier">a</span><span class="Other">,</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L57"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L57" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="stupidStmtListExpr,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#stupidStmtListExpr%2CPNode"><span class="Identifier">stupidStmtListExpr</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L206"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L206" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
+<div id="whichPragma,PNode">
+<dt><pre><span class="Keyword">proc</span> <a href="#whichPragma%2CPNode"><span class="Identifier">whichPragma</span></a><span class="Other">(</span><span class="Identifier">n</span><span class="Other">:</span> <a href="ast.html#PNode"><span class="Identifier">PNode</span></a><span class="Other">)</span><span class="Other">:</span> <a href="wordrecg.html#TSpecialWord"><span class="Identifier">TSpecialWord</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/trees.nim#L131"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/trees.nim#L131" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+</div>
 
 </dl></div>
 
@@ -437,7 +468,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-05-25 01:02:41 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-11-27 01:08:10 UTC</small>
       </div>
     </div>
   </div>

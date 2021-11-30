@@ -33,10 +33,22 @@ when defined(windows) and defined(bcc):
 
 proc c_snprintf(s: cstring; n:uint; frmt: cstring): cint {.importc: "snprintf", header: "<stdio.h>", nodecl, varargs.}
 
-proc toStrMaxPrecision*(f: BiggestFloat, literalPostfix = ""): string =
+
+when not declared(signbit):
+  proc c_signbit(x: SomeFloat): cint {.importc: "signbit", header: "<math.h>".}
+  proc signbit*(x: SomeFloat): bool {.inline.} =
+    result = c_signbit(x) != 0
+
+import system/formatfloat
+
+proc toStrMaxPrecision*(f: BiggestFloat | float32): string =
+  const literalPostfix = when f is float32: "f" else: ""
   case classify(f)
   of fcNan:
-    result = "NAN"
+    if signbit(f):
+      result = "-NAN"
+    else:
+      result = "NAN"
   of fcNegZero:
     result = "-0.0" & literalPostfix
   of fcZero:
@@ -46,9 +58,8 @@ proc toStrMaxPrecision*(f: BiggestFloat, literalPostfix = ""): string =
   of fcNegInf:
     result = "-INF"
   else:
-    result = newString(81)
-    let n = c_snprintf(result.cstring, result.len.uint, "%#.16e%s", f, literalPostfix.cstring)
-    setLen(result, n)
+    result.addFloatRoundtrip(f)
+    result.add literalPostfix
 
 proc encodeStr*(s: string, result: var string) =
   for i in 0..<s.len:

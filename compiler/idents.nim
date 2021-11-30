@@ -15,12 +15,9 @@ import
   hashes, wordrecg
 
 type
-  TIdObj* = object of RootObj
-    id*: int # unique id; use this for comparisons and not the pointers
-
-  PIdObj* = ref TIdObj
   PIdent* = ref TIdent
-  TIdent*{.acyclic.} = object of TIdObj
+  TIdent*{.acyclic.} = object
+    id*: int # unique id; use this for comparisons and not the pointers
     s*: string
     next*: PIdent             # for hash-table chaining
     h*: Hash                 # hash value of s
@@ -116,3 +113,8 @@ proc newIdentCache*(): IdentCache =
 proc whichKeyword*(id: PIdent): TSpecialWord =
   if id.id < 0: result = wInvalid
   else: result = TSpecialWord(id.id)
+
+proc hash*(x: PIdent): Hash {.inline.} = x.h
+proc `==`*(a, b: PIdent): bool {.inline.} =
+  if a.isNil or b.isNil: result = system.`==`(a, b)
+  else: result = a.id == b.id

@@ -17,7 +17,7 @@
 <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600' rel='stylesheet' type='text/css'/>
 
 <!-- CSS -->
-<title>streamwrapper</title>
+<title>std/streamwrapper</title>
 <link rel="stylesheet" type="text/css" href="nimdoc.out.css">
 
 <script type="text/javascript" src="dochack.js"></script>
@@ -34,7 +34,6 @@ function main() {
     }
   }
 
-  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
   function switchTheme(e) {
       if (e.target.checked) {
           document.documentElement.setAttribute('data-theme', 'dark');
@@ -45,24 +44,32 @@ function main() {
       }
   }
 
-  toggleSwitch.addEventListener('change', switchTheme, false);
+  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+  if (toggleSwitch !== null) {
+    toggleSwitch.addEventListener('change', switchTheme, false);
+  }
 
-  const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+  var currentTheme = localStorage.getItem('theme');
+  if (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    currentTheme = 'dark';
+  }
   if (currentTheme) {
     document.documentElement.setAttribute('data-theme', currentTheme);
 
-    if (currentTheme === 'dark') {
+    if (currentTheme === 'dark' && toggleSwitch !== null) {
       toggleSwitch.checked = true;
     }
   }
 }
+
+window.addEventListener('DOMContentLoaded', main);
 </script>
 
 </head>
-<body onload="main()">
+<body>
 <div class="document" id="documentId">
   <div class="container">
-    <h1 class="title">streamwrapper</h1>
+    <h1 class="title">std/streamwrapper</h1>
     <div class="row">
   <div class="three columns">
   <div class="theme-switch-wrapper">
@@ -74,21 +81,12 @@ function main() {
   </div>
   <div id="global-links">
     <ul class="simple-boot">
-      <li>
-        <a href="manual.html">Manual</a>
-      </li>
-      <li>
-        <a href="lib.html">Standard library</a>
-      </li>
-      <li>
-        <a href="theindex.html">Index</a>
-      </li>
-      <li>
-        <a href="compiler/theindex.html">Compiler docs</a>
-      </li>
-      <li>
-        <a href="https://nim-lang.github.io/fusion/theindex.html">Fusion docs</a>
-      </li>
+      <li><a href="manual.html">Manual</a></li>
+      <li><a href="lib.html">Standard library</a></li>
+      <li> <a href="theindex.html">Index</a></li>
+      <li><a href="compiler/theindex.html">Compiler docs</a></li>
+      <li><a href="https://nim-lang.github.io/fusion/theindex.html">Fusion docs</a></li>
+      <li><a href="https://nim-lang.github.io/Nim/">devel</a>, <a href="https://nim-lang.org/documentation.html">stable</a></li>
     </ul>
   </div>
   <div id="searchInputDiv">
@@ -119,7 +117,7 @@ function main() {
   <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">newPipeOutStream
       <li><a class="reference" href="#newPipeOutStream%2Csink"
-    title="newPipeOutStream[T](s: sink (ref T)): owned PipeOutStream[T]">newPipeOutStream,<wbr>sink</a></li>
+    title="newPipeOutStream[T](s: sink (ref T)): owned PipeOutStream[T]">newPipeOutStream[T](s: sink (ref T)): owned PipeOutStream[T]</a></li>
 
   </ul>
 
@@ -129,6 +127,11 @@ function main() {
 </ul>
 
   </div>
+  &nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/streamwrapper.nim#L1"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/streamwrapper.nim#L1" class="link-seesrc" target="_blank" >Edit</a>
+
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
@@ -143,7 +146,7 @@ function main() {
 <div class="section" id="7">
 <h1><a class="toc-backref" href="#7">Types</a></h1>
 <dl class="item">
-<a id="PipeOutStream"></a>
+<div id="PipeOutStream">
 <dt><pre><a href="streamwrapper.html#PipeOutStream"><span class="Identifier">PipeOutStream</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <span class="Identifier">T</span>
   <span class="Identifier">buffer</span><span class="Other">:</span> <a href="deques.html#Deque"><span class="Identifier">Deque</span></a><span class="Other">[</span><a href="system.html#char"><span class="Identifier">char</span></a><span class="Other">]</span>
   <span class="Identifier">baseReadLineImpl</span><span class="Other">:</span> <span class="Identifier">typeof</span><span class="Other">(</span><span class="Identifier">StreamObj</span><span class="Other">.</span><span class="Identifier">readLineImpl</span><span class="Other">)</span>
@@ -153,34 +156,36 @@ function main() {
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/streamwrapper.nim#L17"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/streamwrapper.nim#L17"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/streamwrapper.nim#L17" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/streamwrapper.nim#L17" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
 
 </dl></div>
 <div class="section" id="12">
 <h1><a class="toc-backref" href="#12">Procs</a></h1>
 <dl class="item">
-<a id="newPipeOutStream,sink"></a>
+<div id="newPipeOutStream,sink">
 <dt><pre><span class="Keyword">proc</span> <a href="#newPipeOutStream%2Csink"><span class="Identifier">newPipeOutStream</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <a href="system.html#sink"><span class="Identifier">sink</span></a> <span class="Other">(</span><span class="Keyword">ref</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">owned</span> <a href="streamwrapper.html#PipeOutStream"><span class="Identifier">PipeOutStream</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
 <dd>
 
 <p>Wrap pipe for reading with PipeOutStream so that you can use peek* procs and generate runtime error when setPosition/getPosition is called or write operation is performed.</p>
 <p>Example:</p>
-<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">osproc</span><span class="Punctuation">,</span> <span class="Identifier">streamwrapper</span>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">std</span><span class="Operator">/</span><span class="Punctuation">[</span><span class="Identifier">osproc</span><span class="Punctuation">,</span> <span class="Identifier">streamwrapper</span><span class="Punctuation">]</span>
 <span class="Keyword">var</span>
   <span class="Identifier">p</span> <span class="Operator">=</span> <span class="Identifier">startProcess</span><span class="Punctuation">(</span><span class="Identifier">exePath</span><span class="Punctuation">)</span>
   <span class="Identifier">outStream</span> <span class="Operator">=</span> <span class="Identifier">p</span><span class="Operator">.</span><span class="Identifier">outputStream</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">newPipeOutStream</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
 <span class="Identifier">echo</span> <span class="Identifier">outStream</span><span class="Operator">.</span><span class="Identifier">peekChar</span>
 <span class="Identifier">p</span><span class="Operator">.</span><span class="Identifier">close</span><span class="Punctuation">(</span><span class="Punctuation">)</span></pre>
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/lib/pure/streamwrapper.nim#L85"
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/streamwrapper.nim#L85"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/streamwrapper.nim#L85" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/streamwrapper.nim#L85" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
 
 </dl></div>
 
@@ -191,7 +196,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-05-25 01:01:44 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-11-27 01:07:31 UTC</small>
       </div>
     </div>
   </div>

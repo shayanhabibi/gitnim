@@ -51,8 +51,6 @@ runnableExamples:
   assert not flag.testAndSet
 
 
-import macros
-
 when defined(cpp) or defined(nimdoc):
   # For the C++ backend, types and operations map directly to C++11 atomics.
 
@@ -290,10 +288,10 @@ else:
     type
       # Atomic* {.importcpp: "_Atomic('0)".} [T] = object
 
-      AtomicInt8 {.importc: "_Atomic NI8", size: 1.} = object
-      AtomicInt16 {.importc: "_Atomic NI16", size: 2.} = object
-      AtomicInt32 {.importc: "_Atomic NI32", size: 4.} = object
-      AtomicInt64 {.importc: "_Atomic NI64", size: 8.} = object
+      AtomicInt8 {.importc: "_Atomic NI8".} = int8
+      AtomicInt16 {.importc: "_Atomic NI16".} = int16
+      AtomicInt32 {.importc: "_Atomic NI32".} = int32
+      AtomicInt64 {.importc: "_Atomic NI64".} = int64
 
     template atomicType*(T: typedesc[Trivial]): untyped =
       # Maps the size of a trivial type to it's internal atomic type
@@ -338,7 +336,7 @@ else:
     {.pop.}
 
     proc load*[T: Trivial](location: var Atomic[T]; order: MemoryOrder = moSequentiallyConsistent): T {.inline.} =
-      cast[T](atomic_load_explicit[nonAtomicType(T), type(location.value)](addr(location.value), order))
+      cast[T](atomic_load_explicit[nonAtomicType(T), typeof(location.value)](addr(location.value), order))
     proc store*[T: Trivial](location: var Atomic[T]; desired: T; order: MemoryOrder = moSequentiallyConsistent) {.inline.} =
       atomic_store_explicit(addr(location.value), cast[nonAtomicType(T)](desired), order)
     proc exchange*[T: Trivial](location: var Atomic[T]; desired: T; order: MemoryOrder = moSequentiallyConsistent): T {.inline.} =

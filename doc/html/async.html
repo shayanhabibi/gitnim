@@ -17,7 +17,7 @@
 <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600' rel='stylesheet' type='text/css'/>
 
 <!-- CSS -->
-<title>async</title>
+<title>std/async</title>
 <link rel="stylesheet" type="text/css" href="nimdoc.out.css">
 
 <script type="text/javascript" src="dochack.js"></script>
@@ -34,7 +34,6 @@ function main() {
     }
   }
 
-  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
   function switchTheme(e) {
       if (e.target.checked) {
           document.documentElement.setAttribute('data-theme', 'dark');
@@ -45,24 +44,32 @@ function main() {
       }
   }
 
-  toggleSwitch.addEventListener('change', switchTheme, false);
+  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+  if (toggleSwitch !== null) {
+    toggleSwitch.addEventListener('change', switchTheme, false);
+  }
 
-  const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+  var currentTheme = localStorage.getItem('theme');
+  if (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    currentTheme = 'dark';
+  }
   if (currentTheme) {
     document.documentElement.setAttribute('data-theme', currentTheme);
 
-    if (currentTheme === 'dark') {
+    if (currentTheme === 'dark' && toggleSwitch !== null) {
       toggleSwitch.checked = true;
     }
   }
 }
+
+window.addEventListener('DOMContentLoaded', main);
 </script>
 
 </head>
-<body onload="main()">
+<body>
 <div class="document" id="documentId">
   <div class="container">
-    <h1 class="title">async</h1>
+    <h1 class="title">std/async</h1>
     <div class="row">
   <div class="three columns">
   <div class="theme-switch-wrapper">
@@ -74,21 +81,12 @@ function main() {
   </div>
   <div id="global-links">
     <ul class="simple-boot">
-      <li>
-        <a href="manual.html">Manual</a>
-      </li>
-      <li>
-        <a href="lib.html">Standard library</a>
-      </li>
-      <li>
-        <a href="theindex.html">Index</a>
-      </li>
-      <li>
-        <a href="compiler/theindex.html">Compiler docs</a>
-      </li>
-      <li>
-        <a href="https://nim-lang.github.io/fusion/theindex.html">Fusion docs</a>
-      </li>
+      <li><a href="manual.html">Manual</a></li>
+      <li><a href="lib.html">Standard library</a></li>
+      <li> <a href="theindex.html">Index</a></li>
+      <li><a href="compiler/theindex.html">Compiler docs</a></li>
+      <li><a href="https://nim-lang.github.io/fusion/theindex.html">Fusion docs</a></li>
+      <li><a href="https://nim-lang.github.io/Nim/">devel</a>, <a href="https://nim-lang.org/documentation.html">stable</a></li>
     </ul>
   </div>
   <div id="searchInputDiv">
@@ -113,6 +111,11 @@ function main() {
 </ul>
 
   </div>
+  &nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/lib/pure/async.nim#L1"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/lib/pure/async.nim#L1" class="link-seesrc" target="_blank" >Edit</a>
+
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
@@ -125,7 +128,7 @@ function main() {
 <div class="section" id="19">
 <h1><a class="toc-backref" href="#19">Exports</a></h1>
 <dl class="item">
-<a href="asyncmacro.html#multisync.m,untyped"><span class="Identifier">multisync</span></a>, <a href="asyncmacro.html#await.t,Future[T]"><span class="Identifier">await</span></a>, <a href="asyncmacro.html#async.m,untyped"><span class="Identifier">async</span></a>, <a href="asyncmacro.html#await.t,typed"><span class="Identifier">await</span></a>, <a href="asyncfutures.html#and,Future[T],Future[Y]"><span class="Identifier">and</span></a>, <a href="asyncfutures.html#addCallback,Future[T],proc(Future[T])"><span class="Identifier">addCallback</span></a>, <a href="asyncfutures.html#asyncCheck,Future[T]"><span class="Identifier">asyncCheck</span></a>, <a href="asyncfutures.html#or,Future[T],Future[Y]"><span class="Identifier">or</span></a>, <a href="asyncfutures.html#read"><span class="Identifier">read</span></a>, <a href="asyncfutures.html#fail,Future[T],ref.Exception"><span class="Identifier">fail</span></a>, <a href="asyncfutures.html#setCallSoonProc"><span class="Identifier">setCallSoonProc</span></a>, <a href="asyncfutures.html#callSoon,proc)"><span class="Identifier">callSoon</span></a>, <a href="asyncfutures.html#addCallback,FutureBase,proc)"><span class="Identifier">addCallback</span></a>, <a href="asyncfutures.html#clean,FutureVar[T]"><span class="Identifier">clean</span></a>, <a href="asyncfutures.html#clearCallbacks,FutureBase"><span class="Identifier">clearCallbacks</span></a>, <a href="asyncfutures.html#newFutureVar,string"><span class="Identifier">newFutureVar</span></a>, <a href="asyncfutures.html#mget,FutureVar[T]"><span class="Identifier">mget</span></a>, <a href="asyncfutures.html#Future"><span class="Identifier">Future</span></a>, <a href="asyncfutures.html#failed,FutureBase"><span class="Identifier">failed</span></a>, <a href="asyncfutures.html#$,seq[StackTraceEntry]"><span class="Identifier">$</span></a>, <a href="asyncfutures.html#callback=,FutureBase,proc)"><span class="Identifier">callback=</span></a>, <a href="asyncfutures.html#complete,FutureVar[T],T"><span class="Identifier">complete</span></a>, <a href="asyncfutures.html#callback=,Future[T],proc(Future[T])"><span class="Identifier">callback=</span></a>, <a href="asyncfutures.html#NimAsyncContinueSuffix"><span class="Identifier">NimAsyncContinueSuffix</span></a>, <a href="asyncfutures.html#FutureBase"><span class="Identifier">FutureBase</span></a>, <a href="asyncfutures.html#all,varargs[Future[T]]"><span class="Identifier">all</span></a>, <a href="asyncfutures.html#complete,FutureVar[T]"><span class="Identifier">complete</span></a>, <a href="asyncfutures.html#FutureError"><span class="Identifier">FutureError</span></a>, <a href="asyncfutures.html#getCallSoonProc"><span class="Identifier">getCallSoonProc</span></a>, <a href="asyncfutures.html#FutureVar"><span class="Identifier">FutureVar</span></a>, <a href="asyncfutures.html#isFutureLoggingEnabled"><span class="Identifier">isFutureLoggingEnabled</span></a>, <a href="asyncfutures.html#complete,Future[void]"><span class="Identifier">complete</span></a>, <a href="asyncfutures.html#readError,Future[T]"><span class="Identifier">readError</span></a>, <a href="asyncfutures.html#complete,Future[T],T"><span class="Identifier">complete</span></a>, <a href="asyncfutures.html#newFuture,string"><span class="Identifier">newFuture</span></a>, <a href="asyncfutures.html#finished"><span class="Identifier">finished</span></a>
+<a href="asyncmacro.html#multisync.m,untyped"><span class="Identifier">multisync</span></a>, <a href="asyncmacro.html#await.t,Future[T]"><span class="Identifier">await</span></a>, <a href="asyncmacro.html#async.m,untyped"><span class="Identifier">async</span></a>, <a href="asyncmacro.html#await.t,typed"><span class="Identifier">await</span></a>, <a href="asyncfutures.html#and,Future[T],Future[Y]"><span class="Identifier">and</span></a>, <a href="asyncfutures.html#addCallback,FutureBase,proc)"><span class="Identifier">addCallback</span></a>, <a href="asyncfutures.html#asyncCheck,Future[T]"><span class="Identifier">asyncCheck</span></a>, <a href="asyncfutures.html#or,Future[T],Future[Y]"><span class="Identifier">or</span></a>, <a href="asyncfutures.html#read"><span class="Identifier">read</span></a>, <a href="asyncfutures.html#fail,Future[T],ref.Exception"><span class="Identifier">fail</span></a>, <a href="asyncfutures.html#setCallSoonProc"><span class="Identifier">setCallSoonProc</span></a>, <a href="asyncfutures.html#callSoon,proc)"><span class="Identifier">callSoon</span></a>, <a href="asyncfutures.html#addCallback,Future[T],proc(Future[T])"><span class="Identifier">addCallback</span></a>, <a href="asyncfutures.html#clean,FutureVar[T]"><span class="Identifier">clean</span></a>, <a href="asyncfutures.html#clearCallbacks,FutureBase"><span class="Identifier">clearCallbacks</span></a>, <a href="asyncfutures.html#newFutureVar,string"><span class="Identifier">newFutureVar</span></a>, <a href="asyncfutures.html#mget,FutureVar[T]"><span class="Identifier">mget</span></a>, <a href="asyncfutures.html#Future"><span class="Identifier">Future</span></a>, <a href="asyncfutures.html#failed,FutureBase"><span class="Identifier">failed</span></a>, <a href="asyncfutures.html#$,seq[StackTraceEntry]"><span class="Identifier">$</span></a>, <a href="asyncfutures.html#callback=,FutureBase,proc)"><span class="Identifier">callback=</span></a>, <a href="asyncfutures.html#complete,FutureVar[T],T"><span class="Identifier">complete</span></a>, <a href="asyncfutures.html#callback=,Future[T],proc(Future[T])"><span class="Identifier">callback=</span></a>, <a href="asyncfutures.html#NimAsyncContinueSuffix"><span class="Identifier">NimAsyncContinueSuffix</span></a>, <a href="asyncfutures.html#FutureBase"><span class="Identifier">FutureBase</span></a>, <a href="asyncfutures.html#all,varargs[Future[T]]"><span class="Identifier">all</span></a>, <a href="asyncfutures.html#complete,FutureVar[T]"><span class="Identifier">complete</span></a>, <a href="asyncfutures.html#FutureError"><span class="Identifier">FutureError</span></a>, <a href="asyncfutures.html#getCallSoonProc"><span class="Identifier">getCallSoonProc</span></a>, <a href="asyncfutures.html#FutureVar"><span class="Identifier">FutureVar</span></a>, <a href="asyncfutures.html#isFutureLoggingEnabled"><span class="Identifier">isFutureLoggingEnabled</span></a>, <a href="asyncfutures.html#complete,Future[void]"><span class="Identifier">complete</span></a>, <a href="asyncfutures.html#readError,Future[T]"><span class="Identifier">readError</span></a>, <a href="asyncfutures.html#complete,Future[T],T"><span class="Identifier">complete</span></a>, <a href="asyncfutures.html#newFuture,string"><span class="Identifier">newFuture</span></a>, <a href="asyncfutures.html#finished"><span class="Identifier">finished</span></a>
 </dl></div>
 
   </div>
@@ -135,7 +138,7 @@ function main() {
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-05-25 01:00:47 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-11-27 01:06:39 UTC</small>
       </div>
     </div>
   </div>

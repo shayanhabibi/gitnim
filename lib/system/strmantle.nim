@@ -9,6 +9,9 @@
 
 # Compilerprocs for strings that do not depend on the string implementation.
 
+import std/private/digitsutils
+
+
 proc cmpStrings(a, b: string): int {.inline, compilerproc.} =
   let alen = a.len
   let blen = b.len
@@ -39,64 +42,6 @@ proc hashString(s: string): int {.compilerproc.} =
   h = h xor (h shr 11)
   h = h + h shl 15
   result = cast[int](h)
-
-proc addInt*(result: var string; x: int64) =
-  ## Converts integer to its string representation and appends it to `result`.
-  ##
-  ## .. code-block:: Nim
-  ##   var
-  ##     a = "123"
-  ##     b = 45
-  ##   a.addInt(b) # a <- "12345"
-  let base = result.len
-  setLen(result, base + sizeof(x)*4)
-  var i = 0
-  var y = x
-  while true:
-    var d = y div 10
-    result[base+i] = chr(abs(int(y - d*10)) + ord('0'))
-    inc(i)
-    y = d
-    if y == 0: break
-  if x < 0:
-    result[base+i] = '-'
-    inc(i)
-  setLen(result, base+i)
-  # mirror the string:
-  for j in 0..i div 2 - 1:
-    swap(result[base+j], result[base+i-j-1])
-
-proc nimIntToStr(x: int): string {.compilerRtl.} =
-  result = newStringOfCap(sizeof(x)*4)
-  result.addInt x
-
-proc addCstringN(result: var string, buf: cstring; buflen: int) =
-  # no nimvm support needed, so it doesn't need to be fast here either
-  let oldLen = result.len
-  let newLen = oldLen + buflen
-  result.setLen newLen
-  copyMem(result[oldLen].addr, buf, buflen)
-
-import formatfloat
-
-proc addFloat*(result: var string; x: float) =
-  ## Converts float to its string representation and appends it to `result`.
-  ##
-  ## .. code-block:: Nim
-  ##   var
-  ##     a = "123"
-  ##     b = 45.67
-  ##   a.addFloat(b) # a <- "12345.67"
-  when nimvm:
-    result.add $x
-  else:
-    var buffer {.noinit.}: array[65, char]
-    let n = writeFloatToBuffer(buffer, x)
-    result.addCstringN(cstring(buffer[0].addr), n)
-
-proc nimFloatToStr(f: float): string {.compilerproc.} =
-  result = newStringOfCap(8)
-  result.addFloat f
 
 proc c_strtod(buf: cstring, endptr: ptr cstring): float64 {.
   importc: "strtod", header: "<stdlib.h>", noSideEffect.}
@@ -240,15 +185,16 @@ proc nimParseBiggestFloat(s: string, number: var BiggestFloat,
   var ti = 0
   let maxlen = t.high - "e+000".len # reserve enough space for exponent
 
-  result = i - start
+  let endPos = i
+  result = endPos - start
   i = start
   # re-parse without error checking, any error should be handled by the code above.
-  if i < s.len and s[i] == '.': i.inc
-  while i < s.len and s[i] in {'0'..'9','+','-'}:
+  if i < endPos and s[i] == '.': i.inc
+  while i < endPos and s[i] in {'0'..'9','+','-'}:
     if ti < maxlen:
       t[ti] = s[i]; inc(ti)
     inc(i)
-    while i < s.len and s[i] in {'.', '_'}: # skip underscore and decimal point
+    while i < endPos and s[i] in {'.', '_'}: # skip underscore and decimal point
       inc(i)
 
   # insert exponent
@@ -263,18 +209,10 @@ proc nimParseBiggestFloat(s: string, number: var BiggestFloat,
   t[ti-2] = ('0'.ord + absExponent mod 10).char
   absExponent = absExponent div 10
   t[ti-3] = ('0'.ord + absExponent mod 10).char
-
-  when defined(nimNoArrayToCstringConversion):
-    number = c_strtod(addr t, nil)
-  else:
-    number = c_strtod(t, nil)
+  number = c_strtod(addr t, nil)
 
 when defined(nimHasInvariant):
   {.pop.} # staticBoundChecks
-
-proc nimInt64ToStr(x: int64): string {.compilerRtl.} =
-  result = newStringOfCap(sizeof(x)*4)
-  result.addInt x
 
 proc nimBoolToStr(x: bool): string {.compilerRtl.} =
   return if x: "true" else: "false"

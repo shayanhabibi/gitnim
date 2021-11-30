@@ -12,9 +12,9 @@
 ## When OpenSSL is dynamically linked, the wrapper provides partial forward and backward
 ## compatibility for OpenSSL versions above and below 1.1.0
 ##
-## OpenSSL can also be statically linked using ``--dynlibOverride:ssl`` for OpenSSL >= 1.1.0.
+## OpenSSL can also be statically linked using `--dynlibOverride:ssl` for OpenSSL >= 1.1.0.
 ## If you want to statically link against OpenSSL 1.0.x, you now have to
-## define the ``openssl10`` symbol via ``-d:openssl10``.
+## define the `openssl10` symbol via `-d:openssl10`.
 ##
 ## Build and test examples:
 ##
@@ -25,7 +25,7 @@
 when defined(nimHasStyleChecks):
   {.push styleChecks: off.}
 
-const useWinVersion = defined(Windows) or defined(nimdoc)
+const useWinVersion = defined(windows) or defined(nimdoc)
 
 # To force openSSL version use -d:sslVersion=1.0.0
 # See: #10281, #10230
@@ -484,11 +484,11 @@ proc SSL_accept*(ssl: SslPtr): cint{.cdecl, dynlib: DLLSSLName, importc.}
 proc SSL_pending*(ssl: SslPtr): cint{.cdecl, dynlib: DLLSSLName, importc.}
 
 proc BIO_new_mem_buf*(data: pointer, len: cint): BIO{.cdecl,
-    dynlib: DLLSSLName, importc.}
+    dynlib: DLLUtilName, importc.}
 proc BIO_new_ssl_connect*(ctx: SslCtx): BIO{.cdecl,
     dynlib: DLLSSLName, importc.}
 proc BIO_ctrl*(bio: BIO, cmd: cint, larg: int, arg: cstring): int{.cdecl,
-    dynlib: DLLSSLName, importc.}
+    dynlib: DLLUtilName, importc.}
 proc BIO_get_ssl*(bio: BIO, ssl: ptr SslPtr): int =
   return BIO_ctrl(bio, BIO_C_GET_SSL, 0, cast[cstring](ssl))
 proc BIO_set_conn_hostname*(bio: BIO, name: cstring): int =
@@ -506,30 +506,30 @@ when not defined(nimfix):
 
 proc BIO_free*(b: BIO): cint{.cdecl, dynlib: DLLUtilName, importc.}
 
-proc ERR_print_errors_fp*(fp: File){.cdecl, dynlib: DLLSSLName, importc.}
+proc ERR_print_errors_fp*(fp: File){.cdecl, dynlib: DLLUtilName, importc.}
 
 proc ERR_error_string*(e: culong, buf: cstring): cstring{.cdecl,
     dynlib: DLLUtilName, importc.}
 proc ERR_get_error*(): culong{.cdecl, dynlib: DLLUtilName, importc.}
 proc ERR_peek_last_error*(): culong{.cdecl, dynlib: DLLUtilName, importc.}
 
-proc OPENSSL_config*(configName: cstring){.cdecl, dynlib: DLLSSLName, importc.}
+proc OPENSSL_config*(configName: cstring){.cdecl, dynlib: DLLUtilName, importc.}
 
 proc OPENSSL_sk_num*(stack: PSTACK): int {.cdecl, dynlib: DLLSSLName, importc.}
 
 proc OPENSSL_sk_value*(stack: PSTACK, index: int): pointer {.cdecl,
     dynlib: DLLSSLName, importc.}
 
-proc d2i_X509*(px: ptr PX509, i: ptr ptr cuchar, len: cint): PX509 {.cdecl,
-    dynlib: DLLSSLName, importc.}
+proc d2i_X509*(px: ptr PX509, i: ptr ptr uint8, len: cint): PX509 {.cdecl,
+    dynlib: DLLUtilName, importc.}
 
-proc i2d_X509*(cert: PX509; o: ptr ptr cuchar): cint {.cdecl,
-    dynlib: DLLSSLName, importc.}
+proc i2d_X509*(cert: PX509; o: ptr ptr uint8): cint {.cdecl,
+    dynlib: DLLUtilName, importc.}
 
 proc d2i_X509*(b: string): PX509 =
   ## decode DER/BER bytestring into X.509 certificate struct
   var bb = b.cstring
-  let i = cast[ptr ptr cuchar](addr bb)
+  let i = cast[ptr ptr uint8](addr bb)
   let ret = d2i_X509(addr result, i, b.len.cint)
   if ret.isNil:
     raise newException(Exception, "X.509 certificate decoding failed")
@@ -539,7 +539,7 @@ proc i2d_X509*(cert: PX509): string =
   let encoded_length = i2d_X509(cert, nil)
   result = newString(encoded_length)
   var q = result.cstring
-  let o = cast[ptr ptr cuchar](addr q)
+  let o = cast[ptr ptr uint8](addr q)
   let length = i2d_X509(cert, o)
   if length.int <= 0:
     raise newException(Exception, "X.509 certificate encoding failed")
@@ -574,10 +574,9 @@ proc SSL_ctrl*(ssl: SslPtr, cmd: cint, larg: int, parg: pointer): int{.
   cdecl, dynlib: DLLSSLName, importc.}
 
 proc SSL_set_tlsext_host_name*(ssl: SslPtr, name: cstring): int =
-  result = SSL_ctrl(ssl, SSL_CTRL_SET_TLSEXT_HOSTNAME, TLSEXT_NAMETYPE_host_name, name)
   ## Set the SNI server name extension to be used in a client hello.
   ## Returns 1 if SNI was set, 0 if current SSL configuration doesn't support SNI.
-
+  result = SSL_ctrl(ssl, SSL_CTRL_SET_TLSEXT_HOSTNAME, TLSEXT_NAMETYPE_host_name, name)
 
 proc SSL_get_servername*(ssl: SslPtr, typ: cint = TLSEXT_NAMETYPE_host_name): cstring {.cdecl, dynlib: DLLSSLName, importc.}
   ## Retrieve the server name requested in the client hello. This can be used
@@ -595,16 +594,16 @@ proc SSL_CTX_set_tlsext_servername_callback*(ctx: SslCtx, cb: proc(ssl: SslPtr, 
   result = SSL_CTX_callback_ctrl(ctx, SSL_CTRL_SET_TLSEXT_SERVERNAME_CB, cast[PFunction](cb))
 
 proc SSL_CTX_set_tlsext_servername_arg*(ctx: SslCtx, arg: pointer): int =
-  ## Set the pointer to be used in the callback registered to ``SSL_CTX_set_tlsext_servername_callback``.
+  ## Set the pointer to be used in the callback registered to `SSL_CTX_set_tlsext_servername_callback`.
   result = SSL_CTX_ctrl(ctx, SSL_CTRL_SET_TLSEXT_SERVERNAME_ARG, 0, arg)
 
 type
   PskClientCallback* = proc (ssl: SslPtr;
-    hint: cstring; identity: cstring; max_identity_len: cuint; psk: ptr cuchar;
+    hint: cstring; identity: cstring; max_identity_len: cuint; psk: ptr uint8;
     max_psk_len: cuint): cuint {.cdecl.}
 
   PskServerCallback* = proc (ssl: SslPtr;
-    identity: cstring; psk: ptr cuchar; max_psk_len: cint): cuint {.cdecl.}
+    identity: cstring; psk: ptr uint8; max_psk_len: cint): cuint {.cdecl.}
 
 proc SSL_CTX_set_psk_client_callback*(ctx: SslCtx; callback: PskClientCallback) {.cdecl, dynlib: DLLSSLName, importc.}
   ## Set callback called when OpenSSL needs PSK (for client).
@@ -655,34 +654,34 @@ proc sslDoHandshake*(ssl: SslPtr): cint {.cdecl,
     dynlib: DLLSSLName, importc: "SSL_do_handshake".}
 
 
-
 proc ErrClearError*(){.cdecl, dynlib: DLLUtilName, importc: "ERR_clear_error".}
 proc ErrFreeStrings*(){.cdecl, dynlib: DLLUtilName, importc: "ERR_free_strings".}
 proc ErrRemoveState*(pid: cint){.cdecl, dynlib: DLLUtilName, importc: "ERR_remove_state".}
 
 proc PEM_read_bio_RSA_PUBKEY*(bp: BIO, x: ptr PRSA, pw: pem_password_cb, u: pointer): PRSA {.cdecl,
-    dynlib: DLLSSLName, importc.}
-
+    dynlib: DLLUtilName, importc.}
+proc PEM_read_RSA_PUBKEY*(fp: pointer; x: ptr PRSA; cb: pem_password_cb, u: pointer): PRSA {.cdecl,
+    dynlib: DLLUtilName, importc.}
 proc RSA_verify*(kind: cint, origMsg: pointer, origMsgLen: cuint, signature: pointer,
-    signatureLen: cuint, rsa: PRSA): cint {.cdecl, dynlib: DLLSSLName, importc.}
+    signatureLen: cuint, rsa: PRSA): cint {.cdecl, dynlib: DLLUtilName, importc.}
 proc PEM_read_RSAPrivateKey*(fp: pointer; x: ptr PRSA; cb: pem_password_cb, u: pointer): PRSA {.cdecl,
-    dynlib: DLLSSLName, importc.}
+    dynlib: DLLUtilName, importc.}
 proc PEM_read_RSAPublicKey*(fp: pointer; x: ptr PRSA; cb: pem_password_cb, u: pointer): PRSA {.cdecl,
-    dynlib: DLLSSLName, importc.}
+    dynlib: DLLUtilName, importc.}
 proc PEM_read_bio_RSAPublicKey*(bp: BIO, x: ptr PRSA, cb: pem_password_cb, u: pointer): PRSA {.cdecl,
-    dynlib: DLLSSLName, importc.}
+    dynlib: DLLUtilName, importc.}
 proc PEM_read_bio_RSAPrivateKey*(bp: BIO, x: ptr PRSA, cb: pem_password_cb, u: pointer): PRSA {.cdecl,
-    dynlib: DLLSSLName, importc.}
-proc RSA_private_encrypt*(flen: cint, fr: ptr cuchar, to: ptr cuchar, rsa: PRSA, padding: PaddingType): cint {.cdecl,
-    dynlib: DLLSSLName, importc.}
-proc RSA_public_encrypt*(flen: cint, fr: ptr cuchar, to: ptr cuchar, rsa: PRSA, padding: PaddingType): cint {.cdecl,
-    dynlib: DLLSSLName, importc.}
-proc RSA_private_decrypt*(flen: cint, fr: ptr cuchar, to: ptr cuchar, rsa: PRSA, padding: PaddingType): cint {.cdecl,
-    dynlib: DLLSSLName, importc.}
-proc RSA_public_decrypt*(flen: cint, fr: ptr cuchar, to: ptr cuchar, rsa: PRSA, padding: PaddingType): cint {.cdecl,
-    dynlib: DLLSSLName, importc.}
-proc RSA_free*(rsa: PRSA) {.cdecl, dynlib: DLLSSLName, importc.}
-proc RSA_size*(rsa: PRSA): cint {.cdecl, dynlib: DLLSSLName, importc.}
+    dynlib: DLLUtilName, importc.}
+proc RSA_private_encrypt*(flen: cint, fr: ptr uint8, to: ptr uint8, rsa: PRSA, padding: PaddingType): cint {.cdecl,
+    dynlib: DLLUtilName, importc.}
+proc RSA_public_encrypt*(flen: cint, fr: ptr uint8, to: ptr uint8, rsa: PRSA, padding: PaddingType): cint {.cdecl,
+    dynlib: DLLUtilName, importc.}
+proc RSA_private_decrypt*(flen: cint, fr: ptr uint8, to: ptr uint8, rsa: PRSA, padding: PaddingType): cint {.cdecl,
+    dynlib: DLLUtilName, importc.}
+proc RSA_public_decrypt*(flen: cint, fr: ptr uint8, to: ptr uint8, rsa: PRSA, padding: PaddingType): cint {.cdecl,
+    dynlib: DLLUtilName, importc.}
+proc RSA_free*(rsa: PRSA) {.cdecl, dynlib: DLLUtilName, importc.}
+proc RSA_size*(rsa: PRSA): cint {.cdecl, dynlib: DLLUtilName, importc.}
 
 # sha types
 proc EVP_md_null*(): EVP_MD   {.cdecl, importc.}
@@ -745,8 +744,8 @@ type
 proc md5_Init*(c: var MD5_CTX): cint{.importc: "MD5_Init".}
 proc md5_Update*(c: var MD5_CTX; data: pointer; len: csize_t): cint{.importc: "MD5_Update".}
 proc md5_Final*(md: cstring; c: var MD5_CTX): cint{.importc: "MD5_Final".}
-proc md5*(d: ptr cuchar; n: csize_t; md: ptr cuchar): ptr cuchar{.importc: "MD5".}
-proc md5_Transform*(c: var MD5_CTX; b: ptr cuchar){.importc: "MD5_Transform".}
+proc md5*(d: ptr uint8; n: csize_t; md: ptr uint8): ptr uint8{.importc: "MD5".}
+proc md5_Transform*(c: var MD5_CTX; b: ptr uint8){.importc: "MD5_Transform".}
 {.pop.}
 
 from strutils import toHex, toLowerAscii
@@ -769,7 +768,7 @@ proc md5_File*(file: string): string {.raises: [IOError,Exception].} =
     ctx: MD5_CTX
 
   discard md5_Init(ctx)
-  while(let bytes = f.readChars(buf, 0, sz); bytes > 0):
+  while (let bytes = f.readChars(buf); bytes > 0):
     discard md5_Update(ctx, buf[0].addr, cast[csize_t](bytes))
 
   discard md5_Final(buf[0].addr, ctx)

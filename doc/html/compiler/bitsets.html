@@ -17,7 +17,7 @@
 <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600' rel='stylesheet' type='text/css'/>
 
 <!-- CSS -->
-<title>bitsets</title>
+<title>compiler/bitsets</title>
 <link rel="stylesheet" type="text/css" href="nimdoc.out.css">
 
 <script type="text/javascript" src="dochack.js"></script>
@@ -34,7 +34,6 @@ function main() {
     }
   }
 
-  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
   function switchTheme(e) {
       if (e.target.checked) {
           document.documentElement.setAttribute('data-theme', 'dark');
@@ -45,24 +44,32 @@ function main() {
       }
   }
 
-  toggleSwitch.addEventListener('change', switchTheme, false);
+  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+  if (toggleSwitch !== null) {
+    toggleSwitch.addEventListener('change', switchTheme, false);
+  }
 
-  const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+  var currentTheme = localStorage.getItem('theme');
+  if (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    currentTheme = 'dark';
+  }
   if (currentTheme) {
     document.documentElement.setAttribute('data-theme', currentTheme);
 
-    if (currentTheme === 'dark') {
+    if (currentTheme === 'dark' && toggleSwitch !== null) {
       toggleSwitch.checked = true;
     }
   }
 }
+
+window.addEventListener('DOMContentLoaded', main);
 </script>
 
 </head>
-<body onload="main()">
+<body>
 <div class="document" id="documentId">
   <div class="container">
-    <h1 class="title">bitsets</h1>
+    <h1 class="title">compiler/bitsets</h1>
     <div class="row">
   <div class="three columns">
   <div class="theme-switch-wrapper">
@@ -110,59 +117,59 @@ function main() {
 <li>
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">bitSetIn
-      <li><a class="reference" href="#bitSetIn%2CTBitSet%2CBiggestInt"
-    title="bitSetIn(x: TBitSet; e: BiggestInt): bool">bitSetIn,<wbr>TBitSet,<wbr>BiggestInt</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">bitSetIntersect
-      <li><a class="reference" href="#bitSetIntersect%2CTBitSet%2CTBitSet"
-    title="bitSetIntersect(x: var TBitSet; y: TBitSet)">bitSetIntersect,<wbr>TBitSet,<wbr>TBitSet</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">bitSetDiff
-      <li><a class="reference" href="#bitSetDiff%2CTBitSet%2CTBitSet"
-    title="bitSetDiff(x: var TBitSet; y: TBitSet)">bitSetDiff,<wbr>TBitSet,<wbr>TBitSet</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">bitSetEquals
-      <li><a class="reference" href="#bitSetEquals%2CTBitSet%2CTBitSet"
-    title="bitSetEquals(x, y: TBitSet): bool">bitSetEquals,<wbr>TBitSet,<wbr>TBitSet</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">bitSetCard
+      <ul class="simple nested-toc-section">bitSetCard
       <li><a class="reference" href="#bitSetCard%2CTBitSet"
-    title="bitSetCard(x: TBitSet): BiggestInt">bitSetCard,<wbr>TBitSet</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">bitSetUnion
-      <li><a class="reference" href="#bitSetUnion%2CTBitSet%2CTBitSet"
-    title="bitSetUnion(x: var TBitSet; y: TBitSet)">bitSetUnion,<wbr>TBitSet,<wbr>TBitSet</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">bitSetInit
-      <li><a class="reference" href="#bitSetInit%2CTBitSet%2Cint"
-    title="bitSetInit(b: var TBitSet; length: int)">bitSetInit,<wbr>TBitSet,<wbr>int</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">bitSetIncl
-      <li><a class="reference" href="#bitSetIncl%2CTBitSet%2CBiggestInt"
-    title="bitSetIncl(x: var TBitSet; elem: BiggestInt)">bitSetIncl,<wbr>TBitSet,<wbr>BiggestInt</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">bitSetSymDiff
-      <li><a class="reference" href="#bitSetSymDiff%2CTBitSet%2CTBitSet"
-    title="bitSetSymDiff(x: var TBitSet; y: TBitSet)">bitSetSymDiff,<wbr>TBitSet,<wbr>TBitSet</a></li>
+    title="bitSetCard(x: TBitSet): BiggestInt">bitSetCard(x: TBitSet): BiggestInt</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">bitSetContains
       <li><a class="reference" href="#bitSetContains%2CTBitSet%2CTBitSet"
-    title="bitSetContains(x, y: TBitSet): bool">bitSetContains,<wbr>TBitSet,<wbr>TBitSet</a></li>
+    title="bitSetContains(x, y: TBitSet): bool">bitSetContains(x, y: TBitSet): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">bitSetDiff
+      <li><a class="reference" href="#bitSetDiff%2CTBitSet%2CTBitSet"
+    title="bitSetDiff(x: var TBitSet; y: TBitSet)">bitSetDiff(x: var TBitSet; y: TBitSet)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">bitSetEquals
+      <li><a class="reference" href="#bitSetEquals%2CTBitSet%2CTBitSet"
+    title="bitSetEquals(x, y: TBitSet): bool">bitSetEquals(x, y: TBitSet): bool</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">bitSetExcl
       <li><a class="reference" href="#bitSetExcl%2CTBitSet%2CBiggestInt"
-    title="bitSetExcl(x: var TBitSet; elem: BiggestInt)">bitSetExcl,<wbr>TBitSet,<wbr>BiggestInt</a></li>
+    title="bitSetExcl(x: var TBitSet; elem: BiggestInt)">bitSetExcl(x: var TBitSet; elem: BiggestInt)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">bitSetIn
+      <li><a class="reference" href="#bitSetIn%2CTBitSet%2CBiggestInt"
+    title="bitSetIn(x: TBitSet; e: BiggestInt): bool">bitSetIn(x: TBitSet; e: BiggestInt): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">bitSetIncl
+      <li><a class="reference" href="#bitSetIncl%2CTBitSet%2CBiggestInt"
+    title="bitSetIncl(x: var TBitSet; elem: BiggestInt)">bitSetIncl(x: var TBitSet; elem: BiggestInt)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">bitSetInit
+      <li><a class="reference" href="#bitSetInit%2CTBitSet%2Cint"
+    title="bitSetInit(b: var TBitSet; length: int)">bitSetInit(b: var TBitSet; length: int)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">bitSetIntersect
+      <li><a class="reference" href="#bitSetIntersect%2CTBitSet%2CTBitSet"
+    title="bitSetIntersect(x: var TBitSet; y: TBitSet)">bitSetIntersect(x: var TBitSet; y: TBitSet)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">bitSetSymDiff
+      <li><a class="reference" href="#bitSetSymDiff%2CTBitSet%2CTBitSet"
+    title="bitSetSymDiff(x: var TBitSet; y: TBitSet)">bitSetSymDiff(x: var TBitSet; y: TBitSet)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">bitSetUnion
+      <li><a class="reference" href="#bitSetUnion%2CTBitSet%2CTBitSet"
+    title="bitSetUnion(x: var TBitSet; y: TBitSet)">bitSetUnion(x: var TBitSet; y: TBitSet)</a></li>
 
   </ul>
 
@@ -172,6 +179,11 @@ function main() {
 </ul>
 
   </div>
+  &nbsp;&nbsp;<a
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/bitsets.nim#L1"
+class="link-seesrc" target="_blank">Source</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L1" class="link-seesrc" target="_blank" >Edit</a>
+
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
@@ -179,159 +191,172 @@ function main() {
   <div class="section" id="7">
 <h1><a class="toc-backref" href="#7">Types</a></h1>
 <dl class="item">
-<a id="TBitSet"></a>
+<div id="TBitSet">
 <dt><pre><a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a> <span class="Other">=</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">ElemType</span><span class="Other">]</span></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/bitsets.nim#L15"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/bitsets.nim#L15"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L15" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L15" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
 
 </dl></div>
 <div class="section" id="10">
 <h1><a class="toc-backref" href="#10">Consts</a></h1>
 <dl class="item">
-<a id="ElemSize"></a>
+<div id="ElemSize">
 <dt><pre><a href="bitsets.html#ElemSize"><span class="Identifier">ElemSize</span></a> <span class="Other">=</span> <span class="DecNumber">8</span></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/bitsets.nim#L19"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/bitsets.nim#L19"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L19" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L19" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
 
 </dl></div>
 <div class="section" id="12">
 <h1><a class="toc-backref" href="#12">Procs</a></h1>
 <dl class="item">
-<a id="bitSetIn,TBitSet,BiggestInt"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#bitSetIn%2CTBitSet%2CBiggestInt"><span class="Identifier">bitSetIn</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">e</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<div id="bitSetCard,TBitSet">
+<dt><pre><span class="Keyword">proc</span> <a href="#bitSetCard%2CTBitSet"><span class="Identifier">bitSetCard</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/bitsets.nim#L39"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/bitsets.nim#L99"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L39" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L99" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="bitSetIncl,TBitSet,BiggestInt"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#bitSetIncl%2CTBitSet%2CBiggestInt"><span class="Identifier">bitSetIncl</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">elem</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="bitSetContains,TBitSet,TBitSet">
+<dt><pre><span class="Keyword">proc</span> <a href="#bitSetContains%2CTBitSet%2CTBitSet"><span class="Identifier">bitSetContains</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/bitsets.nim#L42"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/bitsets.nim#L72"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L42" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L72" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="bitSetExcl,TBitSet,BiggestInt"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#bitSetExcl%2CTBitSet%2CBiggestInt"><span class="Identifier">bitSetExcl</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">elem</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="bitSetDiff,TBitSet,TBitSet">
+<dt><pre><span class="Keyword">proc</span> <a href="#bitSetDiff%2CTBitSet%2CTBitSet"><span class="Identifier">bitSetDiff</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/bitsets.nim#L47"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/bitsets.nim#L57"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L47" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L57" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="bitSetInit,TBitSet,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#bitSetInit%2CTBitSet%2Cint"><span class="Identifier">bitSetInit</span></a><span class="Other">(</span><span class="Identifier">b</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">length</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="bitSetEquals,TBitSet,TBitSet">
+<dt><pre><span class="Keyword">proc</span> <a href="#bitSetEquals%2CTBitSet%2CTBitSet"><span class="Identifier">bitSetEquals</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/bitsets.nim#L51"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/bitsets.nim#L66"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L51" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L66" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="bitSetUnion,TBitSet,TBitSet"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#bitSetUnion%2CTBitSet%2CTBitSet"><span class="Identifier">bitSetUnion</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="bitSetExcl,TBitSet,BiggestInt">
+<dt><pre><span class="Keyword">proc</span> <a href="#bitSetExcl%2CTBitSet%2CBiggestInt"><span class="Identifier">bitSetExcl</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">elem</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/bitsets.nim#L54"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/bitsets.nim#L47"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L54" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L47" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="bitSetDiff,TBitSet,TBitSet"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#bitSetDiff%2CTBitSet%2CTBitSet"><span class="Identifier">bitSetDiff</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="bitSetIn,TBitSet,BiggestInt">
+<dt><pre><span class="Keyword">proc</span> <a href="#bitSetIn%2CTBitSet%2CBiggestInt"><span class="Identifier">bitSetIn</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">e</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/bitsets.nim#L57"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/bitsets.nim#L39"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L57" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L39" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="bitSetSymDiff,TBitSet,TBitSet"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#bitSetSymDiff%2CTBitSet%2CTBitSet"><span class="Identifier">bitSetSymDiff</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="bitSetIncl,TBitSet,BiggestInt">
+<dt><pre><span class="Keyword">proc</span> <a href="#bitSetIncl%2CTBitSet%2CBiggestInt"><span class="Identifier">bitSetIncl</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">elem</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/bitsets.nim#L60"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/bitsets.nim#L42"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L60" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L42" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="bitSetIntersect,TBitSet,TBitSet"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#bitSetIntersect%2CTBitSet%2CTBitSet"><span class="Identifier">bitSetIntersect</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="bitSetInit,TBitSet,int">
+<dt><pre><span class="Keyword">proc</span> <a href="#bitSetInit%2CTBitSet%2Cint"><span class="Identifier">bitSetInit</span></a><span class="Other">(</span><span class="Identifier">b</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">length</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/bitsets.nim#L63"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/bitsets.nim#L51"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L63" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L51" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="bitSetEquals,TBitSet,TBitSet"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#bitSetEquals%2CTBitSet%2CTBitSet"><span class="Identifier">bitSetEquals</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="bitSetIntersect,TBitSet,TBitSet">
+<dt><pre><span class="Keyword">proc</span> <a href="#bitSetIntersect%2CTBitSet%2CTBitSet"><span class="Identifier">bitSetIntersect</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/bitsets.nim#L66"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/bitsets.nim#L63"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L66" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L63" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="bitSetContains,TBitSet,TBitSet"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#bitSetContains%2CTBitSet%2CTBitSet"><span class="Identifier">bitSetContains</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="bitSetSymDiff,TBitSet,TBitSet">
+<dt><pre><span class="Keyword">proc</span> <a href="#bitSetSymDiff%2CTBitSet%2CTBitSet"><span class="Identifier">bitSetSymDiff</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/bitsets.nim#L72"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/bitsets.nim#L60"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L72" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L60" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<a id="bitSetCard,TBitSet"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#bitSetCard%2CTBitSet"><span class="Identifier">bitSetCard</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">BiggestInt</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+</div>
+<div id="bitSetUnion,TBitSet,TBitSet">
+<dt><pre><span class="Keyword">proc</span> <a href="#bitSetUnion%2CTBitSet%2CTBitSet"><span class="Identifier">bitSetUnion</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">;</span> <span class="Identifier">y</span><span class="Other">:</span> <a href="bitsets.html#TBitSet"><span class="Identifier">TBitSet</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/nim-lang/Nim/tree/version-1-4/compiler/bitsets.nim#L99"
+href="https://github.com/nim-lang/Nim/tree/devel/compiler/bitsets.nim#L54"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L99" class="link-seesrc" target="_blank" >Edit</a>
+&nbsp;&nbsp;<a href="https://github.com/nim-lang/Nim/edit/devel/compiler/bitsets.nim#L54" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
+</div>
 
 </dl></div>
 
@@ -342,7 +367,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2021-05-25 01:02:41 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2021-11-27 01:08:10 UTC</small>
       </div>
     </div>
   </div>
